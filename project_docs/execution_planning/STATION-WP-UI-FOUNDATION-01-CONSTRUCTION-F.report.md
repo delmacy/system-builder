@@ -1,19 +1,19 @@
 # UI Foundation F — partial functional checkpoint
 
 Date: 2026-10-12. **F OPEN; WP OPEN; PR #1144 DRAFT / NOT MERGED.**
-Authority: Addendum021, ADR0017, current UI plan, Construction F manifest and TASK755–760. Fresh main94da5ae2; planning#1137 and bounded C/D/E#1141/#1142/#1143 confirmed merged. The obsolete local C branch was preserved; work continued from current remote F, without replacing other workers' changes.
+Authority: Addendum021, ADR0017, current UI plan, Construction F manifest and TASK755–765. Fresh main94da5ae2; planning#1137 and bounded C/D/E#1141/#1142/#1143 confirmed merged. The obsolete local C branch was preserved; work continued from current remote F, without replacing other workers' changes.
 
 ## Functional result and limits
 
 | Surface | Implemented in F draft | Admission / persistence limits |
 |---|---|---|
 | Palette | Actual ComponentRegistry plus existing applyEditorStructure admission; occupied/incompatible slots excluded; selection resolved after filtering; readable name/ID/category search | Categories never grant eligibility; absent controls cannot be inserted |
-| Button | Actual source-owned ui-core Button in both admitted button IDs; text, default/outline/ghost, disabled state, shared tokens and full title | Inert preview image, no business command execution; secondary/destructive authoring not admitted |
+| Button | Actual source-owned ui-core Button in both admitted button IDs; text, default/outline/ghost, disabled, public owner icon chooser, text/icon-text/icon and start/end placement; full label preserved | Inert preview image, no business command execution; secondary/destructive authoring not admitted |
 | Card | component:card in existing action-panel registry; shared Card/Header/Title/Content; content slot; current span Inspector; nested Button; export/fresh reopen | Default presentation and derived node title only; no arbitrary title/style/variant properties; current codec2, no schema fork |
 | Narrow preview | Stacked presentation and readable nested controls at390px; truncating inner Button label with full title | Saved Card spans remain8columns/4rows; no canonical geometry or WindowGeometry mutation |
 | Candidate census | Seven candidate families; primary Button and Card INSERTABLE with actual registry/composition references | Five candidates remain SOURCE_ONLY: Input, Checkbox, Dialog, Toolbar, DataTable. No EDITOR_READY promotion before main integration |
 
-Three existing installed compositions remain. Source candidate census is presentation metadata, never a second registry. Current canonical draft/history/codec/store/file import remain authoritative. ICON assets/contracts and Core/business owner contracts were not changed.
+Three existing installed compositions remain. Source candidate census is presentation metadata, never a second registry. Current canonical draft/history/codec/store/file import remain authoritative. ICON assets/library APIs and Core/business owner contracts were not changed. Coordinated visual artifact L3 admission adds explicit payload5 for icon presentation; formats1–4 remain supported.
 
 ## Authoritative source commits and observed corrections
 
@@ -66,3 +66,28 @@ F has not exposed the remaining primitive, overlay, workstation and collection f
 Reconcile residual source targets too: menus/Tabs/Accordion/navigation/command search and advanced DataGrid capabilities were not proved complete by the bounded C/E merges. Card has no editable title/custom variants; Button authoring exposes three of five source variants. ICON toolbar/chooser/icon-reference schema ownership remains a shared migration constraint. No icon schema was changed here.
 
 Studio adoption G, hardening T, integration I and closure Z remain forecast. Final-head CI is mandatory for the checkpoint; source qualification is not main integration. PR1144 stays draft because full F acceptance is still incomplete. No F or WP closure, no automatic next-sprint execution, and no false operational availability on main.
+
+## Qualified portable icon editor increment — TASK761–765
+Source a5fe5469d67f934382f0351f8b9f8943e0041f60: all seven exact-head workflows PASS; **129/129 Chromium journeys PASS** (run38313440257, job115024360337). Local132 full editor contracts, lint/types/docs/architecture, TypeScript and Station production builds PASS. Local full verify remains blocked by previously recorded tsx IPC EPERM; GitHub exact-head CI supplies observed repository verification.
+
+TASK761/762 qualified shared text/icon-text/icon source control, hover/focus/Escape tooltip and controlled expansion, semantic icons and start/end placement. TASK763 a853974db0aa04f75de7c03cacf28c9b32ddeb91 materializes coordinated ownership and portable ButtonProperties.presentation; TASK764 original7dae81e5 / correctionsaba8bbb5 and a5fe5469 connect real registered Button Inspector and owner-loaded preview. F owns codec/editor bridge; ICON retains assets, public reference resolution and complete WP acceptance. No whole-package closure prerequisite cycle.
+
+Presentation is exact mode/placement/icon:{catalogVersion,assetRef}; no SVG/command metadata, and label remains existing node.text/source label. Schema5 is selected only when presentation exists; old1–4 reject hidden new fields and remain readable. Copied/frozen nested snapshots prevent alias mutation; no-op comparison includes every presentation field. Public ICON lazy search shows at most48 options from1879 assets; reference-key/cancelled effects prevent stale glyphs. Missing/unsupported/unavailable assets preserve reference and show full label plus honest unavailable message. Read-only preview remains command-inert, with full hover title and named keyboard-focusable image in compact mode; interactive PresentationButton has the qualified accessible tooltip.
+
+Actual browser proof: choose Save asset, icon-only/end, pending-save disabled and keyboard rejection, undo/redo, local save, deliberately stage pending placement, guarded Open saved/explicit discard, export5, fresh independent browser with empty localStorage import, preserved icon/mode/placement and label, change to icon-text/end. Separate actual malformed import is atomic; missing and unsupported catalog refs preserve data on re-export.
+
+### Failure history retained
+- Kernel a853974d:126 PASS/1 old browser case still classified5 as unknown (run38311742414; subsequently cancelled after artifact). Unknown-version negative became6 with assertions preserved.
+- UI7dae81e5:128 PASS/1 timeout clicking correctly aria-disabled pending Save locally (run38312179365, artifact11775388864). Test now asserts disabled, focuses and presses Enter to exercise rejecting handler; no forced click or weakened guard.
+- aba8bbb5:128 PASS/1 timeout expecting confirmation after a clean local save (run38312900274). Test now stages actual pending fields before guard; production behavior unchanged.
+- a5fe5469:129 PASS, all seven workflows PASS. No failed head is treated as qualified.
+
+### Unmodified visual evidence
+Qualified artifact11775149822, expires2026-10-26, ZIP SHA256 fda86e0e78dae14a889a7af5a89ab403361c420d0de58eb3127a7543b34dc9d6. Actual390px screenshots inspected: compact Save glyph is readable without visible Button1 label; icon-text has readable label and trailing glyph. Existing workspace/revision controls are cramped on narrow screens and remain a G adoption finding; screenshots are not a claim of full professional shell acceptance.
+
+| Git evidence | Playwright attachment / original path | SHA256 |
+|---|---|---|
+| project_docs/evidence/ui-foundation-f/icon-only-fresh-reopen.png | editor-icon-only-fresh-reopen / playwright-report/data/3cb5e56eb6ea2c86f5736fbb3372a9d1fb39e666.png | 7b8a6559ead4a27de7e2031dfbf7299b51e752e5bebbd3ffe091ff0fa0a3f7c2 |
+| project_docs/evidence/ui-foundation-f/icon-text-fresh-reopen.png | editor-icon-fresh-reopen / playwright-report/data/f230103651b585f57c1e497bbbce7ccbff2b0685.png | 1b90d65fa275149ee1faa58b22a9ca2fd6f7a7229c138daebd39517ebd981ea6 |
+
+TASK765 checkpoint must pass its own triggered CI; source qualification is not automatic checkpoint qualification. F/ICON/WP remain OPEN and PR1144 draft/unmerged. No EDITOR_READY/main claim. Five candidate families still SOURCE_ONLY; next eligible F scope is typed form-control registry/Inspector/preview/property/codec admission and actual insert/save/fresh reopen. Navigation/menu/Tabs/Accordion source anatomy exists and has browser proof; its composition exposure and residual CommandPalette/Combobox/advanced DataGrid work must be classified separately, not declared absent or complete.
