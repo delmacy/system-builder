@@ -1,7 +1,7 @@
 /** Construction F catalog admission contract. This is a presentation manifest,
  * not a replacement for ComponentRegistry or an editor-ready declaration. */
 export const UI_FOUNDATION_CATALOG_CANDIDATES = Object.freeze([
-  { id: "ui:button", label: "Button", category: "Actions", sourceExport: "Button", stage: "SOURCE_ONLY" },
+  { id: "ui:button", label: "Button", category: "Actions", sourceExport: "Button", stage: "INSERTABLE", componentRef: "component:button", compositionRef: "composition:example" },
   { id: "ui:input", label: "Input", category: "Forms", sourceExport: "Input", stage: "SOURCE_ONLY" },
   { id: "ui:checkbox", label: "Checkbox", category: "Forms", sourceExport: "Checkbox", stage: "SOURCE_ONLY" },
   { id: "ui:dialog", label: "Dialog", category: "Overlays", sourceExport: "Dialog", stage: "SOURCE_ONLY" },

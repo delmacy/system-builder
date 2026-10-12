@@ -55,3 +55,11 @@ Six paths. Actual Card mobile screenshot shows nested controls compressed into u
 
 ### TASK759 local implementation
 131 inherited contracts PASS; lint/typecheck/docs and751 task specs PASS. Narrow grid preview uses a stacked CSS projection and row items occupy available width; authored spans and Inspector remain untouched. Button labels use a truncating inner span with full title retained on both span and native control. Browser Card reopen now checks readable native Primary action width above90px and preserved authored8columns; actual screenshot review/new exact-head CI remain gates.
+
+## TASK760 evidence checkpoint materialization
+Nine exact paths. After source gates, preserve real before/after screenshots and partial F report; update independent UI lane only, keeping primary ICON/WP02 handoff byte-for-byte. Fresh main94da5ae2 and only openPR1144 establish absence of another visible operational-pointer owner. No source-only promotion, sprint closure or successor execution.
+
+TASK760 pre-edit clarification: eleven paths include candidate manifest/test. Align already-qualified Button census to INSERTABLE with primary actual registry/composition mapping, same stage as Card; five other candidate families remain SOURCE_ONLY. No category/eligibility/render/codec behavior changes.
+
+### TASK759 qualified source / TASK760 checkpoint
+Source6005d862 all seven workflows PASS,126 actual Chromium journeys PASS (run38292031625, artifact11766971745). Screenshot reviewed: nested Primary/Secondary action labels readable at390px, Card authored spans8/4 preserved. TASK760 preserves unmodified PNGs, reconciles Button INSERTABLE census and updates only independent UI lane. Final checkpoint needs own CI; F and PR1144 remain open/unmerged. Consolidated factual report: STATION-WP-UI-FOUNDATION-01-CONSTRUCTION-F.report.md.
