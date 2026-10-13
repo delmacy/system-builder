@@ -13,3 +13,6 @@ Failed checks block integration. Any shared schema/owner/API change needs separa
 
 ## Partial evidence checkpoint
 TASK777 corrected sourceee1a5ac4 qualifies all seven exact-head workflows and124 Chromium journeys. TASK778 preserves actual inspected before/after/compact evidence and partial state; its own gates required. Current base remains94da5ae2. G/F are not complete. Next eligible G work: bounded File Manager long-name containment/accessible help, then representative Editor/shell/Studio adoption with fresh task and ownership revalidation.
+
+## Continued G materialization after owner PC-update request
+TASK779 materializes TASK780 File Manager long-name containment/access and TASK781 installed Studio area shared compact navigation. Both use stable integrated APIs and qualify growing regression; TASK778 checkpoint2d31a147 already passed all seven gates/124 journeys. Separate authoritative commits, exact file budgets. PC Documents main94da5ae2 updated with Next declarations preserved in named stash; isolated F/G preview worktrees added. Other representative Editor/shell adoption and F obligations remain open.
