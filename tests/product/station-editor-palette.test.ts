@@ -41,3 +41,10 @@ test("human labels and categories search admitted components without expanding e
   assert.deepEqual(ids("panel:actions", "actions", "Display"), []);
   assert.deepEqual(ids("panel:root", "content", "Forms"), ["component:checkbox", "component:input"]);
 });
+
+test("Dialog overlay admission follows semantic-composite slot compatibility", () => {
+  const { session, entry } = fixture();
+  assert.deepEqual(listInsertableEditorComponents(session, entry.registry, "node:root", "content", "Overlays").map(item => item.id), ["component:dialog"]);
+  const action = fixture("composition:action-panel");
+  assert.deepEqual(listInsertableEditorComponents(action.session, action.entry.registry, "panel:actions", "actions", "Overlays"), []);
+});

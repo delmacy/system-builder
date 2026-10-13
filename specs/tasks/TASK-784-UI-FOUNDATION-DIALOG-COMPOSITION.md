@@ -2,7 +2,7 @@
 {
   "id": "TASK-784",
   "title": "Make Dialog insertable editable interactive and portable",
-  "status": "ready",
+  "status": "verification",
   "priority": 784,
   "milestone": "WP-UI-FOUNDATION-01",
   "model_tier": "cheap",

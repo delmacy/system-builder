@@ -128,9 +128,30 @@ export interface CheckboxProperties {
   readonly variant?: never;
   readonly presentation?: never;
 }
-export type ComponentProperties = ButtonProperties | InputProperties | CheckboxProperties;
+export interface DialogProperties {
+  readonly kind: "dialog";
+  readonly title: string;
+  readonly description: string;
+  readonly disabled: boolean;
+  readonly defaultChecked?: never;
+  readonly inputType?: never;
+  readonly placeholder?: never;
+  readonly readOnly?: never;
+  readonly variant?: never;
+  readonly presentation?: never;
+}
+/** Plain modal presentation; current open state is not portable application authority. */
+export function validDialogProperties(value: unknown): value is DialogProperties {
+  try {
+    const fields = inertFields(value, ["kind", "title", "description", "disabled"]);
+    return !!fields && fields.kind === "dialog" && validButtonDisplayText(fields.title) &&
+      typeof fields.description === "string" && [...fields.description].length <= 512 &&
+      !/[\p{Cc}\uD800-\uDFFF]/u.test(fields.description) && typeof fields.disabled === "boolean";
+  } catch { return false; }
+}
+export type ComponentProperties = ButtonProperties | InputProperties | CheckboxProperties | DialogProperties;
 export function supportsComponentDisplayText(componentRef: string): boolean {
-  return supportsButtonDisplayText(componentRef) || ["component:input", "component:checkbox"].includes(componentRef);
+  return supportsButtonDisplayText(componentRef) || ["component:input", "component:checkbox", "component:dialog"].includes(componentRef);
 }
 export function validInputProperties(value: unknown): value is InputProperties {
   try {
@@ -144,11 +165,13 @@ export function validInputProperties(value: unknown): value is InputProperties {
 export function validComponentProperties(value: unknown, componentRef: string): value is ComponentProperties {
   return supportsButtonDisplayText(componentRef) ? validButtonProperties(value) :
     componentRef === "component:input" ? validInputProperties(value) :
-      componentRef === "component:checkbox" && validCheckboxProperties(value);
+      componentRef === "component:checkbox" ? validCheckboxProperties(value) :
+        componentRef === "component:dialog" && validDialogProperties(value);
 }
 export function freezeComponentProperties(value: ComponentProperties): ComponentProperties {
   if (validButtonProperties(value)) return freezeButtonProperties(value);
   if (validCheckboxProperties(value)) return Object.freeze({ kind: "checkbox", defaultChecked: value.defaultChecked, disabled: value.disabled });
+  if (validDialogProperties(value)) return Object.freeze({ kind: "dialog", title: value.title, description: value.description, disabled: value.disabled });
   if (!validInputProperties(value)) throw new Error("Invalid component properties");
   return Object.freeze({ kind: "input", inputType: value.inputType, placeholder: value.placeholder,
     disabled: value.disabled, readOnly: value.readOnly });
