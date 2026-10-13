@@ -91,3 +91,28 @@ for (const theme of ["light", "dark"] as const) {
     await info.attach(`foundation-${theme}-compact-viewport`, { body: await lab.screenshot(), contentType: "image/png" });
   });
 }
+
+
+test("Component Lab catalog tabs organize families, support keyboard navigation and preserve live inputs", async ({ page }) => {
+  await openLab(page);
+  const win = page.getByRole("dialog", { name: "Component Lab", exact: true });
+  const tabs = win.getByRole("tablist", { name: "Component categories" });
+  await expect(tabs.getByRole("tab")).toHaveCount(7);
+  const primitives = tabs.getByRole("tab", { name: "Primitives", exact: true });
+  await primitives.click();
+  const notes = win.getByLabel("Notes reference", { exact: true });
+  await notes.fill("Retain component state");
+  await tabs.getByRole("tab", { name: "Overlays", exact: true }).click();
+  await expect(win.getByRole("region", { name: "Overlay foundation reference" })).toBeVisible();
+  await tabs.getByRole("tab", { name: "Primitives", exact: true }).click();
+  await expect(notes).toHaveValue("Retain component state");
+  await primitives.focus();
+  await primitives.press("ArrowRight");
+  await expect(tabs.getByRole("tab", { name: "Overlays", exact: true })).toHaveAttribute("aria-selected", "true");
+  await tabs.getByRole("tab", { name: "Overlays", exact: true }).press("End");
+  await expect(tabs.getByRole("tab", { name: "Icons", exact: true })).toHaveAttribute("aria-selected", "true");
+  await expect(win.locator('[data-lab-category="icons"]')).toBeVisible();
+  await expect(win.locator('[data-lab-category="icons"] [data-icon-token]').first()).toHaveAttribute("data-icon-provider", "lucide");
+  await tabs.getByRole("tab", { name: "Icons", exact: true }).press("Home");
+  await expect(tabs.getByRole("tab", { name: "Foundations", exact: true })).toHaveAttribute("aria-selected", "true");
+});

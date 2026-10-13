@@ -6,6 +6,7 @@ test("collection table filters, selects with keyboard, and handles empty results
   await page.locator('[data-app-ref="app:component-lab"]').click();
   const win = page.getByRole("dialog", { name: "Component Lab", exact: true });
   await win.getByRole("button", { name: "Maximize window", exact: true }).click();
+  await win.getByRole("tab", { name: "Collections" }).click();
   const lab = page.getByRole("region", { name: "Collection foundation reference" });
   await expect(lab).toBeVisible();
   await expect(lab.getByRole("table", { name: "Reference assets" }).getByRole("row")).toHaveCount(3);

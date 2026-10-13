@@ -6,6 +6,7 @@ async function openPrimitives(page: Page) {
   await page.locator('[data-app-ref="app:component-lab"]').click();
   const win = page.getByRole("dialog", { name: "Component Lab", exact: true });
   if (await win.getAttribute("data-window-mode") !== "MAXIMIZED") await win.getByRole("button", { name: "Maximize window", exact: true }).click();
+  await win.getByRole("tab", { name: "Primitives" }).click();
   const lab = page.getByRole("region", { name: "Primitive foundation reference", exact: true });
   await expect(lab).toBeVisible();
   return lab;
@@ -56,9 +57,11 @@ test("native number limits/required text fail without accepting the form; range 
 
 test("primitive gallery is usable in dark compact narrow layout and preserves live control state", async ({ page }, info) => {
   const lab = await openPrimitives(page);
+  await page.getByRole("dialog", { name: "Component Lab", exact: true }).getByRole("tab", { name: "Foundations" }).click();
   const foundation = page.getByRole("region", { name: "Visual foundation reference", exact: true });
   await foundation.getByLabel("Reference theme", { exact: true }).selectOption("dark");
   await foundation.getByLabel("Reference density", { exact: true }).selectOption("compact");
+  await page.getByRole("dialog", { name: "Component Lab", exact: true }).getByRole("tab", { name: "Primitives" }).click();
   await lab.getByLabel("Notes reference", { exact: true }).fill("Retained while changing presentation");
   await page.setViewportSize({ width: 480, height: 860 });
   await expect(lab.getByLabel("Notes reference", { exact: true })).toHaveValue("Retained while changing presentation");
