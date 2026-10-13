@@ -184,3 +184,20 @@ test("Construction C tree keyboard skips disabled nodes and Space selects visibl
   await page.keyboard.press(" ");
   await expect(win.getByLabel("Navigation tree selection")).toContainText("documents");
 });
+
+test("Construction C compact NavigationTree retains accessible labels and tooltips", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Open applications", exact: true }).click();
+  await page.locator('[data-app-ref="app:component-lab"]').click();
+  const win = page.getByRole("dialog", { name: "Component Lab", exact: true });
+  await win.getByRole("tab", { name: "Overlays" }).click();
+  await win.getByLabel("Compact tree navigation").check();
+  const tree = win.getByRole("tree", { name: "Studio navigation tree" });
+  const documents = tree.getByRole("treeitem", { name: "Documents" });
+  await expect(documents).toHaveAttribute("title", "Documents");
+  await expect(documents.locator('[data-slot="icon"]')).toHaveAttribute("data-icon-token", "artifact.document");
+  await documents.click();
+  await expect(win.getByLabel("Navigation tree selection")).toContainText("documents");
+  await win.getByLabel("Compact tree navigation").uncheck();
+  await expect(documents).not.toHaveAttribute("title", "Documents");
+});
