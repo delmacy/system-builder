@@ -113,3 +113,10 @@ test("Construction B InputGroup keeps semantic search and enables icon-only clea
   await expect(search).toHaveValue("");
   await expect(clear).toBeDisabled();
 });
+
+test("Construction B loading indicator exposes its accessible status in Primitives", async ({ page }) => {
+  const lab = await openPrimitives(page);
+  const spinner = lab.getByRole("status", { name: "Loading component example" });
+  await expect(spinner).toBeVisible();
+  await expect(spinner).toHaveAttribute("data-slot", "spinner");
+});
