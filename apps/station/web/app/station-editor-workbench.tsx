@@ -432,7 +432,7 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
       className={"flex min-h-12 min-w-0 flex-col items-center justify-center overflow-hidden rounded-md border px-2 text-sm " +
         (supportsButtonDisplayText(node.componentRef) ? appearance : "bg-card") +
         (node.selected ? " ring-2 ring-primary/30" : "") + (properties?.disabled ? " opacity-50" : "")}>
-      <span className="block max-w-full truncate" title={layerName(state, node.nodeRef)}>{layerName(state, node.nodeRef)}</span>{children.length ? <div className={container + " w-full"}>{children}</div> : null}
+      {inertPreview ?? <span className="block max-w-full truncate" title={layerName(state, node.nodeRef)}>{layerName(state, node.nodeRef)}</span>}{children.length ? <div className={container + " w-full"}>{children}</div> : null}
     </div>;
   };
   const blocked = historyBlocked(state);
