@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { StationIcon } from "../../../../packages/ui-icons/index";
 import { Alert, Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle,
-  Checkbox, DateTimeField, FileField, FieldDescription, FieldMessage, Label, NumberField, Progress, RadioGroup, Skeleton,
+  Checkbox, DateTimeField, FileField, InputGroup, FieldDescription, FieldMessage, Label, NumberField, Progress, RadioGroup, Skeleton,
   Slider, Switch, Textarea } from "../../../../packages/ui-core/index";
 
 export function StationPrimitiveFoundationLab() {
@@ -12,6 +13,7 @@ export function StationPrimitiveFoundationLab() {
   const [progress, setProgress] = useState(40);
   const [submissions, setSubmissions] = useState(0);
   const [appointment, setAppointment] = useState("");
+  const [searchText, setSearchText] = useState("");
   const [files, setFiles] = useState<readonly string[]>([]);
   const invalidQuantity = quantity !== undefined && (quantity < 0 || quantity > 10);
   return <section aria-label="Primitive foundation reference" className="space-y-4">
@@ -43,6 +45,7 @@ export function StationPrimitiveFoundationLab() {
           <Slider id="primitive-progress" min={0} max={100} step={5} value={progress} onChange={event => setProgress(Number(event.currentTarget.value))} />
           <Progress aria-label="Determinate reference" value={progress} /><output className="text-sm" aria-label="Progress reference value">{progress}%</output>
         </div>
+        <div className="space-y-2"><Label htmlFor="primitive-search">Search with icon and clear action</Label><InputGroup leading={<StationIcon token="file.search" />} trailing={<Button type="button" variant="ghost" aria-label="Clear primitive search" disabled={!searchText} onClick={() => setSearchText("")}><StationIcon token="edit.cancel" /></Button>}><input id="primitive-search" aria-label="Primitive grouped search" type="search" value={searchText} onChange={event => setSearchText(event.target.value)} placeholder="Find a component" className="h-[var(--sb-control-height)] px-1 text-sm" /></InputGroup></div>
         <div className="space-y-2"><Label htmlFor="primitive-appointment">Appointment date</Label><DateTimeField id="primitive-appointment" aria-label="Appointment date" value={appointment} onChange={event => setAppointment(event.target.value)} /></div>
         <div className="space-y-2"><Label htmlFor="primitive-files">Local files</Label><FileField id="primitive-files" aria-label="Local files" multiple onFilesChange={next => setFiles(next.map(file => file.name))} /><output aria-label="Selected local files" className="block text-xs text-muted-foreground">{files.length ? files.join(", ") : "No files selected"}</output><FieldDescription>Selection stays in this demo; no upload occurs.</FieldDescription></div>
         <div className="flex flex-wrap items-center gap-2 sm:col-span-2"><Button type="submit">Validate reference form</Button>
