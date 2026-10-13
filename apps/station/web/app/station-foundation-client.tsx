@@ -166,7 +166,7 @@ export function StationFoundationClient() {
             document.getElementById(`lab-tab-${target.id}`)?.focus();
           }}><span className="flex items-center gap-2"><StationIcon token={tab.id === "foundations" ? "view.grid" : tab.id === "primitives" ? "artifact.composition" : tab.id === "overlays" ? "view.list" : tab.id === "industrial" ? "studio.assembly" : tab.id === "collections" ? "workspace.folder" : tab.id === "composition" ? "studio.catalog" : "settings"} size={16} /><span>{tab.label}</span></span></button>)}
       </nav></aside><div className="min-w-0 space-y-3"><div className="rounded-lg border bg-card p-3"><p className="text-xs text-muted-foreground">Components / {LAB_TABS.find(tab => tab.id === labTab)?.label}</p><h2 className="text-lg font-semibold">{LAB_TABS.find(tab => tab.id === labTab)?.label} components</h2></div><div className={labDetailsOpen ? "grid min-w-0 gap-3 xl:grid-cols-[minmax(0,1fr)_14rem]" : "min-w-0"}><div className="min-w-0 rounded-lg border bg-background p-3">
-      <div className="mb-3 flex min-w-0 flex-wrap items-center gap-2 border-b pb-3" aria-label="Component browser">
+      <div className="mb-3 flex min-w-0 flex-wrap items-center gap-2 border-b pb-3" role="group" aria-label="Component browser">
         <span className="mr-1 text-xs font-semibold text-muted-foreground">Components</span>
         {LAB_COMPONENTS[labTab].map(name => <button key={name} type="button"
           aria-pressed={(labComponent ?? LAB_COMPONENTS[labTab][0]) === name}
