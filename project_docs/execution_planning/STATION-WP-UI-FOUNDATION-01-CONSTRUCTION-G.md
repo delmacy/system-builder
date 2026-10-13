@@ -16,3 +16,5 @@ TASK777 corrected sourceee1a5ac4 qualifies all seven exact-head workflows and124
 
 ## Continued G materialization after owner PC-update request
 TASK779 materializes TASK780 File Manager long-name containment/access and TASK781 installed Studio area shared compact navigation. Both use stable integrated APIs and qualify growing regression; TASK778 checkpoint2d31a147 already passed all seven gates/124 journeys. Separate authoritative commits, exact file budgets. PC Documents main94da5ae2 updated with Next declarations preserved in named stash; isolated F/G preview worktrees added. Other representative Editor/shell adoption and F obligations remain open.
+
+TASK782 preserves qualified d35eb41b seven workflows/126 browser, actual Windows build/three new journeys and inspected label/Studio command PNGs. Own checkpoint gates required. Long-label finding remediated, remaining Editor/shell/shared fields and whole G/F/human acceptance not closed.
