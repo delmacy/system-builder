@@ -100,3 +100,10 @@ test("Construction B combobox filters, selects with keyboard and rejects disable
   await input.fill("Unavailable");
   await expect(lab.getByRole("option", { name: "Unavailable type" })).toBeDisabled();
 });
+
+test("Construction B loading indicator exposes its accessible status in Primitives", async ({ page }) => {
+  const lab = await openPrimitives(page);
+  const spinner = lab.getByRole("status", { name: "Loading component example" });
+  await expect(spinner).toBeVisible();
+  await expect(spinner).toHaveAttribute("data-slot", "spinner");
+});
