@@ -110,3 +110,6 @@ A qualified/integratedPR1138 b50a550f, seven exact-head workflows and113 browser
 
 ## 10. Qualified B / promoted C
 B qualified exact head5d8c95e (seven applicable workflows PASS) and integratedPR1140 at17a9a4da. TASK749 materializes provider-backed overlay/navigation TASK750 in ConstructionC; Command/combobox candidates remain explicit residual construction. Existing source-only vs editor-ready distinction and ICON path ownership remain. D-Z forecast.
+
+## 12. Owner-requested independent G slice
+On2026-10-13 the owner requested G while F1144 remained partial/draft. Construction-G.md materializes only already-main-integrated File Manager presentation under an explicit sequencing exception; no F schema/source dependency, acceptance bypass or F/G/package closure. TASK776 ->777; separate main-based sprint branch/PR. Full F obligations remain open.

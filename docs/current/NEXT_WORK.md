@@ -6,3 +6,6 @@ WP02staysOPENandreprioritizedafterICONqualifiedClosure;fullICONconsumptionandrea
 
 ## Independent UI Foundation lane — coordinated admission
 Owner authorizes WP-UI-FOUNDATION-01/Addendum021 with eleven named sprints. Planning#1137 integrated. TASK746/PR1138 qualified/integratedb50a550f4e821a7175b6636b02ac87a9e5be56d7; ui-core tokens/globalCSS/dedicatedproof retained; ICON A ownsnoneofthosepaths. Preserveparallelpathownership. UI FoundationD/F andICON B toolbar/chooser/portableicon work requirefreshsharedcontract/ownershipreconciliation; do notduplicateprimitives/editor/registry. FoundationD consumesICON APIs,notfullICONClosureasacyclicprerequisite.
+
+## Independent UI Foundation adoption — bounded G slice
+Owner explicitly requested G on2026-10-13. Fresh main94da5ae2 includes bounded A–E; F1144/ce3d0e51 remains draft/unmerged/partial (Button/Card/Input/Checkbox qualified in draft; Dialog/Toolbar/DataTable and full inventory pending). Construction-G.md and TASK776->777 admit only File Manager adoption of existing main public ui-core controls, compact semantic-icon view switches, scoped accessible tooltips and browser/evidence regression. This sequencing exception does not close F or remove package acceptance gates. Preserve primary ICON/WP02. Other G consumers need fresh materialization; T/I/Z remain forecast.
