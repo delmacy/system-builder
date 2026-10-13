@@ -222,3 +222,22 @@ test("Construction C tree navigates expanded children and returns focus to paren
   await expect(tree.getByRole("treeitem", { name: "Components" })).toHaveCount(0);
   await expect(station).toBeFocused();
 });
+
+test("Construction C tree exposes sibling positions without duplicate DOM identities", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Open applications", exact: true }).click();
+  await page.locator('[data-app-ref="app:component-lab"]').click();
+  const win = page.getByRole("dialog", { name: "Component Lab", exact: true });
+  await win.getByRole("tab", { name: "Overlays" }).click();
+  const tree = win.getByRole("tree", { name: "Studio navigation tree" });
+  const station = tree.getByRole("treeitem", { name: "Station" });
+  await expect(station).toHaveAttribute("aria-posinset", "1");
+  await expect(station).toHaveAttribute("aria-setsize", "2");
+  await station.click();
+  const components = tree.getByRole("treeitem", { name: "Components" });
+  await expect(components).toHaveAttribute("aria-level", "2");
+  await expect(components).toHaveAttribute("aria-posinset", "1");
+  await expect(components).toHaveAttribute("aria-setsize", "2");
+  const ids = await tree.getByRole("treeitem").evaluateAll(items => items.map(item => item.id).filter(Boolean));
+  expect(new Set(ids).size).toBe(ids.length);
+});
