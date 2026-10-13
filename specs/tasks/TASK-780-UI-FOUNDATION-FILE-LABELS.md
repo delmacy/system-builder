@@ -61,7 +61,7 @@ Failed tests, altered owner semantics or fresh conflicting paths block integrati
 ## Objective
 Keep real long file/folder names inside their grid/list controls.
 ## Required change
-Constrain/truncate visible name with full accessible name and native full-title hover. Preserve all item selection/navigation/open/export callbacks. Actual browser produces a long-named file through Component Editor workspace save, checks bounds at wide/390px in both views, keyboard selection, unchanged storage and full Inspector name; screenshots attach real fixture.
+Constrain/truncate visible name with full accessible name and native full-title hover. Preserve all item selection/navigation/open/export callbacks. Actual browser produces a long-named file through Component Editor workspace save at the existing80-character boundary, rejects81 without storage changes, checks bounds at wide/390px in both views, keyboard selection, unchanged storage and full Inspector name; screenshots attach real fixture.
 ## Acceptance criteria
 Label bounds fit button, accessible name/title complete, long-name journey passes and all predecessor workspace journeys retained.
 ## Evidence expected

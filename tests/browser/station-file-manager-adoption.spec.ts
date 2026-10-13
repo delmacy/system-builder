@@ -61,9 +61,14 @@ test("File Manager shared fields and compact view commands preserve local state"
 
 
 test("long actual workspace filenames fit grid and list with full-name access", async ({ page }, info) => {
-  const filename = "report-" + "a".repeat(80) + ".composition.json";
+  const filename = "report-" + "a".repeat(56) + ".composition.json";
   await page.goto("/component-editor");
   const editor = page.getByRole("region", { name: "Composition editor", exact: true });
+  const before = await page.evaluate(() => localStorage.getItem("station:artifact-workspace:v1"));
+  await editor.getByLabel("Workspace copy name", { exact: true }).fill("report-" + "a".repeat(57) + ".composition.json");
+  await editor.getByRole("button", { name: "Save to workspace", exact: true }).click();
+  await expect(editor.getByRole("status")).toContainText("Unable to save the copy");
+  expect(await page.evaluate(() => localStorage.getItem("station:artifact-workspace:v1"))).toBe(before);
   await editor.getByLabel("Workspace copy name", { exact: true }).fill(filename);
   await editor.getByRole("button", { name: "Save to workspace", exact: true }).click();
   await expect(editor.getByRole("status")).toContainText("Workspace copy saved");
