@@ -10,3 +10,6 @@ TASK776 authority/materialization -> TASK777 File Manager shared fields/compact 
 Existing import/export/open/storage-conflict/revisions/window journeys retained, plus actual keyboard/hover/Escape view switching, label and pressed state, pending form and storage preservation, disabled root navigation and compact geometry. Preserve before/after screenshots for the same real folder fixture. npm run verify and station:build; all applicable exact-head Actions, actual Chromium and fresh-base revalidation before integration. Known local tsx IPC EPERM is not a pass; CI supplies full verification if needed.
 ## Stop / residuals
 Failed checks block integration. Any shared schema/owner/API change needs separate admission. F remains partial; representative Editor/shell/Studio adoption, broad visual acceptance and whole G completion remain open. No whole ICON/WP02/WP closure.
+
+## Partial evidence checkpoint
+TASK777 corrected sourceee1a5ac4 qualifies all seven exact-head workflows and124 Chromium journeys. TASK778 preserves actual inspected before/after/compact evidence and partial state; its own gates required. Current base remains94da5ae2. G/F are not complete. Next eligible G work: bounded File Manager long-name containment/accessible help, then representative Editor/shell/Studio adoption with fresh task and ownership revalidation.
