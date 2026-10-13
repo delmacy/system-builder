@@ -36,6 +36,10 @@ const input = normalizeComponentDescriptor({
   id: "component:input", family: "atomic", layout: "none", childPolicy: "none", slots: [],
   constraints: { minColumns: 1, maxColumns: 12, recommendedColumns: 4, minRows: 1, maxRows: 2, recommendedRows: 2 },
 });
+const checkbox = normalizeComponentDescriptor({
+  id: "component:checkbox", family: "atomic", layout: "none", childPolicy: "none", slots: [],
+  constraints: { minColumns: 1, maxColumns: 12, recommendedColumns: 3, minRows: 1, maxRows: 2, recommendedRows: 1 },
+});
 const groupButton = normalizeComponentDescriptor({
   ...button, id: "component:lab-button",
   constraints: { ...button.constraints, maxRows: 1, recommendedRows: 1 },
@@ -69,7 +73,7 @@ function frozenGraph(graph: CompositionGraph): CompositionGraph {
 const sources: readonly EditorCatalogDefinition[] = Object.freeze([
   Object.freeze({
     compositionRef: "composition:example", applicationRef: "app:composition-editor",
-    title: "Example composition", revision: 7, descriptors: Object.freeze([grid, button, input]),
+    title: "Example composition", revision: 7, descriptors: Object.freeze([grid, button, input, checkbox]),
     composition: frozenGraph(defineCompositionGraph({ rootRef: "node:root", nodes: [
       { ref: "node:root", componentRef: grid.id },
       { ref: "node:button-1", componentRef: button.id,
@@ -96,7 +100,7 @@ const sources: readonly EditorCatalogDefinition[] = Object.freeze([
 
   Object.freeze({
     compositionRef: "composition:action-panel", applicationRef: "app:composition-editor",
-    title: "Reusable action panel", revision: 7, descriptors: Object.freeze([grid, panel, actionRow, button, card, input]),
+    title: "Reusable action panel", revision: 7, descriptors: Object.freeze([grid, panel, actionRow, button, card, input, checkbox]),
     composition: frozenGraph(defineCompositionGraph({ rootRef: "panel:root", nodes: [
       { ref: "panel:root", componentRef: grid.id },
       { ref: "panel:container", componentRef: panel.id,

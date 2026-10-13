@@ -6,6 +6,7 @@ const input = (p: Page, label = "Work email") => image(p, label).locator('input[
 async function download(p: Page) { const event = p.waitForEvent("download"); await p.getByRole("button", { name: "Save As file", exact: true }).click(); return readFile((await (await event).path())!); }
 async function addInput(p: Page) {
   await p.getByRole("searchbox", { name: "Search insertable components", exact: true }).fill("Forms");
+  await p.getByLabel("Component to add", { exact: true }).selectOption("component:input");
   await expect(p.getByLabel("Component to add", { exact: true })).toHaveValue("component:input");
   await p.getByRole("button", { name: "Add component", exact: true }).click();
 }

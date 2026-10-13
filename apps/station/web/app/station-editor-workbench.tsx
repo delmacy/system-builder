@@ -1,4 +1,6 @@
 "use client";
+import { EditorCheckboxFields } from "./station-editor-checkbox-fields.js";
+import { EditorCheckboxPreview } from "./station-editor-checkbox-preview.js";
 import { EditorInputFields } from "./station-editor-input-fields.js";
 import { EditorInputPreview } from "./station-editor-input-preview.js";
 import { EditorIconFields } from "./station-editor-icon-fields.js";
@@ -26,14 +28,14 @@ import {
 type State = Readonly<{
   entry: EditorCatalogEntry; history: EditorHistory; selection: LayersSelection;
   pendingRef: string | null;
-  columns: string; rows: string; buttonText: string; propertyVariant: string; propertyDisabled: string; propertyMode: string; propertyPlacement: string; propertyAsset: string; propertyCatalog: string; inputType: string; inputPlaceholder: string; inputReadOnly: string; message: string; invalid: boolean;
+  columns: string; rows: string; buttonText: string; propertyVariant: string; propertyDisabled: string; propertyMode: string; propertyPlacement: string; propertyAsset: string; propertyCatalog: string; inputType: string; inputPlaceholder: string; inputReadOnly: string; checkboxDefaultChecked: string; message: string; invalid: boolean;
   document: CompositionArtifact | null; savedText: string | null;
   pendingArtifact: Readonly<{ document: CompositionArtifact; savedText: string | null }> | null;
 }>;
 type Action =
   | { type: "structure"; operation: "add-node" | "remove-subtree" | "reorder-node" | "reparent-node"; componentRef?: string; parentRef?: string; slotRef?: string; direction?: "before" | "after" }
   | { type: "select"; ref: string }
-  | { type: "field"; field: "columns" | "rows" | "buttonText" | "propertyVariant" | "propertyDisabled" | "propertyMode" | "propertyPlacement" | "propertyAsset" | "propertyCatalog" | "inputType" | "inputPlaceholder" | "inputReadOnly"; value: string }
+  | { type: "field"; field: "columns" | "rows" | "buttonText" | "propertyVariant" | "propertyDisabled" | "propertyMode" | "propertyPlacement" | "propertyAsset" | "propertyCatalog" | "inputType" | "inputPlaceholder" | "inputReadOnly" | "checkboxDefaultChecked"; value: string }
   | { type: "apply" | "save" | "discard" | "undo" | "redo" | "apply-text" | "reset-text" | "apply-properties" | "reset-properties" | "restore-fields" }
   | { type: "request-switch"; ref: string }
   | { type: "cancel-switch" | "confirm-switch" }
@@ -46,13 +48,13 @@ function fields(session: EditorSession, selection: LayersSelection) {
   const result = projectEditorInspector(session, selection, session.draftRevision);
   const placement = result.accepted && result.snapshot.kind === "node" ? result.snapshot.placement : null;
   const node = session.transaction.draft.nodes.find(item => item.ref === selection.selectedRef);
-  return { inputType: node?.properties?.inputType ?? "text", inputPlaceholder: node?.properties?.placeholder ?? "", inputReadOnly: String(node?.properties?.readOnly ?? false), propertyMode: node?.properties?.presentation?.mode ?? "text", propertyPlacement: node?.properties?.presentation?.placement ?? "start", propertyAsset: node?.properties?.presentation?.icon.assetRef ?? "", propertyCatalog: node?.properties?.presentation?.icon.catalogVersion ?? "", propertyVariant: node?.properties?.variant ?? "default", propertyDisabled: String(node?.properties?.disabled ?? false), buttonText: node?.text ?? "", columns: placement ? String(placement.columnSpan) : "", rows: placement ? String(placement.rowSpan) : "" };
+  return { checkboxDefaultChecked: String(node?.properties?.defaultChecked ?? false), inputType: node?.properties?.inputType ?? "text", inputPlaceholder: node?.properties?.placeholder ?? "", inputReadOnly: String(node?.properties?.readOnly ?? false), propertyMode: node?.properties?.presentation?.mode ?? "text", propertyPlacement: node?.properties?.presentation?.placement ?? "start", propertyAsset: node?.properties?.presentation?.icon.assetRef ?? "", propertyCatalog: node?.properties?.presentation?.icon.catalogVersion ?? "", propertyVariant: node?.properties?.variant ?? "default", propertyDisabled: String(node?.properties?.disabled ?? false), buttonText: node?.text ?? "", columns: placement ? String(placement.columnSpan) : "", rows: placement ? String(placement.rowSpan) : "" };
 }
 function initialState(ref: string): State | null {
   const result = initializeCatalogEditorSession(ref, "session:visual-workbench");
   if (!result.accepted) return null;
   return { entry: result.entry, history: createEditorHistory(result.session), selection: { selectedRef: null },
-    columns: "", rows: "", buttonText: "", propertyVariant: "default", propertyDisabled: "false", propertyMode: "text", propertyPlacement: "start", propertyAsset: "", propertyCatalog: "", inputType: "text", inputPlaceholder: "", inputReadOnly: "false", message: "Select a layer to edit its size.", invalid: false, pendingRef: null,
+    columns: "", rows: "", buttonText: "", propertyVariant: "default", propertyDisabled: "false", propertyMode: "text", propertyPlacement: "start", propertyAsset: "", propertyCatalog: "", inputType: "text", inputPlaceholder: "", inputReadOnly: "false", checkboxDefaultChecked: "false", message: "Select a layer to edit its size.", invalid: false, pendingRef: null,
     document: null, savedText: null, pendingArtifact: null };
 }
 function replaceArtifact(state: State, candidate: { document: CompositionArtifact; savedText: string | null }): State {
@@ -81,7 +83,7 @@ function historyBlocked(state: State): boolean {
 }
 function propertiesPending(state: State): boolean {
   const applied = fields(state.history.session, state.selection);
-  return state.propertyVariant !== applied.propertyVariant || state.propertyDisabled !== applied.propertyDisabled || state.propertyMode !== applied.propertyMode || state.propertyPlacement !== applied.propertyPlacement || state.propertyAsset !== applied.propertyAsset || state.propertyCatalog !== applied.propertyCatalog || state.inputType !== applied.inputType || state.inputPlaceholder !== applied.inputPlaceholder || state.inputReadOnly !== applied.inputReadOnly;
+  return state.propertyVariant !== applied.propertyVariant || state.propertyDisabled !== applied.propertyDisabled || state.propertyMode !== applied.propertyMode || state.propertyPlacement !== applied.propertyPlacement || state.propertyAsset !== applied.propertyAsset || state.propertyCatalog !== applied.propertyCatalog || state.inputType !== applied.inputType || state.inputPlaceholder !== applied.inputPlaceholder || state.inputReadOnly !== applied.inputReadOnly || state.checkboxDefaultChecked !== applied.checkboxDefaultChecked;
 }
 function textPending(state: State): boolean {
   return state.buttonText !== fields(state.history.session, state.selection).buttonText;
@@ -147,15 +149,16 @@ function reducer(state: State | null, action: Action): State | null {
     if (!nodeRef) return { ...state, invalid: true, message: "Select a button to edit properties." };
     const common = { sessionRef: state.history.session.sessionRef, compositionRef: state.entry.compositionRef,
       expectedDraftRevision: state.history.session.draftRevision, nodeRef };
+    const checkboxSelected = state.history.session.transaction.draft.nodes.find(node => node.ref === nodeRef)?.componentRef === "component:checkbox";
     const inputSelected = state.history.session.transaction.draft.nodes.find(node => node.ref === nodeRef)?.componentRef === "component:input";
     const intent = action.type === "apply-properties" ? { ...common, type: "set-properties" as const,
-      properties: inputSelected ? { kind: "input" as const, inputType: state.inputType as InputProperties["inputType"], placeholder: state.inputPlaceholder, disabled: state.propertyDisabled === "true", readOnly: state.inputReadOnly === "true" } : { variant: state.propertyVariant as ButtonProperties["variant"], disabled: state.propertyDisabled === "true",
+      properties: checkboxSelected ? { kind: "checkbox" as const, defaultChecked: state.checkboxDefaultChecked === "true", disabled: state.propertyDisabled === "true" } : inputSelected ? { kind: "input" as const, inputType: state.inputType as InputProperties["inputType"], placeholder: state.inputPlaceholder, disabled: state.propertyDisabled === "true", readOnly: state.inputReadOnly === "true" } : { variant: state.propertyVariant as ButtonProperties["variant"], disabled: state.propertyDisabled === "true",
         ...(state.propertyAsset || state.propertyMode !== "text" ? { presentation: { mode: state.propertyMode as NonNullable<ButtonProperties["presentation"]>["mode"], placement: state.propertyPlacement as NonNullable<ButtonProperties["presentation"]>["placement"], icon: { assetRef: state.propertyAsset, catalogVersion: state.propertyCatalog } } } : {}) } }
       : { ...common, type: "reset-properties" as const };
     const result = applyEditorHistoryStructure(state.history, intent, state.entry.registry);
-    if (!result.accepted) return { ...state, invalid: true, message: inputSelected ? "These input properties are invalid. The composition is unchanged." : "These button properties are invalid. The composition is unchanged." };
+    if (!result.accepted) return { ...state, invalid: true, message: checkboxSelected ? "These checkbox properties are invalid. The composition is unchanged." : inputSelected ? "These input properties are invalid. The composition is unchanged." : "These button properties are invalid. The composition is unchanged." };
     return { ...state, history: result.history, ...fields(result.history.session, state.selection), invalid: false,
-      message: result.changed ? (inputSelected ? "Input properties updated. Save or discard your changes." : "Button properties updated. Save or discard your changes.") : "The properties are already applied." };
+      message: result.changed ? (checkboxSelected ? "Checkbox properties updated. Save or discard your changes." : inputSelected ? "Input properties updated. Save or discard your changes." : "Button properties updated. Save or discard your changes.") : "The properties are already applied." };
   }
   if (action.type === "apply-text" || action.type === "reset-text") {
     if (propertiesPending(state)) return { ...state, invalid: false, message: "Apply or restore the property fields before editing text." };
@@ -388,7 +391,7 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
       className={"flex min-h-12 min-w-0 flex-col items-center justify-center overflow-hidden rounded-md border px-2 text-sm " +
         "bg-card" +
         (node.selected ? " ring-2 ring-primary/30" : "") + (parentLayout === "row" ? " max-sm:basis-full!" : "")}>
-      {node.componentRef === "component:input" ? <EditorInputPreview label={layerName(state, node.nodeRef)} properties={properties} /> : supportsButtonDisplayText(node.componentRef) ? <EditorButtonPreview label={layerName(state, node.nodeRef)} properties={properties === undefined || validButtonProperties(properties) ? properties : undefined} /> : <span className="block max-w-full truncate" title={layerName(state, node.nodeRef)}>{layerName(state, node.nodeRef)}</span>}{children.length ? <div className={container + " w-full"}>{children}</div> : null}
+      {node.componentRef === "component:checkbox" ? <EditorCheckboxPreview label={layerName(state, node.nodeRef)} properties={properties} /> : node.componentRef === "component:input" ? <EditorInputPreview label={layerName(state, node.nodeRef)} properties={properties} /> : supportsButtonDisplayText(node.componentRef) ? <EditorButtonPreview label={layerName(state, node.nodeRef)} properties={properties === undefined || validButtonProperties(properties) ? properties : undefined} /> : <span className="block max-w-full truncate" title={layerName(state, node.nodeRef)}>{layerName(state, node.nodeRef)}</span>}{children.length ? <div className={container + " w-full"}>{children}</div> : null}
     </div>;
   };
   const blocked = historyBlocked(state);
@@ -410,6 +413,7 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
   const moveSlot = moveSlots.find(slot => slot.id === moveSlotRef)?.id ?? moveSlots.find(slot => slot.id === selectedNode?.placement?.slotRef)?.id ?? moveSlots[0]?.id ?? "";
   const textEditable = !!selectedNode?.placement && supportsComponentDisplayText(selectedNode.componentRef);
   const buttonEditable = !!selectedNode?.placement && supportsButtonDisplayText(selectedNode.componentRef);
+  const checkboxEditable = !!selectedNode?.placement && selectedNode.componentRef === "component:checkbox";
   const inputEditable = !!selectedNode?.placement && selectedNode.componentRef === "component:input";
   const siblings = selectedNode?.placement ? graph.nodes.filter(node => node.placement?.parentRef === selectedNode.placement!.parentRef &&
     node.placement?.slotRef === selectedNode.placement!.slotRef) : [];
@@ -533,7 +537,7 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
           <Button type="submit" variant="outline" disabled={!editable}>Apply size</Button>
         </form>
         {textEditable ? <form onSubmit={event => { event.preventDefault(); dispatch({ type: "apply-text" }); }} className="mt-5 space-y-3 border-t pt-4">
-          <label htmlFor="editor-button-text" className="block text-sm">{inputEditable ? "Input label" : "Button text"}</label>
+          <label htmlFor="editor-button-text" className="block text-sm">{checkboxEditable ? "Checkbox label" : inputEditable ? "Input label" : "Button text"}</label>
           <input id="editor-button-text" value={state.buttonText} placeholder={layerName(state, selectedNode!.ref)}
             onChange={event => dispatch({ type: "field", field: "buttonText", value: event.target.value })}
             aria-invalid={state.invalid} aria-describedby="text-help editor-feedback" autoComplete="off"
@@ -557,6 +561,11 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
           <EditorIconFields mode={state.propertyMode} placement={state.propertyPlacement} assetRef={state.propertyAsset} catalogVersion={state.propertyCatalog}
             change={(field, value) => dispatch({ type: "field", field, value })} />
           <p id="properties-help" className="text-xs text-muted-foreground">Presentation only. Reset restores the original appearance.</p>
+          <div className="flex flex-wrap gap-2"><Button type="submit" variant="outline">Apply properties</Button>
+            <Button type="button" variant="outline" onClick={() => dispatch({ type: "reset-properties" })}>Reset properties</Button></div>
+        </form> : null}
+        {checkboxEditable ? <form onSubmit={event => { event.preventDefault(); dispatch({ type: "apply-properties" }); }} className="mt-5 space-y-3 border-t pt-4">
+          <EditorCheckboxFields defaultChecked={state.checkboxDefaultChecked} disabled={state.propertyDisabled} change={(field, value) => dispatch({ type: "field", field, value })} />
           <div className="flex flex-wrap gap-2"><Button type="submit" variant="outline">Apply properties</Button>
             <Button type="button" variant="outline" onClick={() => dispatch({ type: "reset-properties" })}>Reset properties</Button></div>
         </form> : null}

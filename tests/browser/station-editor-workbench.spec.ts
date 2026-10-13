@@ -997,7 +997,7 @@ test.describe("WP8 typed button properties", () => {
     await file.setInputFiles({ name: "original.json", mimeType: "application/json", buffer: bytes });
     await b(page, "Discard changes and open file").click(); await expect(variant(page)).toHaveValue("default");
     await apply(page); const authored = await downloadedComposition(page); const doc = JSON.parse(authored.toString());
-    for (const version of ["3.0.0", "7.0.0"]) {
+    for (const version of ["3.0.0", "8.0.0"]) {
       await file.setInputFiles({ name: "bad-version.json", mimeType: "application/json", buffer: Buffer.from(JSON.stringify({ ...doc, schema: { ...doc.schema, version } })) });
       await expect(preview(page)).toHaveAttribute("aria-disabled", "true"); await expect(editor(page).getByRole("status")).toContainText("unchanged");
     }

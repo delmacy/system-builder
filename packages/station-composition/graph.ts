@@ -45,6 +45,7 @@ export interface ButtonIconPresentation {
   readonly icon: Readonly<{ catalogVersion: string; assetRef: string }>;
 }
 export interface ButtonProperties {
+  readonly defaultChecked?: never;
   readonly kind?: never;
   readonly inputType?: never;
   readonly placeholder?: never;
@@ -107,6 +108,7 @@ export function freezeButtonProperties(value: ButtonProperties): ButtonPropertie
 }
 
 export interface InputProperties {
+  readonly defaultChecked?: never;
   readonly kind: "input";
   readonly inputType: "text" | "email" | "search";
   readonly placeholder: string;
@@ -116,9 +118,19 @@ export interface InputProperties {
   readonly variant?: never;
   readonly presentation?: never;
 }
-export type ComponentProperties = ButtonProperties | InputProperties;
+export interface CheckboxProperties {
+  readonly kind: "checkbox";
+  readonly defaultChecked: boolean;
+  readonly disabled: boolean;
+  readonly inputType?: never;
+  readonly placeholder?: never;
+  readonly readOnly?: never;
+  readonly variant?: never;
+  readonly presentation?: never;
+}
+export type ComponentProperties = ButtonProperties | InputProperties | CheckboxProperties;
 export function supportsComponentDisplayText(componentRef: string): boolean {
-  return supportsButtonDisplayText(componentRef) || componentRef === "component:input";
+  return supportsButtonDisplayText(componentRef) || ["component:input", "component:checkbox"].includes(componentRef);
 }
 export function validInputProperties(value: unknown): value is InputProperties {
   try {
@@ -131,11 +143,21 @@ export function validInputProperties(value: unknown): value is InputProperties {
 }
 export function validComponentProperties(value: unknown, componentRef: string): value is ComponentProperties {
   return supportsButtonDisplayText(componentRef) ? validButtonProperties(value) :
-    componentRef === "component:input" && validInputProperties(value);
+    componentRef === "component:input" ? validInputProperties(value) :
+      componentRef === "component:checkbox" && validCheckboxProperties(value);
 }
 export function freezeComponentProperties(value: ComponentProperties): ComponentProperties {
   if (validButtonProperties(value)) return freezeButtonProperties(value);
+  if (validCheckboxProperties(value)) return Object.freeze({ kind: "checkbox", defaultChecked: value.defaultChecked, disabled: value.disabled });
   if (!validInputProperties(value)) throw new Error("Invalid component properties");
   return Object.freeze({ kind: "input", inputType: value.inputType, placeholder: value.placeholder,
     disabled: value.disabled, readOnly: value.readOnly });
+}
+
+/** Initial visual default only; application current checked/value state is never admitted. */
+export function validCheckboxProperties(value: unknown): value is CheckboxProperties {
+  try {
+    const fields = inertFields(value, ["kind", "defaultChecked", "disabled"]);
+    return !!fields && fields.kind === "checkbox" && typeof fields.defaultChecked === "boolean" && typeof fields.disabled === "boolean";
+  } catch { return false; }
 }
