@@ -83,3 +83,17 @@ test("Construction B native date and local file controls preserve state without 
   await expect(date).toHaveValue("2026-11-18");
   await expect(lab.getByLabel("Selected local files")).toContainText("local-note.txt");
 });
+
+
+test("Construction B InputGroup keeps semantic search and enables icon-only clear action", async ({ page }) => {
+  const lab = await openPrimitives(page);
+  const search = lab.getByRole("searchbox", { name: "Primitive grouped search" });
+  const clear = lab.getByRole("button", { name: "Clear primitive search" });
+  await expect(clear).toBeDisabled();
+  await search.fill("Button");
+  await expect(search).toHaveValue("Button");
+  await expect(clear).toBeEnabled();
+  await clear.click();
+  await expect(search).toHaveValue("");
+  await expect(clear).toBeDisabled();
+});
