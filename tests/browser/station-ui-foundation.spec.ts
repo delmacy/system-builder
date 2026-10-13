@@ -111,7 +111,8 @@ test("Component Lab catalog tabs organize families, support keyboard navigation 
   await expect(tabs.getByRole("tab", { name: "Overlays", exact: true })).toHaveAttribute("aria-selected", "true");
   await tabs.getByRole("tab", { name: "Overlays", exact: true }).press("End");
   await expect(tabs.getByRole("tab", { name: "Icons", exact: true })).toHaveAttribute("aria-selected", "true");
-  await expect(win.getByRole("tabpanel", { name: "Icons" }).locator('[data-icon-token]').first().locator("..")).toBeVisible();
+  await expect(win.locator('[data-lab-category="icons"]')).toBeVisible();
+  await expect(win.locator('[data-lab-category="icons"] [data-icon-token]').first()).toHaveAttribute("data-icon-provider", "lucide");
   await tabs.getByRole("tab", { name: "Icons", exact: true }).press("Home");
   await expect(tabs.getByRole("tab", { name: "Foundations", exact: true })).toHaveAttribute("aria-selected", "true");
 });
