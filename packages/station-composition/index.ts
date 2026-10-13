@@ -11,3 +11,5 @@ export * from "./canonical-revision.js";
 export * from "./editor-engine.js";
 export * from "./component-editor.js";
 export * from "./ui-foundation-descriptors.js";
+
+export * from "./editor-insertion.js";
