@@ -2169,3 +2169,19 @@ for (const field of [
     await expect(page.getByRole("treeitem", { name: field.label })).toBeVisible();
   });
 }
+
+test("Construction G preserves edited color-field grid span through save and reopen", async ({ page }) => {
+  await page.getByLabel("Component to add", { exact: true }).selectOption("ui:color-field");
+  await page.getByRole("button", { name: "Add component", exact: true }).click();
+  const layer = page.getByRole("treeitem", { name: /Ui:color Field 3/i });
+  await layer.click();
+  await page.getByLabel("Columns", { exact: true }).fill("3");
+  await page.getByRole("button", { name: "Apply size", exact: true }).click();
+  await expect(page.getByTestId("draft-state")).toHaveText("Unsaved changes");
+  await expect(page.getByLabel("Columns", { exact: true })).toHaveValue("3");
+  await page.getByRole("button", { name: "Save locally", exact: true }).click();
+  await page.reload();
+  await page.getByRole("button", { name: "Open saved", exact: true }).click();
+  await page.getByRole("treeitem", { name: /Ui:color Field 3/i }).click();
+  await expect(page.getByLabel("Columns", { exact: true })).toHaveValue("3");
+});
