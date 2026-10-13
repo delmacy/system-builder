@@ -19,21 +19,23 @@ export function NavigationTree({ label, nodes, selectedId, onSelect }: Navigatio
   const visible = flatten(nodes);
   const toggle = (id: string) => setExpanded(current => { const next = new Set(current); if (next.has(id)) next.delete(id); else next.add(id); return next; });
   const handleKey = (event: KeyboardEvent<HTMLButtonElement>, node: NavigationTreeNode) => {
-    const index = visible.findIndex(item => item.node.id === node.id);
+    const navigable = visible.filter(item => !item.node.disabled);
+    const index = navigable.findIndex(item => item.node.id === node.id);
     if (event.key === "ArrowDown" || event.key === "ArrowUp" || event.key === "Home" || event.key === "End") {
       event.preventDefault();
       const direction = event.key === "ArrowDown" ? 1 : -1;
-      const target = event.key === "Home" ? 0 : event.key === "End" ? visible.length - 1 : (index + direction + visible.length) % visible.length;
-      const next = visible[target]?.node;
+      const target = event.key === "Home" ? 0 : event.key === "End" ? navigable.length - 1 : (index + direction + navigable.length) % navigable.length;
+      const next = navigable[target]?.node;
       if (next) event.currentTarget.closest('[role="tree"]')?.querySelectorAll<HTMLButtonElement>('[role="treeitem"]:not(:disabled)')[target]?.focus();
     } else if (event.key === "ArrowRight" && node.children?.length && !expanded.has(node.id)) { event.preventDefault(); toggle(node.id); }
     else if (event.key === "ArrowLeft" && expanded.has(node.id)) { event.preventDefault(); toggle(node.id); }
+    else if ((event.key === "Enter" || event.key === " ") && !node.disabled) { event.preventDefault(); if (node.children?.length) toggle(node.id); onSelect(node.id); }
   };
   const inspect = (items: readonly NavigationTreeNode[]): string[] => items.flatMap(node => [node.id, ...inspect(node.children ?? [])]);
   const ids = inspect(nodes);
   if (ids.some(id => !id.trim()) || new Set(ids).size !== ids.length) throw new Error("NavigationTree requires unique nonempty IDs");
   return <nav data-slot="navigation-tree" aria-label={label} className="min-w-0">
-    <ul role="tree" aria-label={label} className="space-y-1">{visible.map(({node,depth}) =>
+    <ul role="tree" aria-label={label} className="max-w-full space-y-1 overflow-x-hidden">{visible.map(({node,depth}) =>
       <li key={node.id} role="none"><button id={"nav-tree-" + node.id} role="treeitem" type="button" disabled={node.disabled}
         aria-level={depth} aria-expanded={node.children?.length ? expanded.has(node.id) : undefined}
         aria-selected={selectedId === node.id} onKeyDown={event => handleKey(event,node)}
