@@ -1,6 +1,6 @@
 "use client";
 import { useMemo, useState } from "react";
-import { DataTable, EmptyState, Pagination, SearchField, SelectField, type DataTableColumn } from "../../../../packages/ui-core/index";
+import { Avatar, DataTable, EmptyState, Pagination, SearchField, SelectField, type DataTableColumn } from "../../../../packages/ui-core/index";
 
 type AssetRow = { id: string; name: string; kind: string };
 const assets: readonly AssetRow[] = [
@@ -28,6 +28,7 @@ export function StationCollectionFoundationLab() {
   const visibleSelection = selectedKey && pageRows.some(row => row.id === selectedKey) ? selectedKey : null;
   return <section className="space-y-3 rounded-lg border p-4" aria-label="Collection foundation reference" data-slot="collection-foundation-lab">
     <h2 className="text-sm font-semibold">Collections · DataTable</h2>
+    <div aria-label="Avatar component examples" className="flex items-center gap-3"><Avatar name="Station Operator" /><Avatar name="Workspace Editor" size="sm" /><Avatar name="Component Designer" initials="CD" size="lg" /></div>
     <div className="flex flex-wrap gap-2">
       <SearchField label="Search collection assets" placeholder="Search assets" value={query} onChange={event => setQuery(event.target.value)} />
       <SelectField label="Filter collection kind" value={kind} onChange={event => setKind(event.target.value)} options={[
