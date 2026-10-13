@@ -101,3 +101,13 @@ test("Construction D vertical and locked splitter preserve bounds and reject mut
   await separator.dispatchEvent("keydown", { key: "ArrowDown" });
   await expect(lab.getByLabel("Split ratio")).toContainText("47%");
 });
+
+test("Component Lab component browser switches item details without discarding live preview", async ({ page }) => {
+  const lab = await openIndustrial(page);
+  const browser = lab.page().getByRole("group", { name: "Component browser" });
+  await expect(browser.getByRole("button", { name: "Toolbar" })).toHaveAttribute("aria-pressed", "true");
+  await browser.getByRole("button", { name: "SplitPane" }).click();
+  await expect(browser.getByRole("button", { name: "SplitPane" })).toHaveAttribute("aria-pressed", "true");
+  await expect(page.getByRole("complementary", { name: "Component Details" })).toContainText("SplitPane");
+  await expect(lab.getByRole("separator", { name: "Document panel split divider" })).toBeVisible();
+});
