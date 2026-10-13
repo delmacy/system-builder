@@ -20,6 +20,19 @@ export function NavigationTree({ label, nodes, selectedId, onSelect, compact = f
     items.flatMap(node => [{ node, depth }, ...(node.children?.length && expanded.has(node.id) ? flatten(node.children, depth + 1) : [])]);
   const visible = flatten(nodes);
   const toggle = (id: string) => setExpanded(current => { const next = new Set(current); if (next.has(id)) next.delete(id); else next.add(id); return next; });
+  const parentOf = (id: string, items: readonly NavigationTreeNode[] = nodes, parent: string | null = null): string | null => {
+    for (const item of items) {
+      if (item.id === id) return parent;
+      const result = parentOf(id, item.children ?? [], item.id);
+      if (result !== null) return result;
+    }
+    return null;
+  };
+  const focusNode = (event: KeyboardEvent<HTMLButtonElement>, id: string) => {
+    const items = event.currentTarget.closest('[role="tree"]')?.querySelectorAll<HTMLButtonElement>('[role="treeitem"]');
+    const index = visible.findIndex(item => item.node.id === id);
+    if (index >= 0) items?.[index]?.focus();
+  };
   const handleKey = (event: KeyboardEvent<HTMLButtonElement>, node: NavigationTreeNode) => {
     const navigable = visible.filter(item => !item.node.disabled);
     const index = navigable.findIndex(item => item.node.id === node.id);
@@ -30,7 +43,14 @@ export function NavigationTree({ label, nodes, selectedId, onSelect, compact = f
       const next = navigable[target]?.node;
       if (next) event.currentTarget.closest('[role="tree"]')?.querySelectorAll<HTMLButtonElement>('[role="treeitem"]:not(:disabled)')[target]?.focus();
     } else if (event.key === "ArrowRight" && node.children?.length && !expanded.has(node.id)) { event.preventDefault(); toggle(node.id); }
-    else if (event.key === "ArrowLeft" && expanded.has(node.id)) { event.preventDefault(); toggle(node.id); }
+    else if (event.key === "ArrowLeft") {
+      if (expanded.has(node.id)) { event.preventDefault(); toggle(node.id); }
+      else { const parent = parentOf(node.id); if (parent) { event.preventDefault(); focusNode(event, parent); } }
+    }
+    else if (event.key === "ArrowRight" && node.children?.length && expanded.has(node.id)) {
+      const first = visible.findIndex(item => item.node.id === node.id) + 1;
+      if (visible[first]?.depth > visible[first - 1]?.depth) { event.preventDefault(); focusNode(event, visible[first].node.id); }
+    }
     else if ((event.key === "Enter" || event.key === " ") && !node.disabled) { event.preventDefault(); if (node.children?.length) toggle(node.id); onSelect(node.id); }
   };
   const inspect = (items: readonly NavigationTreeNode[]): string[] => items.flatMap(node => [node.id, ...inspect(node.children ?? [])]);
