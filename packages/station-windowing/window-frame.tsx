@@ -171,7 +171,7 @@ export function WindowFrame({
         </div>
       </header>
 
-      <div data-slot="window-content" className="min-h-0 min-w-0 flex-1 overflow-auto bg-card">{children}</div>
+      <div data-slot="window-content" className={cn("min-h-0 min-w-0 flex-1 bg-card", definition.id === "file-manager" ? "overflow-hidden" : "overflow-auto")}>{children}</div>
 
       {definition.resizable && instance.mode === "NORMAL" ? (
         <>
