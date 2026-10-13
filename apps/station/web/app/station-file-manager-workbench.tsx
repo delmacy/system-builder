@@ -182,9 +182,8 @@ export function StationFileManagerWorkbench({ onOpen }: { onOpen: (text: string)
             try { requestArtifactDownload(chosen.text, chosen.name.slice(0, -".composition.json".length)); setMessage("Download requested. Keep the portable file."); }
             catch { setMessage("Unable to request download. Prior files are unchanged."); }
           }}><StationIcon token="action.export" className="shrink-0" />Export composition</Button></div></> : <p className="text-sm text-muted-foreground">Select a composition to inspect or open it.</p>}
-      </aside>
+      </aside> : null}
     </div>
-    <footer className="space-y-2 border-t p-4"><p role="status" className="break-words text-sm">{message}</p>
-      <p className="text-xs text-muted-foreground">Stored in this browser. Keep exported portable files; browser data can be cleared.</p></footer>
+    <footer className="shrink-0 border-t px-3 py-1"><p role="status" title={message} className="truncate text-xs text-muted-foreground">{message}</p></footer>
   </section>;
 }
