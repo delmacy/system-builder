@@ -52,7 +52,8 @@ export function NavigationTree({ label, nodes, selectedId, onSelect, compact = f
     }
     else if (event.key === "ArrowRight" && node.children?.length && expanded.has(node.id)) {
       const parentIndex = visible.findIndex(item => item.node.id === node.id);
-      const next = visible.slice(parentIndex + 1).find(item => item.depth === visible[parentIndex]?.depth + 1 && !item.node.disabled);
+      const parent = visible[parentIndex];
+      const next = parent ? visible.slice(parentIndex + 1).find(item => item.depth === parent.depth + 1 && !item.node.disabled) : undefined;
       if (next) { event.preventDefault(); focusNode(event, next.node.id); }
     }
     else if ((event.key === "Enter" || event.key === " ") && !node.disabled) { event.preventDefault(); if (node.children?.length) toggle(node.id); onSelect(node.id); }
