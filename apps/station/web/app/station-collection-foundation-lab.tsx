@@ -1,5 +1,6 @@
 "use client";
 import { useMemo, useState } from "react";
+import { StationIcon } from "../../../../packages/ui-icons/index";
 import { DataTable, SearchField, SelectField, type DataTableColumn } from "../../../../packages/ui-core/index";
 
 type AssetRow = { id: string; name: string; kind: string };
@@ -35,7 +36,7 @@ export function StationCollectionFoundationLab() {
         { value: "Composition", label: "Composition" }, { value: "Process", label: "Process" }]} />
     </div>
     <DataTable label="Reference assets" rows={pageRows} columns={columns} sort={sort} onSortChange={setSort} rowKey={row => row.id} selectedKey={visibleSelection} onSelect={setSelectedKey} />
-    <nav aria-label="Collection pages" className="flex items-center gap-2 text-xs"><button type="button" disabled={currentPage === 0} onClick={() => setPage(p => Math.max(0, p - 1))}>Previous page</button><span>Page {currentPage + 1} of {pageCount}</span><button type="button" disabled={currentPage >= pageCount - 1} onClick={() => setPage(p => Math.min(pageCount - 1, p + 1))}>Next page</button></nav>
+    <nav aria-label="Collection pages" className="flex items-center gap-2 text-xs"><button type="button" disabled={currentPage === 0} onClick={() => setPage(p => Math.max(0, p - 1))} title="Previous page"><StationIcon token="navigation.parent" className="inline-block align-middle" /><span className="ml-1">Previous page</span></button><span>Page {currentPage + 1} of {pageCount}</span><button type="button" disabled={currentPage >= pageCount - 1} onClick={() => setPage(p => Math.min(pageCount - 1, p + 1))} title="Next page"><span className="mr-1">Next page</span><StationIcon token="navigation.expand" className="inline-block align-middle" /></button></nav>
     <p role="status" aria-label="Collection selection state" className="text-xs text-muted-foreground">Selected: {visibleSelection ?? "none"} · Rows: {filtered.length}</p>
   </section>;
 }
