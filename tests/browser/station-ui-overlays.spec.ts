@@ -201,3 +201,24 @@ test("Construction C compact NavigationTree retains accessible labels and toolti
   await win.getByLabel("Compact tree navigation").uncheck();
   await expect(documents).not.toHaveAttribute("title", "Documents");
 });
+
+test("Construction C tree navigates expanded children and returns focus to parent", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Open applications", exact: true }).click();
+  await page.locator('[data-app-ref="app:component-lab"]').click();
+  const win = page.getByRole("dialog", { name: "Component Lab", exact: true });
+  await win.getByRole("tab", { name: "Overlays" }).click();
+  const tree = win.getByRole("tree", { name: "Studio navigation tree" });
+  const station = tree.getByRole("treeitem", { name: "Station" });
+  await station.focus();
+  await station.press("ArrowRight");
+  await station.press("ArrowRight");
+  const components = tree.getByRole("treeitem", { name: "Components" });
+  await expect(components).toBeFocused();
+  await components.press("ArrowLeft");
+  await expect(station).toBeFocused();
+  await station.press("ArrowLeft");
+  await expect(station).toHaveAttribute("aria-expanded", "false");
+  await expect(tree.getByRole("treeitem", { name: "Components" })).toHaveCount(0);
+  await expect(station).toBeFocused();
+});
