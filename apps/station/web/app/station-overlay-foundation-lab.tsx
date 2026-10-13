@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Stepper } from "../../../../packages/ui-core/index";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, AlertDialog, AlertDialogClose, AlertDialogContent, AlertDialogDescription, AlertDialogTitle, AlertDialogTrigger, AccessibleTooltip, AccessibleTooltipContent, AccessibleTooltipProvider, AccessibleTooltipTrigger, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator, Collapsible, CollapsibleContent, CollapsibleTrigger, ContextMenu, ContextMenuTrigger, Dialog, DialogClose, DialogContent, DialogDescription, DialogTitle, DialogTrigger, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSubmenu, DropdownMenuSubmenuTrigger, DropdownMenuTrigger, Menubar, OverlayPortalProvider, Popover, PopoverClose, PopoverContent, PopoverTrigger, Tabs, TabsContent, TabsList, TabsTrigger } from "../../../../packages/ui-core/index";
 
 export function StationOverlayFoundationLab() {
@@ -8,8 +9,10 @@ export function StationOverlayFoundationLab() {
   const [open, setOpen] = useState(false);
   const [command, setCommand] = useState("None");
   const [confirmations, setConfirmations] = useState(0);
+  const [activeStep, setActiveStep] = useState("design");
   return <section ref={setContainer} aria-label="Overlay foundation reference" className="my-4 space-y-4 rounded-lg border p-4">
     <OverlayPortalProvider container={container}><h2 className="text-lg font-semibold">Overlays and navigation</h2>
+    <Stepper aria-label="Component workflow steps" activeId={activeStep} onActiveChange={setActiveStep} steps={[{id:"design",label:"Design",description:"Compose UI"},{id:"review",label:"Review",description:"Check changes"},{id:"publish",label:"Publish",description:"Example only",disabled:true}]} />
     <Breadcrumb><BreadcrumbItem><BreadcrumbLink href="#overlay-reference">Station</BreadcrumbLink></BreadcrumbItem><BreadcrumbSeparator /><BreadcrumbItem><BreadcrumbPage>Component Lab</BreadcrumbPage></BreadcrumbItem></Breadcrumb>
     <div id="overlay-reference" className="flex flex-wrap gap-2">
       <Dialog open={open} onOpenChange={setOpen}><DialogTrigger>Open reference dialog</DialogTrigger><DialogContent><DialogTitle>Reference dialog</DialogTitle><DialogDescription>Local presentation with native controls and nested overlays.</DialogDescription><label className="block">Dialog notes<input aria-label="Dialog notes" className="block w-full rounded border p-2" /></label><Dialog><DialogTrigger>Open nested dialog</DialogTrigger><DialogContent><DialogTitle>Nested reference dialog</DialogTitle><DialogDescription>Closing returns focus to the parent trigger.</DialogDescription><DialogClose>Close nested dialog</DialogClose></DialogContent></Dialog><DialogClose>Close reference dialog</DialogClose></DialogContent></Dialog>

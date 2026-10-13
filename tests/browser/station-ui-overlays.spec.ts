@@ -109,3 +109,16 @@ test("navigation keyboard and disclosure states survive theme/density and compac
   await expect(lab.getByRole("tab", { name: "Reference details", exact: true })).toHaveAttribute("aria-selected", "true");
   await info.attach("overlay-navigation-dark-compact", { body: await lab.screenshot(), contentType: "image/png" });
 });
+
+test("Construction C Stepper changes active view without executing workflow commands", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Open applications", exact: true }).click();
+  await page.locator('[data-app-ref="app:component-lab"]').click();
+  const win = page.getByRole("dialog", { name: "Component Lab", exact: true });
+  await win.getByRole("tab", { name: "Overlays" }).click();
+  const stepper = win.getByRole("navigation", { name: "Component workflow steps" });
+  await expect(stepper.getByRole("button", { name: /Design/ })).toHaveAttribute("aria-current", "step");
+  await stepper.getByRole("button", { name: /Review/ }).click();
+  await expect(stepper.getByRole("button", { name: /Review/ })).toHaveAttribute("aria-current", "step");
+  await expect(stepper.getByRole("button", { name: /Publish/ })).toBeDisabled();
+});
