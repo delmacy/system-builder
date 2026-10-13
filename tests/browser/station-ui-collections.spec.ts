@@ -31,3 +31,15 @@ test("collection table filters, selects with keyboard, and handles empty results
   await expect(lab.getByRole("status", { name: "Collection selection state" })).toContainText("none");
   await info.attach("collection-empty", { body: await lab.screenshot({ animations: "disabled" }), contentType: "image/png" });
 });
+
+test("avatar identity examples expose names and fallback to initials", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Open applications", exact: true }).click();
+  await page.locator('[data-app-ref="app:component-lab"]').click();
+  const win = page.getByRole("dialog", { name: "Component Lab", exact: true });
+  await win.getByRole("tab", { name: "Collections" }).click();
+  const examples = win.getByLabel("Avatar component examples");
+  await expect(examples.getByRole("img", { name: "Station Operator" })).toContainText("SO");
+  await expect(examples.getByRole("img", { name: "Workspace Editor" })).toContainText("WE");
+  await expect(examples.getByRole("img", { name: "Component Designer" })).toContainText("CD");
+});
