@@ -41,3 +41,32 @@ test("workstation controls retain live state in compact dark mode and tab switch
   await expect(lab.getByRole("combobox", { name: "Workstation density" })).toHaveValue("comfortable");
   await info.attach("industrial-dark-compact", { body: await lab.screenshot({ animations: "disabled" }), contentType: "image/png" });
 });
+
+test("Construction D split pane enforces bounds and accessible keyboard divider", async ({ page }) => {
+  const lab = await openIndustrial(page);
+  const divider = lab.getByRole("separator", { name: "Document panel split divider" });
+  await expect(divider).toHaveAttribute("aria-valuenow", "45");
+  await divider.focus();
+  await divider.press("End");
+  await expect(lab.getByLabel("Split ratio")).toContainText("85%");
+  await divider.press("ArrowRight");
+  await expect(lab.getByLabel("Split ratio")).toContainText("85%");
+  await divider.press("Home");
+  await expect(lab.getByLabel("Split ratio")).toContainText("15%");
+  await divider.press("ArrowRight");
+  await expect(lab.getByLabel("Split ratio")).toContainText("17%");
+});
+
+test("Construction D dock and filter retain controlled states at narrow viewport", async ({ page }) => {
+  const lab = await openIndustrial(page);
+  await page.setViewportSize({ width: 390, height: 844 });
+  const docks = lab.getByRole("region", { name: "Workspace docks" });
+  await docks.getByRole("button", { name: "Layers" }).click();
+  await expect(docks.getByRole("region", { name: "Layers panel" })).toContainText("Layer hierarchy");
+  const filters = lab.getByRole("toolbar", { name: "Document workspace" });
+  await filters.getByRole("searchbox", { name: "Document workspace search" }).fill("layer");
+  const active = filters.getByRole("button", { name: "Active items" });
+  await active.click();
+  await expect(active).toHaveAttribute("aria-pressed", "true");
+  await expect(filters.getByRole("searchbox", { name: "Document workspace search" })).toHaveValue("layer");
+});
