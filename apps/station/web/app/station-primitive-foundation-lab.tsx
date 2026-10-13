@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { StationIcon } from "../../../../packages/ui-icons/index";
 import { Alert, Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle,
-  Checkbox, Combobox, DateTimeField, FileField, InputGroup, FieldDescription, FieldMessage, Label, NumberField, Progress, RadioGroup, Skeleton,
+  Checkbox, Combobox, DateTimeField, FileField, InputGroup, PasswordField, FieldDescription, FieldMessage, Label, NumberField, Progress, RadioGroup, Skeleton,
   Slider, Switch, Textarea } from "../../../../packages/ui-core/index";
 
 export function StationPrimitiveFoundationLab() {
@@ -46,6 +46,7 @@ export function StationPrimitiveFoundationLab() {
           <Slider id="primitive-progress" min={0} max={100} step={5} value={progress} onChange={event => setProgress(Number(event.currentTarget.value))} />
           <Progress aria-label="Determinate reference" value={progress} /><output className="text-sm" aria-label="Progress reference value">{progress}%</output>
         </div>
+        <div className="space-y-2"><Label htmlFor="primitive-secret">Password visibility</Label><PasswordField id="primitive-secret" aria-label="Password visibility" autoComplete="off" placeholder="Enter a demonstration password" /><FieldDescription>Example only. Never stores or submits a secret.</FieldDescription></div>
         <Combobox label="Asset type autocomplete" value={assetType} onValueChange={setAssetType} placeholder="Find an asset type" options={[{ value: "composition", label: "Composition" }, { value: "document", label: "Document" }, { value: "process", label: "Process" }, { value: "locked", label: "Unavailable type", disabled: true }]} />
         <div className="space-y-2"><Label htmlFor="primitive-search">Search with icon and clear action</Label><InputGroup leading={<StationIcon token="file.search" />} trailing={<Button type="button" variant="ghost" aria-label="Clear primitive search" disabled={!searchText} onClick={() => setSearchText("")}><StationIcon token="edit.cancel" /></Button>}><input id="primitive-search" aria-label="Primitive grouped search" type="search" value={searchText} onChange={event => setSearchText(event.target.value)} placeholder="Find a component" className="h-[var(--sb-control-height)] px-1 text-sm" /></InputGroup></div>
         <div className="space-y-2"><Label htmlFor="primitive-appointment">Appointment date</Label><DateTimeField id="primitive-appointment" aria-label="Appointment date" value={appointment} onChange={event => setAppointment(event.target.value)} /></div>
