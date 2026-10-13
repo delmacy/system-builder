@@ -11,8 +11,10 @@ test("collection table filters, selects with keyboard, and handles empty results
   await expect(lab).toBeVisible();
   await expect(lab.getByRole("table", { name: "Reference assets" }).getByRole("row")).toHaveCount(3);
   await expect(lab.getByRole("navigation", { name: "Collection pages" })).toContainText("Page 1 of 2");
+  await expect(lab.getByRole("button", { name: "Previous page" })).toBeDisabled();
   await lab.getByRole("button", { name: "Next page" }).click();
   await expect(lab.getByRole("navigation", { name: "Collection pages" })).toContainText("Page 2 of 2");
+  await expect(lab.getByRole("button", { name: "Next page" })).toBeDisabled();
   await lab.getByRole("button", { name: "Previous page" }).click();
   const sortName = lab.getByRole("button", { name: "Sort by Name" });
   await sortName.click();
@@ -24,7 +26,8 @@ test("collection table filters, selects with keyboard, and handles empty results
   await select.focus(); await page.keyboard.press("Enter");
   await expect(lab.getByRole("status", { name: "Collection selection state" })).toContainText("asset-002");
   await lab.getByRole("combobox", { name: "Filter collection kind" }).selectOption("Document");
-  await expect(lab.getByRole("table")).toContainText("No results");
+  await expect(lab.getByText("No matching assets", { exact: true })).toBeVisible();
+  await expect(lab.getByRole("table")).toHaveCount(0);
   await expect(lab.getByRole("status", { name: "Collection selection state" })).toContainText("none");
   await info.attach("collection-empty", { body: await lab.screenshot({ animations: "disabled" }), contentType: "image/png" });
 });
