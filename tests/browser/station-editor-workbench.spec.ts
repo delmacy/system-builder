@@ -2185,3 +2185,31 @@ test("Construction G preserves edited color-field grid span through save and reo
   await page.getByRole("treeitem", { name: /Ui:color Field 3/i }).click();
   await expect(page.getByLabel("Columns", { exact: true })).toHaveValue("3");
 });
+
+for (const field of [
+  { id: "ui:color-field", layer: /Ui:color Field 3/i, label: "Accent color", value: "#112233", input: "Hex color" },
+  { id: "ui:property-picker", layer: /Ui:property Picker 3/i, label: "Theme", value: "warm", input: "Selected choice ID" },
+  { id: "ui:document-text-field", layer: /Ui:document Text Field 3/i, label: "Description", value: "Portable plain text", input: "Document text" },
+]) {
+  test(`Construction G Inspector typed properties persist and render source field ${field.id}`, async ({ page }) => {
+    await page.getByLabel("Component to add", { exact: true }).selectOption(field.id);
+    await page.getByRole("button", { name: "Add component", exact: true }).click();
+    await page.getByRole("treeitem", { name: field.layer }).click();
+    await page.getByLabel("Field label", { exact: true }).fill(field.label);
+    await page.getByLabel(field.input, { exact: true }).fill(field.value);
+    if (field.id === "ui:property-picker")
+      await page.getByLabel("Choices (ID | label | disabled)", { exact: true }).fill("warm | Warm | false\\ncool | Cool | false");
+    if (field.id === "ui:document-text-field")
+      await page.getByLabel("Maximum characters", { exact: true }).fill("600");
+    await page.getByRole("button", { name: "Apply field properties", exact: true }).click();
+    await expect(page.getByTestId("draft-state")).toHaveText("Unsaved changes");
+    const visual = page.getByRole("img", { name: /Ui:.* Field 3 preview/i });
+    await expect(visual.getByText(field.label, { exact: true })).toBeVisible();
+    await page.getByRole("button", { name: "Save locally", exact: true }).click();
+    await page.reload();
+    await page.getByRole("button", { name: "Open saved", exact: true }).click();
+    await page.getByRole("treeitem", { name: field.layer }).click();
+    await expect(page.getByLabel("Field label", { exact: true })).toHaveValue(field.label);
+    await expect(page.getByLabel(field.input, { exact: true })).toHaveValue(field.value);
+  });
+}
