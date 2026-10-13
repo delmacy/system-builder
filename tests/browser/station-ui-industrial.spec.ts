@@ -86,3 +86,18 @@ test("Construction D real Studio geometry is adjustable without replacing workbe
   await expect(preview).toContainText("Workflow");
   await expect(preview.getByLabel("Studio split ratio")).toContainText("85%");
 });
+
+test("Construction D vertical and locked splitter preserve bounds and reject mutation", async ({ page }) => {
+  const lab = await openIndustrial(page);
+  await lab.getByLabel("Vertical split").check();
+  const separator = lab.getByRole("separator", { name: "Document panel split divider" });
+  await expect(separator).toHaveAttribute("aria-orientation", "horizontal");
+  await separator.focus();
+  await separator.press("ArrowDown");
+  await expect(lab.getByLabel("Split ratio")).toContainText("47%");
+  await lab.getByLabel("Lock split").check();
+  await expect(separator).toHaveAttribute("aria-disabled", "true");
+  await expect(separator).toHaveAttribute("tabindex", "-1");
+  await separator.dispatchEvent("keydown", { key: "ArrowDown" });
+  await expect(lab.getByLabel("Split ratio")).toContainText("47%");
+});
