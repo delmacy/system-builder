@@ -64,7 +64,7 @@ export function applyEditorStructure(session: EditorSession, intent: EditorStruc
       } else if (intent.type === "set-properties" || intent.type === "reset-properties") {
         if (!supportsButtonDisplayText(node.componentRef) ||
             (intent.type === "set-properties" && !validButtonProperties(intent.properties))) return reject("invalid-edit");
-        if (intent.type === "set-properties" ? node.properties?.variant === intent.properties.variant &&
+        if (intent.type === "set-properties" ? (node.properties && "variant" in node.properties ? node.properties.variant : undefined) === intent.properties.variant &&
             node.properties?.disabled === intent.properties.disabled : !Object.hasOwn(node, "properties"))
           return Object.freeze({ accepted: true, changed: false, session, selectedRef });
         const replacement = { ...node };
