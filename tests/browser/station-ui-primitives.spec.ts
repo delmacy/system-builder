@@ -83,3 +83,21 @@ test("Construction B native date and local file controls preserve state without 
   await expect(date).toHaveValue("2026-11-18");
   await expect(lab.getByLabel("Selected local files")).toContainText("local-note.txt");
 });
+
+
+test("Construction B combobox filters, selects with keyboard and rejects disabled options", async ({ page }) => {
+  const lab = await openPrimitives(page);
+  const input = lab.getByRole("combobox", { name: "Asset type autocomplete" });
+  await input.fill("doc");
+  await expect(lab.getByRole("listbox", { name: "Asset type autocomplete options" })).toBeVisible();
+  await expect(lab.getByRole("option", { name: "Document" })).toBeVisible();
+  await input.press("ArrowDown");
+  await input.press("Enter");
+  await expect(input).toHaveValue("Document");
+  await input.fill("xyz");
+  await expect(lab.getByText("No matches", { exact: true })).toBeVisible();
+  await input.press("Escape");
+  await expect(input).toHaveAttribute("aria-expanded", "false");
+  await input.fill("Unavailable");
+  await expect(lab.getByRole("option", { name: "Unavailable type" })).toBeDisabled();
+});
