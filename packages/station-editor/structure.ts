@@ -1,12 +1,31 @@
-import { validButtonProperties, type ButtonProperties, supportsButtonDisplayText, validButtonDisplayText, createCompositionDraftTransaction, type ComponentRegistry, type CompositionGraph } from "@system-builder/station-composition";
+import { validButtonProperties, validFoundationFieldProperties, type FoundationFieldProperties, type ButtonProperties, supportsButtonDisplayText, validButtonDisplayText, createCompositionDraftTransaction, type ComponentRegistry, type CompositionGraph } from "@system-builder/station-composition";
 import { createCompositionArtifact } from "./artifact-codec.js";
 import { acceptEditorDraft } from "./draft-boundary.js";
 import type { EditorSession } from "./session.js";
 
+/** Inputs have already passed the component-specific closed-world validators. */
+function sameInertProperties(left: unknown, right: unknown): boolean {
+  if (Object.is(left, right)) return true;
+  if (Array.isArray(left) || Array.isArray(right))
+    return Array.isArray(left) && Array.isArray(right) && left.length === right.length &&
+      left.every((value, index) => sameInertProperties(value, right[index]));
+  if (!left || !right || typeof left !== "object" || typeof right !== "object") return false;
+  const a = left as Record<string, unknown>, b = right as Record<string, unknown>;
+  const keys = Object.keys(a);
+  return keys.length === Object.keys(b).length &&
+    keys.every(key => Object.hasOwn(b, key) && sameInertProperties(a[key], b[key]));
+}
+function freezeInertProperties<T extends ButtonProperties | FoundationFieldProperties>(properties: T): T {
+  if ("choices" in properties) {
+    return Object.freeze({ ...properties, choices: Object.freeze(properties.choices.map(choice =>
+      Object.freeze({ ...choice }))) }) as T;
+  }
+  return Object.freeze({ ...properties }) as T;
+}
 export type EditorStructureIntent = Readonly<{ expectedDraftRevision: number; sessionRef: string; compositionRef: string }> & (
   | Readonly<{ type: "add-node"; nodeRef: string; componentRef: string; parentRef: string; slotRef: string }>
   | Readonly<{ type: "reparent-node"; nodeRef: string; parentRef: string; slotRef: string }>
-  | Readonly<{ type: "set-properties"; nodeRef: string; properties: ButtonProperties }>
+  | Readonly<{ type: "set-properties"; nodeRef: string; properties: ButtonProperties | FoundationFieldProperties }>
   | Readonly<{ type: "reset-properties"; nodeRef: string }>
   | Readonly<{ type: "set-text"; nodeRef: string; text: string }>
   | Readonly<{ type: "reset-text"; nodeRef: string }>
@@ -62,13 +81,17 @@ export function applyEditorStructure(session: EditorSession, intent: EditorStruc
           parentRef: intent.parentRef, slotRef: intent.slotRef } };
         nodes = nodes.map(item => item.ref === node.ref ? replacement : item);
       } else if (intent.type === "set-properties" || intent.type === "reset-properties") {
-        if (!supportsButtonDisplayText(node.componentRef) ||
-            (intent.type === "set-properties" && !validButtonProperties(intent.properties))) return reject("invalid-edit");
-        if (intent.type === "set-properties" ? (node.properties && "variant" in node.properties ? node.properties.variant : undefined) === intent.properties.variant &&
-            node.properties?.disabled === intent.properties.disabled : !Object.hasOwn(node, "properties"))
+        const button = supportsButtonDisplayText(node.componentRef);
+        if (!button && !["ui:color-field", "ui:property-picker", "ui:document-text-field"].includes(node.componentRef))
+          return reject("invalid-edit");
+        if (intent.type === "set-properties" &&
+            !(button ? validButtonProperties(intent.properties) :
+              validFoundationFieldProperties(node.componentRef, intent.properties))) return reject("invalid-edit");
+        if (intent.type === "set-properties" ?
+            sameInertProperties(node.properties, intent.properties) : !Object.hasOwn(node, "properties"))
           return Object.freeze({ accepted: true, changed: false, session, selectedRef });
         const replacement = { ...node };
-        if (intent.type === "set-properties") replacement.properties = Object.freeze({ ...intent.properties });
+        if (intent.type === "set-properties") replacement.properties = freezeInertProperties(intent.properties);
         else delete replacement.properties;
         nodes = nodes.map(item => item.ref === node.ref ? replacement : item);
       } else if (intent.type === "set-text" || intent.type === "reset-text") {
