@@ -99,9 +99,11 @@ test("navigation keyboard and disclosure states survive theme/density and compac
   await expect(lab.getByRole("button", { name: "Disabled reference section", exact: true })).toBeDisabled();
   await lab.getByRole("button", { name: "Reference additional information", exact: true }).click();
   await expect(lab.getByText("Additional reference content", { exact: true })).toBeVisible();
+  await page.getByRole("dialog", { name: "Component Lab", exact: true }).getByRole("tab", { name: "Foundations" }).click();
   const foundation = page.getByRole("region", { name: "Visual foundation reference", exact: true });
   await foundation.getByLabel("Reference theme", { exact: true }).selectOption("dark");
   await foundation.getByLabel("Reference density", { exact: true }).selectOption("compact");
+  await page.getByRole("dialog", { name: "Component Lab", exact: true }).getByRole("tab", { name: "Overlays" }).click();
   await page.setViewportSize({ width: 480, height: 860 });
   expect(await lab.evaluate(element => element.scrollWidth <= element.clientWidth)).toBe(true);
   await expect(lab.getByRole("tab", { name: "Reference details", exact: true })).toHaveAttribute("aria-selected", "true");
