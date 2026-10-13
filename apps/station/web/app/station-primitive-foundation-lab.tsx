@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Alert, Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle,
-  Checkbox, FieldDescription, FieldMessage, Label, NumberField, Progress, RadioGroup, Skeleton,
+  Checkbox, DateTimeField, FileField, FieldDescription, FieldMessage, Label, NumberField, Progress, RadioGroup, Skeleton,
   Slider, Switch, Textarea } from "../../../../packages/ui-core/index";
 
 export function StationPrimitiveFoundationLab() {
@@ -11,6 +11,8 @@ export function StationPrimitiveFoundationLab() {
   const [quantity, setQuantity] = useState<number | undefined>(2);
   const [progress, setProgress] = useState(40);
   const [submissions, setSubmissions] = useState(0);
+  const [appointment, setAppointment] = useState("");
+  const [files, setFiles] = useState<readonly string[]>([]);
   const invalidQuantity = quantity !== undefined && (quantity < 0 || quantity > 10);
   return <section aria-label="Primitive foundation reference" className="space-y-4">
     <header><h2 className="text-xl font-semibold">Form and feedback primitives</h2>
@@ -41,6 +43,8 @@ export function StationPrimitiveFoundationLab() {
           <Slider id="primitive-progress" min={0} max={100} step={5} value={progress} onChange={event => setProgress(Number(event.currentTarget.value))} />
           <Progress aria-label="Determinate reference" value={progress} /><output className="text-sm" aria-label="Progress reference value">{progress}%</output>
         </div>
+        <div className="space-y-2"><Label htmlFor="primitive-appointment">Appointment date</Label><DateTimeField id="primitive-appointment" aria-label="Appointment date" value={appointment} onChange={event => setAppointment(event.target.value)} /></div>
+        <div className="space-y-2"><Label htmlFor="primitive-files">Local files</Label><FileField id="primitive-files" aria-label="Local files" multiple onFilesChange={next => setFiles(next.map(file => file.name))} /><output aria-label="Selected local files" className="block text-xs text-muted-foreground">{files.length ? files.join(", ") : "No files selected"}</output><FieldDescription>Selection stays in this demo; no upload occurs.</FieldDescription></div>
         <div className="flex flex-wrap items-center gap-2 sm:col-span-2"><Button type="submit">Validate reference form</Button>
           <output aria-label="Reference submissions" className="text-sm">Accepted submissions: {submissions}</output></div>
       </form></CardContent>

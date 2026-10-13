@@ -68,3 +68,18 @@ test("primitive gallery is usable in dark compact narrow layout and preserves li
   expect(await lab.evaluate(element => element.scrollWidth <= element.clientWidth)).toBe(true);
   await info.attach("native-primitives-dark-compact", { body: await lab.screenshot({ animations: "disabled" }), contentType: "image/png" });
 });
+
+
+test("Construction B native date and local file controls preserve state without implicit uploads", async ({ page }) => {
+  const lab = await openPrimitives(page);
+  const date = lab.getByLabel("Appointment date", { exact: true });
+  await date.fill("2026-11-18");
+  await expect(date).toHaveValue("2026-11-18");
+  const file = lab.getByLabel("Local files", { exact: true });
+  await file.setInputFiles({ name: "local-note.txt", mimeType: "text/plain", buffer: Buffer.from("local only") });
+  await expect(lab.getByLabel("Selected local files")).toContainText("local-note.txt");
+  await page.getByRole("dialog", { name: "Component Lab", exact: true }).getByRole("tab", { name: "Foundations" }).click();
+  await page.getByRole("dialog", { name: "Component Lab", exact: true }).getByRole("tab", { name: "Primitives" }).click();
+  await expect(date).toHaveValue("2026-11-18");
+  await expect(lab.getByLabel("Selected local files")).toContainText("local-note.txt");
+});
