@@ -2,7 +2,7 @@
 {
   "id": "TASK-781",
   "title": "Adopt shared compact Studio area navigation",
-  "status": "ready",
+  "status": "verification",
   "priority": 781,
   "milestone": "WP-UI-FOUNDATION-01",
   "model_tier": "cheap",

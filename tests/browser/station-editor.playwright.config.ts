@@ -3,7 +3,7 @@ import { defineConfig } from "@playwright/test";
 
 export default defineConfig({
   testDir: ".",
-  testMatch: ["station-file-manager-adoption.spec.ts", "station-editor-workbench.spec.ts", "station-ui-foundation.spec.ts", "station-ui-primitives.spec.ts", "station-ui-overlays.spec.ts", "station-ui-industrial.spec.ts", "station-ui-collections.spec.ts"],
+  testMatch: ["station-studio-adoption.spec.ts", "station-file-manager-adoption.spec.ts", "station-editor-workbench.spec.ts", "station-ui-foundation.spec.ts", "station-ui-primitives.spec.ts", "station-ui-overlays.spec.ts", "station-ui-industrial.spec.ts", "station-ui-collections.spec.ts"],
   fullyParallel: false,
   workers: 1,
   retries: 0,
