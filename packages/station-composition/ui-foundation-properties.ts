@@ -50,7 +50,7 @@ export function validFoundationFieldProperties(ref: string, input: unknown): inp
     }
     if (ref === "ui:document-text-field") {
       return keysMatch(input, ["label", "value", "rows", "maxLength", "disabled", "readOnly"]) &&
-        Number.isSafeInteger(input.rows) && (input.rows as number) >= 1 && (input.rows as number) <= 24 &&
+        Number.isSafeInteger(input.rows) && (input.rows as number) >= 2 && (input.rows as number) <= 24 &&
         Number.isSafeInteger(input.maxLength) && (input.maxLength as number) >= 1 &&
         (input.maxLength as number) <= 10000 && flag(input.readOnly) &&
         safeText(input.value, input.maxLength as number);
