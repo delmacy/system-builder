@@ -1,5 +1,5 @@
 import {
-  BUTTON_GROUP_DESCRIPTOR, COMPONENT_FAMILIES, ComponentRegistry,
+  BUTTON_GROUP_DESCRIPTOR, COMPONENT_FAMILIES, ComponentRegistry, UI_FOUNDATION_DESCRIPTORS,
   defineCompositionGraph, normalizeComponentDescriptor, validateCompositionGraph,
   type ComponentDescriptor, type CompositionGraph,
 } from "../../../../packages/station-composition/index.js";
@@ -58,7 +58,7 @@ function frozenGraph(graph: CompositionGraph): CompositionGraph {
 const sources: readonly EditorCatalogDefinition[] = Object.freeze([
   Object.freeze({
     compositionRef: "composition:example", applicationRef: "app:composition-editor",
-    title: "Example composition", revision: 7, descriptors: Object.freeze([grid, button]),
+    title: "Example composition", revision: 7, descriptors: Object.freeze([grid, button, ...UI_FOUNDATION_DESCRIPTORS]),
     composition: frozenGraph(defineCompositionGraph({ rootRef: "node:root", nodes: [
       { ref: "node:root", componentRef: grid.id },
       { ref: "node:button-1", componentRef: button.id,

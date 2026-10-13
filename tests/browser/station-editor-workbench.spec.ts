@@ -2142,3 +2142,22 @@ test.describe("Studios WP02 shared icons", () => {
     await expect(workflow).toHaveAttribute("aria-pressed", "true");
   });
 });
+
+test("Construction G exposes registered color field in real Editor and admits insertion", async ({ page }) => {
+  const picker = page.getByLabel("Component to add", { exact: true });
+  await expect(picker.locator('option[value="ui:color-field"]')).toHaveCount(1);
+  await picker.selectOption("ui:color-field");
+  await page.getByRole("button", { name: "Add component", exact: true }).click();
+  await expect(page.getByTestId("draft-state")).toHaveText("Unsaved changes");
+  await expect(page.getByRole("treeitem", { name: /Ui:color Field 3/i })).toBeVisible();
+});
+
+test("Construction G reopens a saved composition containing an admitted foundation field", async ({ page }) => {
+  await page.getByLabel("Component to add", { exact: true }).selectOption("ui:color-field");
+  await page.getByRole("button", { name: "Add component", exact: true }).click();
+  await expect(page.getByRole("treeitem", { name: /Ui:color Field 3/i })).toBeVisible();
+  await page.getByRole("button", { name: "Save locally", exact: true }).click();
+  await page.reload();
+  await page.getByRole("button", { name: "Open saved", exact: true }).click();
+  await expect(page.getByRole("treeitem", { name: /Ui:color Field 3/i })).toBeVisible();
+});
