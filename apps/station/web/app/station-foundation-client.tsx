@@ -147,8 +147,10 @@ export function StationFoundationClient() {
             event.preventDefault();
             const index = LAB_TABS.findIndex(item => item.id === labTab);
             const next = event.key === "Home" ? 0 : event.key === "End" ? LAB_TABS.length - 1 : (index + (event.key === "ArrowRight" ? 1 : -1) + LAB_TABS.length) % LAB_TABS.length;
-            setLabTab(LAB_TABS[next].id);
-            document.getElementById(`lab-tab-${LAB_TABS[next].id}`)?.focus();
+            const target = LAB_TABS[next];
+            if (!target) return;
+            setLabTab(target.id);
+            document.getElementById(`lab-tab-${target.id}`)?.focus();
           }}>{tab.label}</button>)}
       </nav>
       <div role="tabpanel" id={`lab-panel-${labTab}`} aria-labelledby={`lab-tab-${labTab}`} tabIndex={0} className="min-w-0 space-y-4">
