@@ -120,3 +120,16 @@ test("Construction B loading indicator exposes its accessible status in Primitiv
   await expect(spinner).toBeVisible();
   await expect(spinner).toHaveAttribute("data-slot", "spinner");
 });
+
+test("Construction B PasswordField toggles visibility without losing input or activating form", async ({ page }) => {
+  const lab = await openPrimitives(page);
+  const secret = lab.getByRole("textbox", { name: "Password visibility" });
+  await secret.fill("sample-only");
+  await expect(secret).toHaveAttribute("type", "password");
+  await lab.getByRole("button", { name: "Show password" }).click();
+  await expect(secret).toHaveAttribute("type", "text");
+  await expect(secret).toHaveValue("sample-only");
+  await lab.getByRole("button", { name: "Hide password" }).click();
+  await expect(secret).toHaveAttribute("type", "password");
+  await expect(secret).toHaveValue("sample-only");
+});
