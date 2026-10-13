@@ -241,3 +241,21 @@ test("Construction C tree exposes sibling positions without duplicate DOM identi
   const ids = await tree.getByRole("treeitem").evaluateAll(items => items.map(item => item.id).filter(Boolean));
   expect(new Set(ids).size).toBe(ids.length);
 });
+
+test("Construction C roving tab stop follows focused visible tree item", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Open applications", exact: true }).click();
+  await page.locator('[data-app-ref="app:component-lab"]').click();
+  const win = page.getByRole("dialog", { name: "Component Lab", exact: true });
+  await win.getByRole("tab", { name: "Overlays" }).click();
+  const tree = win.getByRole("tree", { name: "Studio navigation tree" });
+  const station = tree.getByRole("treeitem", { name: "Station" });
+  const documents = tree.getByRole("treeitem", { name: "Documents" });
+  await expect(station).toHaveAttribute("tabindex", "0");
+  await expect(documents).toHaveAttribute("tabindex", "-1");
+  await station.focus();
+  await station.press("ArrowDown");
+  await expect(documents).toBeFocused();
+  await expect(documents).toHaveAttribute("tabindex", "0");
+  await expect(station).toHaveAttribute("tabindex", "-1");
+});
