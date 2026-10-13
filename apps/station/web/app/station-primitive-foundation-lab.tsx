@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { StationIcon } from "../../../../packages/ui-icons/index";
 import { Alert, Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle,
   Checkbox, FieldDescription, FieldMessage, Label, NumberField, Progress, RadioGroup, Skeleton,
   Slider, Switch, Textarea } from "../../../../packages/ui-core/index";
@@ -41,7 +42,7 @@ export function StationPrimitiveFoundationLab() {
           <Slider id="primitive-progress" min={0} max={100} step={5} value={progress} onChange={event => setProgress(Number(event.currentTarget.value))} />
           <Progress aria-label="Determinate reference" value={progress} /><output className="text-sm" aria-label="Progress reference value">{progress}%</output>
         </div>
-        <div className="flex flex-wrap items-center gap-2 sm:col-span-2"><Button type="submit">Validate reference form</Button>
+        <div className="flex flex-wrap items-center gap-2 sm:col-span-2"><Button type="submit"><StationIcon token="edit.confirm" className="shrink-0" />Validate reference form</Button>
           <output aria-label="Reference submissions" className="text-sm">Accepted submissions: {submissions}</output></div>
       </form></CardContent>
       <CardFooter><span className="text-xs text-muted-foreground">Presentation-only reference. No owner service or business command is called.</span></CardFooter>
