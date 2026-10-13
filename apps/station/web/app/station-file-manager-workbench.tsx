@@ -140,7 +140,7 @@ export function StationFileManagerWorkbench({ onOpen }: { onOpen: (text: string)
       </nav>
       <section aria-label="Folder contents" className="min-h-0 min-w-0 overflow-auto p-3">
         <div className={contentView === "grid" ? "grid grid-cols-[repeat(auto-fill,minmax(120px,1fr))] gap-3" : "space-y-2"}>
-          {view.workspace.folders.filter(f => f.parentRef === folder).map(f => <Button key={f.ref} variant="ghost"
+          {view.workspace.folders.filter(f => f.parentRef === folder).map(f => <Button key={f.ref} variant="ghost" aria-label={`Folder: ${f.name}`}
             className={contentView === "grid" ? "h-auto min-h-28 w-full flex-col gap-2 rounded-xl border px-3 py-4 whitespace-normal break-words text-center" : "h-auto w-full justify-start gap-3 whitespace-normal break-words"}
             onClick={() => navigate(f.ref)}><StationIcon token="workspace.folder" size={contentView === "grid" ? 42 : 22} className="shrink-0 text-primary" /><span className="min-w-0">{f.name}</span></Button>)}
           {view.workspace.files.filter(f => f.folderRef === folder).map(f => <Button key={f.ref} aria-label={f.name} variant={selected === f.ref ? "secondary" : "ghost"}
