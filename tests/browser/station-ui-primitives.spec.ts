@@ -100,3 +100,16 @@ test("Construction B combobox filters, selects with keyboard and rejects disable
   await input.fill("Unavailable");
   await expect(lab.getByRole("option", { name: "Unavailable type" })).toBeDisabled();
 });
+
+test("Construction B InputGroup keeps semantic search and enables icon-only clear action", async ({ page }) => {
+  const lab = await openPrimitives(page);
+  const search = lab.getByRole("searchbox", { name: "Primitive grouped search" });
+  const clear = lab.getByRole("button", { name: "Clear primitive search" });
+  await expect(clear).toBeDisabled();
+  await search.fill("Button");
+  await expect(search).toHaveValue("Button");
+  await expect(clear).toBeEnabled();
+  await clear.click();
+  await expect(search).toHaveValue("");
+  await expect(clear).toBeDisabled();
+});
