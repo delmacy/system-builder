@@ -24,7 +24,7 @@ const cases = [
 function graph(id: string, properties: unknown) {
   return defineCompositionGraph({ rootRef: "root", nodes: [
     { ref: "root", componentRef: root.id },
-    { ref: "field", componentRef: id, placement: { parentRef: "root", slotRef: "content", columnSpan: 2, rowSpan: 2 }, properties: properties as CompositionNode["properties"] },
+    { ref: "field", componentRef: id, placement: { parentRef: "root", slotRef: "content", columnSpan: 2, rowSpan: 2 }, properties: properties as NonNullable<CompositionNode["properties"]> },
   ] });
 }
 test("Construction G canonical graph admits typed fields and rejects malformed overrides", () => {
