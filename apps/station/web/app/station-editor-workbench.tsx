@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect, useReducer, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
-import { Button } from "../../../../packages/ui-core/index";
+import { Button, ColorField, PropertyPicker, DocumentTextField } from "../../../../packages/ui-core/index";
 import { DEFAULT_COMPOSITION_REF, initializeCatalogEditorSession, listEditorCatalog, resolveEditorCatalogEntry, type EditorCatalogEntry } from "./station-editor-catalog";
 import { prepareEditorArtifact, readEditorArtifact, requestArtifactDownload, sameEditorArtifactGraph } from "./station-editor-files";
 import { importCatalogArtifact } from "./station-editor-artifact";
 import { StationWorkspaceSave } from "./station-workspace-save";
 import { StationWorkspaceRevisionSave } from "./station-workspace-revision-save";
-import { supportsButtonDisplayText, type ButtonProperties } from "../../../../packages/station-composition/index";
+import { supportsButtonDisplayText, validFoundationFieldProperties, type ButtonProperties, type FoundationFieldProperties } from "../../../../packages/station-composition/index";
 import type { EditorLayer } from "../../../../packages/station-editor/index";
 import {
   projectEditorLayers, selectEditorLayer,
@@ -20,14 +20,17 @@ import {
 type State = Readonly<{
   entry: EditorCatalogEntry; history: EditorHistory; selection: LayersSelection;
   pendingRef: string | null;
-  columns: string; rows: string; buttonText: string; propertyVariant: string; propertyDisabled: string; message: string; invalid: boolean;
+  columns: string; rows: string; buttonText: string; propertyVariant: string; propertyDisabled: string;
+  foundationLabel: string; foundationValue: string; foundationDisabled: string; foundationRows: string;
+  foundationMaxLength: string; foundationReadOnly: string; foundationChoices: string;
+  message: string; invalid: boolean;
   document: CompositionArtifact | null; savedText: string | null;
   pendingArtifact: Readonly<{ document: CompositionArtifact; savedText: string | null }> | null;
 }>;
 type Action =
   | { type: "structure"; operation: "add-node" | "remove-subtree" | "reorder-node" | "reparent-node"; componentRef?: string; parentRef?: string; slotRef?: string; direction?: "before" | "after" }
   | { type: "select"; ref: string }
-  | { type: "field"; field: "columns" | "rows" | "buttonText" | "propertyVariant" | "propertyDisabled"; value: string }
+  | { type: "field"; field: "columns" | "rows" | "buttonText" | "propertyVariant" | "propertyDisabled" | "foundationLabel" | "foundationValue" | "foundationDisabled" | "foundationRows" | "foundationMaxLength" | "foundationReadOnly" | "foundationChoices"; value: string }
   | { type: "apply" | "save" | "discard" | "undo" | "redo" | "apply-text" | "reset-text" | "apply-properties" | "reset-properties" | "restore-fields" }
   | { type: "request-switch"; ref: string }
   | { type: "cancel-switch" | "confirm-switch" }
@@ -36,17 +39,48 @@ type Action =
   | { type: "cancel-open" | "confirm-open" }
   | { type: "saved-artifact"; document: CompositionArtifact; savedText: string; expectedSession: EditorSession };
 
+function foundationDefault(ref: string): FoundationFieldProperties | null {
+  if (ref === "ui:color-field") return { label: "Color", value: "#000000", disabled: false };
+  if (ref === "ui:property-picker") return { label: "Property", value: "default", disabled: false,
+    choices: [{ id: "default", label: "Default", disabled: false }] };
+  if (ref === "ui:document-text-field") return { label: "Document", value: "", rows: 4,
+    maxLength: 2000, disabled: false, readOnly: false };
+  return null;
+}
+function foundationValue(ref: string, properties: unknown): FoundationFieldProperties | null {
+  return validFoundationFieldProperties(ref, properties) ? properties : foundationDefault(ref);
+}
+function formatChoices(choices: readonly Readonly<{ id: string; label: string; disabled: boolean }>[]): string {
+  return choices.map(choice => [choice.id, choice.label, String(choice.disabled)].join(" | ")).join("\n");
+}
+function parseChoices(text: string) {
+  return text.split("\n").map(line => {
+    const fields = line.split("|").map(part => part.trim());
+    return { id: fields[0] ?? "", label: fields[1] ?? "", disabled: fields[2] === "true" };
+  });
+}
 function fields(session: EditorSession, selection: LayersSelection) {
   const result = projectEditorInspector(session, selection, session.draftRevision);
   const placement = result.accepted && result.snapshot.kind === "node" ? result.snapshot.placement : null;
   const node = session.transaction.draft.nodes.find(item => item.ref === selection.selectedRef);
-  return { propertyVariant: (node?.properties && "variant" in node.properties ? node.properties.variant : "default"), propertyDisabled: String(node?.properties?.disabled ?? false), buttonText: node?.text ?? "", columns: placement ? String(placement.columnSpan) : "", rows: placement ? String(placement.rowSpan) : "" };
+  const foundation = foundationValue(node?.componentRef ?? "", node?.properties);
+  return { propertyVariant: (node?.properties && "variant" in node.properties ? node.properties.variant : "default"),
+    propertyDisabled: String(node?.properties?.disabled ?? false), buttonText: node?.text ?? "",
+    columns: placement ? String(placement.columnSpan) : "", rows: placement ? String(placement.rowSpan) : "",
+    foundationLabel: foundation?.label ?? "", foundationValue: foundation?.value ?? "",
+    foundationDisabled: String(foundation?.disabled ?? false),
+    foundationRows: foundation && "rows" in foundation ? String(foundation.rows) : "4",
+    foundationMaxLength: foundation && "maxLength" in foundation ? String(foundation.maxLength) : "2000",
+    foundationReadOnly: String(foundation && "readOnly" in foundation ? foundation.readOnly : false),
+    foundationChoices: foundation && "choices" in foundation ? formatChoices(foundation.choices) : "" };
 }
 function initialState(ref: string): State | null {
   const result = initializeCatalogEditorSession(ref, "session:visual-workbench");
   if (!result.accepted) return null;
   return { entry: result.entry, history: createEditorHistory(result.session), selection: { selectedRef: null },
-    columns: "", rows: "", buttonText: "", propertyVariant: "default", propertyDisabled: "false", message: "Select a layer to edit its size.", invalid: false, pendingRef: null,
+    columns: "", rows: "", buttonText: "", propertyVariant: "default", propertyDisabled: "false",
+    foundationLabel: "", foundationValue: "", foundationDisabled: "false", foundationRows: "4",
+    foundationMaxLength: "2000", foundationReadOnly: "false", foundationChoices: "", message: "Select a layer to edit its size.", invalid: false, pendingRef: null,
     document: null, savedText: null, pendingArtifact: null };
 }
 function replaceArtifact(state: State, candidate: { document: CompositionArtifact; savedText: string | null }): State {
@@ -75,7 +109,11 @@ function historyBlocked(state: State): boolean {
 }
 function propertiesPending(state: State): boolean {
   const applied = fields(state.history.session, state.selection);
-  return state.propertyVariant !== applied.propertyVariant || state.propertyDisabled !== applied.propertyDisabled;
+  return state.propertyVariant !== applied.propertyVariant || state.propertyDisabled !== applied.propertyDisabled ||
+    state.foundationLabel !== applied.foundationLabel || state.foundationValue !== applied.foundationValue ||
+    state.foundationDisabled !== applied.foundationDisabled || state.foundationRows !== applied.foundationRows ||
+    state.foundationMaxLength !== applied.foundationMaxLength || state.foundationReadOnly !== applied.foundationReadOnly ||
+    state.foundationChoices !== applied.foundationChoices;
 }
 function textPending(state: State): boolean {
   return state.buttonText !== fields(state.history.session, state.selection).buttonText;
@@ -138,16 +176,26 @@ function reducer(state: State | null, action: Action): State | null {
         state.columns !== applied.columns || state.rows !== applied.rows)
       return { ...state, invalid: false, message: "Apply or restore the other Inspector fields and finish the pending open before editing properties." };
     const nodeRef = state.selection.selectedRef;
-    if (!nodeRef) return { ...state, invalid: true, message: "Select a button to edit properties." };
+    if (!nodeRef) return { ...state, invalid: true, message: "Select a component to edit properties." };
     const common = { sessionRef: state.history.session.sessionRef, compositionRef: state.entry.compositionRef,
       expectedDraftRevision: state.history.session.draftRevision, nodeRef };
-    const intent = action.type === "apply-properties" ? { ...common, type: "set-properties" as const,
-      properties: { variant: state.propertyVariant as ButtonProperties["variant"], disabled: state.propertyDisabled === "true" } }
+    const ref = state.history.session.transaction.draft.nodes.find(node => node.ref === nodeRef)?.componentRef ?? "";
+    const properties = ref === "ui:color-field" ? {
+      label: state.foundationLabel, value: state.foundationValue, disabled: state.foundationDisabled === "true",
+    } : ref === "ui:property-picker" ? {
+      label: state.foundationLabel, value: state.foundationValue, disabled: state.foundationDisabled === "true",
+      choices: parseChoices(state.foundationChoices),
+    } : ref === "ui:document-text-field" ? {
+      label: state.foundationLabel, value: state.foundationValue, disabled: state.foundationDisabled === "true",
+      rows: Number(state.foundationRows), maxLength: Number(state.foundationMaxLength),
+      readOnly: state.foundationReadOnly === "true",
+    } : { variant: state.propertyVariant as ButtonProperties["variant"], disabled: state.propertyDisabled === "true" };
+    const intent = action.type === "apply-properties" ? { ...common, type: "set-properties" as const, properties }
       : { ...common, type: "reset-properties" as const };
     const result = applyEditorHistoryStructure(state.history, intent, state.entry.registry);
-    if (!result.accepted) return { ...state, invalid: true, message: "These button properties are invalid. The composition is unchanged." };
+    if (!result.accepted) return { ...state, invalid: true, message: "These component properties are invalid. The composition is unchanged." };
     return { ...state, history: result.history, ...fields(result.history.session, state.selection), invalid: false,
-      message: result.changed ? "Button properties updated. Save or discard your changes." : "The properties are already applied." };
+      message: result.changed ? "Component properties updated. Save or discard your changes." : "The properties are already applied." };
   }
   if (action.type === "apply-text" || action.type === "reset-text") {
     if (propertiesPending(state)) return { ...state, invalid: false, message: "Apply or restore the property fields before editing text." };
@@ -359,6 +407,15 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
       layout === "row" ? "flex flex-wrap gap-2" : "flex flex-col gap-2";
     if (node.kind === "root") return <div data-root-ref={node.nodeRef} className={container}>{children}</div>;
     const properties = node.properties;
+    const sourceProperties = foundationValue(node.componentRef, properties);
+    const inertPreview = sourceProperties ?
+      node.componentRef === "ui:color-field" ?
+        <ColorField label={sourceProperties.label} value={sourceProperties.value} disabled={sourceProperties.disabled} onValueChange={() => {}} /> :
+      node.componentRef === "ui:property-picker" && "choices" in sourceProperties ?
+        <PropertyPicker label={sourceProperties.label} value={sourceProperties.value} choices={sourceProperties.choices} disabled={sourceProperties.disabled} onValueChange={() => {}} /> :
+      node.componentRef === "ui:document-text-field" && "rows" in sourceProperties ?
+        <DocumentTextField label={sourceProperties.label} value={sourceProperties.value} rows={sourceProperties.rows}
+          maxLength={sourceProperties.maxLength} disabled={sourceProperties.disabled} readOnly={sourceProperties.readOnly} onValueChange={() => {}} /> : null : null;
     const variant = properties && "variant" in properties ? properties.variant : "default";
     const appearance = variant === "outline" ? "bg-transparent border-foreground/50" :
       variant === "ghost" ? "bg-transparent border-transparent" : "bg-primary/15 border-primary/40";
@@ -394,6 +451,7 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
   const moveSlots = moveParent ? state.entry.registry.get(moveParent.componentRef)?.slots.filter(slot => slot.childPolicy !== "none") ?? [] : [];
   const moveSlot = moveSlots.find(slot => slot.id === moveSlotRef)?.id ?? moveSlots.find(slot => slot.id === selectedNode?.placement?.slotRef)?.id ?? moveSlots[0]?.id ?? "";
   const textEditable = !!selectedNode?.placement && supportsButtonDisplayText(selectedNode.componentRef);
+  const foundationEditable = !!selectedNode?.placement && foundationDefault(selectedNode.componentRef) !== null;
   const siblings = selectedNode?.placement ? graph.nodes.filter(node => node.placement?.parentRef === selectedNode.placement!.parentRef &&
     node.placement?.slotRef === selectedNode.placement!.slotRef) : [];
   const siblingIndex = siblings.findIndex(node => node.ref === selectedNode?.ref);
@@ -539,6 +597,39 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
           <p id="properties-help" className="text-xs text-muted-foreground">Presentation only. Reset restores the original appearance.</p>
           <div className="flex flex-wrap gap-2"><Button type="submit" variant="outline">Apply properties</Button>
             <Button type="button" variant="outline" onClick={() => dispatch({ type: "reset-properties" })}>Reset properties</Button></div>
+        </form> : null}
+        {foundationEditable ? <form onSubmit={event => { event.preventDefault(); dispatch({ type: "apply-properties" }); }}
+          className="mt-5 space-y-3 border-t pt-4" aria-label="Foundation field properties">
+          <h3 className="font-semibold">Field properties</h3>
+          <label htmlFor="foundation-label" className="block text-sm">Field label</label>
+          <input id="foundation-label" value={state.foundationLabel} onChange={event => dispatch({ type: "field", field: "foundationLabel", value: event.target.value })}
+            className="w-full rounded-md border bg-background p-2" />
+          <label htmlFor="foundation-value" className="block text-sm">{selectedNode?.componentRef === "ui:color-field" ? "Hex color" :
+            selectedNode?.componentRef === "ui:property-picker" ? "Selected choice ID" : "Document text"}</label>
+          {selectedNode?.componentRef === "ui:document-text-field" ?
+            <textarea id="foundation-value" value={state.foundationValue} onChange={event => dispatch({ type: "field", field: "foundationValue", value: event.target.value })}
+              className="w-full min-h-24 rounded-md border bg-background p-2" /> :
+            <input id="foundation-value" value={state.foundationValue} onChange={event => dispatch({ type: "field", field: "foundationValue", value: event.target.value })}
+              className="w-full rounded-md border bg-background p-2" />}
+          {selectedNode?.componentRef === "ui:property-picker" ? <>
+            <label htmlFor="foundation-choices" className="block text-sm">Choices (ID | label | disabled)</label>
+            <textarea id="foundation-choices" value={state.foundationChoices} onChange={event => dispatch({ type: "field", field: "foundationChoices", value: event.target.value })}
+              className="w-full min-h-24 rounded-md border bg-background p-2 font-mono text-sm" />
+          </> : null}
+          {selectedNode?.componentRef === "ui:document-text-field" ? <>
+            <label htmlFor="foundation-rows" className="block text-sm">Document rows</label>
+            <input id="foundation-rows" type="number" min={2} max={24} value={state.foundationRows}
+              onChange={event => dispatch({ type: "field", field: "foundationRows", value: event.target.value })} className="w-full rounded-md border bg-background p-2" />
+            <label htmlFor="foundation-max-length" className="block text-sm">Maximum characters</label>
+            <input id="foundation-max-length" type="number" min={1} max={10000} value={state.foundationMaxLength}
+              onChange={event => dispatch({ type: "field", field: "foundationMaxLength", value: event.target.value })} className="w-full rounded-md border bg-background p-2" />
+            <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={state.foundationReadOnly === "true"}
+              onChange={event => dispatch({ type: "field", field: "foundationReadOnly", value: String(event.target.checked) })} />Read only</label>
+          </> : null}
+          <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={state.foundationDisabled === "true"}
+            onChange={event => dispatch({ type: "field", field: "foundationDisabled", value: String(event.target.checked) })} />Disabled field</label>
+          <div className="flex gap-2"><Button type="submit" variant="outline">Apply field properties</Button>
+            <Button type="button" variant="outline" onClick={() => dispatch({ type: "reset-properties" })}>Reset field properties</Button></div>
         </form> : null}
         {editable ? <Button variant="outline" className="mt-3" onClick={() => dispatch({ type: "restore-fields" })}>Restore fields</Button> : null}
         <div role="group" aria-label="Composition structure" className="mt-5 space-y-3 border-t pt-4">
