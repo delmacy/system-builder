@@ -1,4 +1,4 @@
-import { validButtonProperties, type ButtonProperties, supportsButtonDisplayText, validButtonDisplayText, createCompositionDraftTransaction, type ComponentRegistry, type CompositionGraph } from "@system-builder/station-composition";
+import { freezeComponentProperties, validComponentProperties, type ComponentProperties, supportsComponentDisplayText, validButtonDisplayText, createCompositionDraftTransaction, type ComponentRegistry, type CompositionGraph } from "@system-builder/station-composition";
 import { createCompositionArtifact } from "./artifact-codec.js";
 import { acceptEditorDraft } from "./draft-boundary.js";
 import type { EditorSession } from "./session.js";
@@ -6,7 +6,7 @@ import type { EditorSession } from "./session.js";
 export type EditorStructureIntent = Readonly<{ expectedDraftRevision: number; sessionRef: string; compositionRef: string }> & (
   | Readonly<{ type: "add-node"; nodeRef: string; componentRef: string; parentRef: string; slotRef: string }>
   | Readonly<{ type: "reparent-node"; nodeRef: string; parentRef: string; slotRef: string }>
-  | Readonly<{ type: "set-properties"; nodeRef: string; properties: ButtonProperties }>
+  | Readonly<{ type: "set-properties"; nodeRef: string; properties: ComponentProperties }>
   | Readonly<{ type: "reset-properties"; nodeRef: string }>
   | Readonly<{ type: "set-text"; nodeRef: string; text: string }>
   | Readonly<{ type: "reset-text"; nodeRef: string }>
@@ -62,17 +62,16 @@ export function applyEditorStructure(session: EditorSession, intent: EditorStruc
           parentRef: intent.parentRef, slotRef: intent.slotRef } };
         nodes = nodes.map(item => item.ref === node.ref ? replacement : item);
       } else if (intent.type === "set-properties" || intent.type === "reset-properties") {
-        if (!supportsButtonDisplayText(node.componentRef) ||
-            (intent.type === "set-properties" && !validButtonProperties(intent.properties))) return reject("invalid-edit");
-        if (intent.type === "set-properties" ? node.properties?.variant === intent.properties.variant &&
-            node.properties?.disabled === intent.properties.disabled : !Object.hasOwn(node, "properties"))
+        if (!supportsComponentDisplayText(node.componentRef) ||
+            (intent.type === "set-properties" && !validComponentProperties(intent.properties, node.componentRef))) return reject("invalid-edit");
+        if (intent.type === "set-properties" ? node.properties !== undefined && JSON.stringify(freezeComponentProperties(node.properties)) === JSON.stringify(freezeComponentProperties(intent.properties)) : !Object.hasOwn(node, "properties"))
           return Object.freeze({ accepted: true, changed: false, session, selectedRef });
         const replacement = { ...node };
-        if (intent.type === "set-properties") replacement.properties = Object.freeze({ ...intent.properties });
+        if (intent.type === "set-properties") replacement.properties = freezeComponentProperties(intent.properties);
         else delete replacement.properties;
         nodes = nodes.map(item => item.ref === node.ref ? replacement : item);
       } else if (intent.type === "set-text" || intent.type === "reset-text") {
-        if (!supportsButtonDisplayText(node.componentRef) ||
+        if (!supportsComponentDisplayText(node.componentRef) ||
             (intent.type === "set-text" && !validButtonDisplayText(intent.text))) return reject("invalid-edit");
         if (intent.type === "set-text" ? node.text === intent.text : !Object.hasOwn(node, "text"))
           return Object.freeze({ accepted: true, changed: false, session, selectedRef });

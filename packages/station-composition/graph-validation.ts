@@ -1,5 +1,5 @@
 import type { ComponentRegistry } from "./registry.js";
-import { validButtonProperties, validButtonDisplayText, supportsButtonDisplayText, type CompositionGraph, type CompositionNode } from "./graph.js";
+import { validComponentProperties, validButtonDisplayText, supportsComponentDisplayText, type CompositionGraph, type CompositionNode } from "./graph.js";
 import { validateCompositionPlacement } from "./validation.js";
 
 export type CompositionGraphFindingCode =
@@ -39,11 +39,11 @@ export function validateCompositionGraph(graph: CompositionGraph, registry: Comp
 
   for (const node of [...graph.nodes].sort((a, b) => a.ref.localeCompare(b.ref) || a.componentRef.localeCompare(b.componentRef))) {
     if (Object.hasOwn(node, "text") && (node.ref === graph.rootRef ||
-        !supportsButtonDisplayText(node.componentRef) || !validButtonDisplayText(node.text))) {
+        !supportsComponentDisplayText(node.componentRef) || !validButtonDisplayText(node.text))) {
       findings.push(finding("invalid-display-text", node.ref, "invalid button display text"));
     }
     if (Object.hasOwn(node, "properties") && (node.ref === graph.rootRef ||
-        !supportsButtonDisplayText(node.componentRef) || !validButtonProperties(node.properties))) {
+        !supportsComponentDisplayText(node.componentRef) || !validComponentProperties(node.properties, node.componentRef))) {
       findings.push(finding("invalid-button-properties", node.ref, "invalid button properties"));
     }
     const child = registry.get(node.componentRef);

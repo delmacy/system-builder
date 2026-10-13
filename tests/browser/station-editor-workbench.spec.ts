@@ -682,9 +682,9 @@ test.describe("WP5 bounded structural authoring", () => {
   const button = (page: Page, name: string) => page.getByRole("button", { name, exact: true });
   const layer = (page: Page, name: string) => page.getByRole("treeitem", { name, exact: true });
   async function add(page: Page, component = "component:button", parent = "node:root", slot = "content") {
-    await page.getByLabel("Component to add", { exact: true }).selectOption(component);
     await page.getByLabel("Container", { exact: true }).selectOption(parent);
     await page.getByLabel("Slot", { exact: true }).selectOption(slot);
+    await page.getByLabel("Component to add", { exact: true }).selectOption(component);
     await button(page, "Add component").click();
   }
   const previewRefs = (page: Page) => page.getByLabel("Composition preview", { exact: true }).locator("[data-node-ref]").evaluateAll(nodes => nodes.map(node => node.getAttribute("data-node-ref")));
@@ -726,9 +726,12 @@ test.describe("WP5 bounded structural authoring", () => {
 
   test("typed group slots reject occupancy and incompatible components, then recover", async ({ page }) => {
     await page.getByLabel("Composition", { exact: true }).selectOption("composition:button-group");
-    await add(page, "component:lab-button", "layer:button-group", "button-1");
-    await expect(editor(page)).toHaveAttribute("data-draft-revision", "7"); await expect(page.getByRole("status")).toContainText("unchanged");
-    await add(page, "component:button-group", "layer:button-group", "button-3");
+    await page.getByLabel("Slot", { exact: true }).selectOption("button-1");
+    await expect(page.getByLabel("Component to add").locator("option")).toHaveCount(0);
+    await expect(button(page, "Add component")).toBeDisabled();
+    await expect(editor(page)).toHaveAttribute("data-draft-revision", "7");
+    await page.getByLabel("Slot", { exact: true }).selectOption("button-3");
+    await expect(page.getByLabel("Component to add").locator('option[value="component:button-group"]')).toHaveCount(0);
     await expect(editor(page)).toHaveAttribute("data-draft-revision", "7");
     await add(page, "component:lab-button", "layer:button-group", "button-3");
     await expect(layer(page, "Button 3")).toBeVisible(); await expect(preview(page, "Button 3")).toHaveAttribute("data-slot-ref", "button-3");
@@ -932,7 +935,7 @@ test.describe("WP8 typed button properties", () => {
     await layer(page, "Group Button 1").click(); await apply(page, "ghost", false);
     await expect(preview(page, "Group Button 1")).toHaveAttribute("data-button-variant", "ghost");
   });
-  test("properties/text/span/structure download v4 reopens in a real fresh session", async ({ page, browser }) => {
+  test("properties/text/span/structure download v4 reopens in a real fresh session", async ({ page, browser }, testInfo) => {
     await layer(page).click(); await apply(page, "ghost", true);
     await page.getByLabel("Button text", { exact: true }).fill("Confirmar WP8"); await b(page, "Apply text").click();
     await span(page, "3"); await b(page, "Add component").click();
@@ -944,6 +947,12 @@ test.describe("WP8 typed button properties", () => {
       await other.getByLabel("Composition file", { exact: true }).setInputFiles({ name: "wp8.json", mimeType: "application/json", buffer: bytes });
       await expect(preview(other, "Confirmar WP8")).toHaveAttribute("data-column-span", "3");
       await expect(preview(other, "Confirmar WP8")).toHaveAttribute("aria-disabled", "true");
+      const renderedButton = preview(other, "Confirmar WP8").locator('button[data-slot="button"]');
+      await expect(renderedButton).toHaveText("Confirmar WP8");
+      await expect(renderedButton).toBeDisabled();
+      await expect(renderedButton).toHaveAttribute("data-preview-variant", "ghost");
+      await expect(renderedButton).toHaveAttribute("tabindex", "-1");
+      await other.screenshot({ path: testInfo.outputPath("foundation-shared-button-fresh-reopen.png"), fullPage: true });
       await layer(other, "Confirmar WP8").click(); await expect(variant(other)).toHaveValue("ghost");
       await expect(b(other, "Undo")).toHaveAttribute("aria-disabled", "true");
     } finally { await context.close(); }
@@ -988,7 +997,7 @@ test.describe("WP8 typed button properties", () => {
     await file.setInputFiles({ name: "original.json", mimeType: "application/json", buffer: bytes });
     await b(page, "Discard changes and open file").click(); await expect(variant(page)).toHaveValue("default");
     await apply(page); const authored = await downloadedComposition(page); const doc = JSON.parse(authored.toString());
-    for (const version of ["3.0.0", "5.0.0"]) {
+    for (const version of ["3.0.0", "9.0.0"]) {
       await file.setInputFiles({ name: "bad-version.json", mimeType: "application/json", buffer: Buffer.from(JSON.stringify({ ...doc, schema: { ...doc.schema, version } })) });
       await expect(preview(page)).toHaveAttribute("aria-disabled", "true"); await expect(editor(page).getByRole("status")).toContainText("unchanged");
     }
@@ -1070,8 +1079,8 @@ test.describe("WP9 reusable installed catalog", () => {
   });
   test("incompatible row placement and corrupt nested import preserve draft, valid add recovers", async ({ page }) => {
     await install(page); await page.getByLabel("Container", { exact: true }).selectOption("panel:actions");
-    await page.getByLabel("Component to add", { exact: true }).selectOption("component:action-panel"); await b(page, "Add component").click();
-    await expect(editor(page)).toHaveAttribute("data-draft-revision", "7"); await expect(page.getByRole("status")).toContainText("cannot be placed");
+    await expect(page.getByLabel("Component to add").locator('option[value="component:action-panel"]')).toHaveCount(0);
+    await expect(editor(page)).toHaveAttribute("data-draft-revision", "7");
     await page.getByLabel("Component to add", { exact: true }).selectOption("component:button"); await b(page, "Add component").click();
     await expect(preview(page, "Button 3")).toHaveAttribute("data-slot-ref", "actions");
     const bytes = await downloadedComposition(page); const doc = JSON.parse(bytes.toString());
@@ -2130,4 +2139,63 @@ test.describe("Studios WP02 shared icons", () => {
     await expect(page.getByLabel("Process name", { exact: true })).toHaveValue("Unapplied icon proof");
     await expect(workflow).toHaveAttribute("aria-pressed", "true");
   });
+});
+
+test("insertable palette searches actual registry without claiming source-only components", async ({ page }) => {
+  const search = page.getByRole("searchbox", { name: "Search insertable components" });
+  await search.fill("button");
+  await expect(page.getByLabel("Component to add")).toContainText("Button");
+  await search.fill("data-table");
+  await expect(page.getByLabel("Component to add").locator("option")).toHaveCount(0);
+  await expect(page.getByRole("button", { name: "Add component" })).toBeDisabled();
+  await search.clear();
+  await expect(page.getByLabel("Component to add").locator("option").first()).toBeAttached();
+});
+
+ test("filtered palette resolves selection and inserts using the existing editor", async ({ page }) => {
+  await page.getByRole("searchbox", { name: "Search insertable components" }).fill("button");
+  await expect(page.getByLabel("Component to add")).toHaveValue("component:button");
+  const count = await page.getByRole("treeitem").count();
+  await page.getByRole("button", { name: "Add component", exact: true }).click();
+  await expect(page.getByRole("treeitem")).toHaveCount(count + 1);
+  await expect(page.getByTestId("draft-state")).toHaveText("Unsaved changes");
+});
+
+ test("shared Card category supports actual insert, span Inspector, nested content and fresh file reopen", async ({ page, browser }, testInfo) => {
+  await page.getByLabel("Composition", { exact: true }).selectOption("composition:action-panel");
+  const search = page.getByRole("searchbox", { name: "Search insertable components" });
+  await search.fill("Display");
+  await expect(page.getByLabel("Component to add")).toHaveValue("component:card");
+  await page.getByRole("button", { name: "Add component", exact: true }).click();
+  await span(page, "8", "4");
+  const card = page.getByRole("group", { name: "Card 3 preview", exact: true });
+  await expect(card).toHaveAttribute("data-slot", "card");
+  await expect(card).toHaveAttribute("data-column-span", "8");
+  await expect(card).toHaveAttribute("data-row-span", "4");
+  await page.getByLabel("Container", { exact: true }).selectOption("node:added-3");
+  await search.fill("Actions");
+  await page.getByRole("button", { name: "Add component", exact: true }).click();
+  await expect(card.locator('[data-node-ref="node:added-4"]')).toHaveAttribute("data-slot-ref", "content");
+  const bytes = await downloadedComposition(page);
+  expect(JSON.parse(bytes.toString()).schema.version).toBe("2.0.0");
+  const context = await browser.newContext();
+  try {
+    const other = await context.newPage(); await other.goto("/component-editor");
+    await other.getByLabel("Composition file", { exact: true }).setInputFiles({ name: "foundation-card.json", mimeType: "application/json", buffer: bytes });
+    const reopened = other.getByRole("group", { name: "Card 3 preview", exact: true });
+    await expect(reopened).toHaveAttribute("data-slot", "card");
+    await expect(reopened).toHaveAttribute("data-column-span", "8");
+    await expect(reopened).toHaveAttribute("data-row-span", "4");
+    await expect(reopened.locator('[data-slot="card-content"] button[data-slot="button"]')).toHaveText("Button 4");
+    await other.getByRole("treeitem", { name: "Card 3", exact: true }).click();
+    await expect(other.getByLabel("Columns", { exact: true })).toHaveValue("8");
+    await expect(other.getByLabel("Rows", { exact: true })).toHaveValue("4");
+    await other.setViewportSize({ width: 390, height: 860 });
+    const action = preview(other, "Primary action").locator('button[data-slot="button"]');
+    expect(await action.evaluate(element => element.getBoundingClientRect().width)).toBeGreaterThan(90);
+    await expect(action.locator("span")).toHaveText("Primary action");
+    await expect(reopened).toHaveAttribute("data-column-span", "8");
+    expect(await other.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    await other.screenshot({ path: testInfo.outputPath("foundation-card-fresh-reopen.png"), fullPage: true });
+  } finally { await context.close(); }
 });

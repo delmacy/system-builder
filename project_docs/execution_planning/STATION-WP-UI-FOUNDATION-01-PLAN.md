@@ -110,3 +110,6 @@ A qualified/integratedPR1138 b50a550f, seven exact-head workflows and113 browser
 
 ## 10. Qualified B / promoted C
 B qualified exact head5d8c95e (seven applicable workflows PASS) and integratedPR1140 at17a9a4da. TASK749 materializes provider-backed overlay/navigation TASK750 in ConstructionC; Command/combobox candidates remain explicit residual construction. Existing source-only vs editor-ready distinction and ICON path ownership remain. D-Z forecast.
+
+## 11. Integrated bounded C–E / active partial F checkpoint
+Fresh main94da5ae2 includes C#1141, D#1142 and E#1143; these are bounded integrated increments, not proof that every original target family is complete. F#1144 remains draft/unmerged. TASK755–760 own compatible palette, actual Button renderer, Card/content/span/codec2 admission, name/category search, screenshot-driven narrow preview and durable evidence checkpoint. Source6005d862 all seven workflows /126 browser journeys PASS;131 focused local contracts PASS. F manifest/report define concrete limits and residuals. No G–Z promotion or WP closure; remaining controls need typed properties/slots, real registry/preview and UI-driven persistence qualification.

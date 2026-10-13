@@ -124,7 +124,7 @@ test("WP5 v1 unchanged readable; v1 rejects new topology; v2 root/cycle/cardinal
   assert.equal(encodeCompositionArtifact(v1, resolveEditorCatalogEntry).accepted, false);
   const v2 = { ...v1, schema: { ...v1.schema, version: "2.0.0" } };
   assert.ok(encodeCompositionArtifact(v2, resolveEditorCatalogEntry).accepted);
-  for (const version of ["2.0.1", "2.1.0", "5.0.0"]) assert.equal(encodeCompositionArtifact({ ...v2, schema: { ...v2.schema, version } }, resolveEditorCatalogEntry).accepted, false);
+  for (const version of ["2.0.1", "2.1.0", "9.0.0"]) assert.equal(encodeCompositionArtifact({ ...v2, schema: { ...v2.schema, version } }, resolveEditorCatalogEntry).accepted, false);
   const changedRoot = { ...graph, nodes: graph.nodes.map(n => n.ref === graph.rootRef ? { ...n, componentRef: "component:button" } : n) };
   assert.equal(encodeCompositionArtifact({ ...v2, payload: { ...v2.payload, graph: changedRoot } }, resolveEditorCatalogEntry).accepted, false);
   const cycle = { ...graph, nodes: graph.nodes.map(n => n.ref === "new" ? { ...n, placement: { ...n.placement!, parentRef: "new" } } : n) };

@@ -38,3 +38,34 @@ test("workstation controls retain live state in compact dark mode and tab switch
   await expect(lab.getByRole("combobox", { name: "Workstation density" })).toHaveValue("comfortable");
   await info.attach("industrial-dark-compact", { body: await lab.screenshot({ animations: "disabled" }), contentType: "image/png" });
 });
+
+test("compact semantic buttons expose labels on hover and keyboard, and reveal them on expansion", async ({ page }, info) => {
+  const lab = await openIndustrial(page);
+  const labeled = lab.getByRole("button", { name: "Save with label", exact: true });
+  await expect(labeled.locator("span + svg")).toHaveCount(1);
+  const compact = lab.getByRole("button", { name: "Compact save", exact: true });
+  await expect(compact).toHaveAttribute("data-label-visible", "false");
+  await expect(compact).not.toContainText("Compact save");
+  await compact.hover();
+  await expect(page.getByRole("tooltip", { name: "Compact save", exact: true })).toBeVisible();
+  const tooltip = page.getByRole("tooltip", { name: "Compact save", exact: true });
+  await expect(tooltip).toHaveText("Compact save");
+  const tooltipId = await tooltip.getAttribute("id");
+  await expect(compact).toHaveAttribute("aria-describedby", tooltipId!);
+  await info.attach("compact-button-hover-label", { body: await page.screenshot({ fullPage: true }), contentType: "image/png" });
+  await page.keyboard.press("Escape");
+  await expect(page.getByRole("tooltip", { name: "Compact save", exact: true })).toHaveCount(0);
+  await page.mouse.move(0, 0); await page.keyboard.press("Tab"); await compact.focus();
+  await expect(page.getByRole("tooltip", { name: "Compact save", exact: true })).toBeVisible();
+  await compact.press("Enter");
+  await expect(lab.getByTestId("presentation-actions")).toHaveText("1 presentation actions");
+  const expand = lab.getByRole("button", { name: "Expand tools", exact: true });
+  await expand.click(); await expect(expand).toHaveAttribute("aria-expanded", "true");
+  await expect(expand).toBeFocused();
+  await expect(expand).toContainText("Expand tools");
+  await expect(expand.locator("span + svg")).toHaveCount(1);
+  await expand.press("Space"); await expect(expand).toHaveAttribute("aria-expanded", "false");
+  await expect(expand).toBeFocused();
+  await expect(expand).not.toContainText("Expand tools");
+  await expect(lab.getByRole("button", { name: "Unavailable action", exact: true })).toBeDisabled();
+});

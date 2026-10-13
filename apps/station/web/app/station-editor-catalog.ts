@@ -1,5 +1,5 @@
 import {
-  BUTTON_GROUP_DESCRIPTOR, COMPONENT_FAMILIES, ComponentRegistry,
+  freezeComponentProperties, BUTTON_GROUP_DESCRIPTOR, COMPONENT_FAMILIES, ComponentRegistry,
   defineCompositionGraph, normalizeComponentDescriptor, validateCompositionGraph,
   type ComponentDescriptor, type CompositionGraph,
 } from "../../../../packages/station-composition/index.js";
@@ -32,6 +32,21 @@ const button = normalizeComponentDescriptor({
   constraints: { minColumns: 1, maxColumns: 4, recommendedColumns: 2,
     minRows: 1, maxRows: 2, recommendedRows: 1 }, slots: [],
 });
+const input = normalizeComponentDescriptor({
+  id: "component:input", family: "atomic", layout: "none", childPolicy: "none", slots: [],
+  constraints: { minColumns: 1, maxColumns: 12, recommendedColumns: 4, minRows: 1, maxRows: 2, recommendedRows: 2 },
+});
+const checkbox = normalizeComponentDescriptor({
+  id: "component:checkbox", family: "atomic", layout: "none", childPolicy: "none", slots: [],
+  constraints: { minColumns: 1, maxColumns: 12, recommendedColumns: 3, minRows: 1, maxRows: 2, recommendedRows: 1 },
+});
+const dialog = normalizeComponentDescriptor({
+  id: "component:dialog", family: "semantic-composite", layout: "column", layoutOwnership: "self",
+  childPolicy: "multiple", constraints: { minColumns: 1, maxColumns: 12, recommendedColumns: 6,
+    minRows: 1, maxRows: 12, recommendedRows: 2 },
+  slots: [{ id: "content", childPolicy: "multiple", acceptsFamilies: ["atomic", "layout-container", "semantic-composite"],
+    acceptsLayouts: ["none", "row", "column", "grid"] }],
+});
 const groupButton = normalizeComponentDescriptor({
   ...button, id: "component:lab-button",
   constraints: { ...button.constraints, maxRows: 1, recommendedRows: 1 },
@@ -44,6 +59,13 @@ const panel = normalizeComponentDescriptor({
   slots: [{ id: "content", childPolicy: "multiple", acceptsFamilies: ["atomic", "layout-container"],
     acceptsLayouts: ["none", "row"] }],
 });
+const card = normalizeComponentDescriptor({
+  id: "component:card", family: "layout-container", layout: "column", layoutOwnership: "self",
+  childPolicy: "multiple", constraints: { minColumns: 1, maxColumns: 12, recommendedColumns: 6,
+    minRows: 1, maxRows: 12, recommendedRows: 3 },
+  slots: [{ id: "content", childPolicy: "multiple", acceptsFamilies: ["atomic", "layout-container", "semantic-composite"],
+    acceptsLayouts: ["none", "row", "column", "grid"] }],
+});
 const actionRow = normalizeComponentDescriptor({
   id: "component:action-row", family: "layout-container", layout: "row", layoutOwnership: "self",
   childPolicy: "multiple", constraints: { minColumns: 1, maxColumns: 12, recommendedColumns: 6,
@@ -53,12 +75,12 @@ const actionRow = normalizeComponentDescriptor({
 
 function frozenGraph(graph: CompositionGraph): CompositionGraph {
   return Object.freeze({ rootRef: graph.rootRef, nodes: Object.freeze(graph.nodes.map(node =>
-    Object.freeze({ ...node, ...(node.properties ? { properties: Object.freeze({ ...node.properties }) } : {}), ...(node.placement ? { placement: Object.freeze({ ...node.placement }) } : {}) }))) });
+    Object.freeze({ ...node, ...(node.properties ? { properties: freezeComponentProperties(node.properties) } : {}), ...(node.placement ? { placement: Object.freeze({ ...node.placement }) } : {}) }))) });
 }
 const sources: readonly EditorCatalogDefinition[] = Object.freeze([
   Object.freeze({
     compositionRef: "composition:example", applicationRef: "app:composition-editor",
-    title: "Example composition", revision: 7, descriptors: Object.freeze([grid, button]),
+    title: "Example composition", revision: 7, descriptors: Object.freeze([grid, button, input, checkbox, dialog]),
     composition: frozenGraph(defineCompositionGraph({ rootRef: "node:root", nodes: [
       { ref: "node:root", componentRef: grid.id },
       { ref: "node:button-1", componentRef: button.id,
@@ -85,7 +107,7 @@ const sources: readonly EditorCatalogDefinition[] = Object.freeze([
 
   Object.freeze({
     compositionRef: "composition:action-panel", applicationRef: "app:composition-editor",
-    title: "Reusable action panel", revision: 7, descriptors: Object.freeze([grid, panel, actionRow, button]),
+    title: "Reusable action panel", revision: 7, descriptors: Object.freeze([grid, panel, actionRow, button, card, input, checkbox, dialog]),
     composition: frozenGraph(defineCompositionGraph({ rootRef: "panel:root", nodes: [
       { ref: "panel:root", componentRef: grid.id },
       { ref: "panel:container", componentRef: panel.id,

@@ -1,4 +1,16 @@
 "use client";
+import { EditorDialogFields } from "./station-editor-dialog-fields.js";
+import { EditorDialogPreview } from "./station-editor-dialog-preview.js";
+import { OverlayPortalProvider } from "@system-builder/ui-core";
+import { validDialogProperties } from "@system-builder/station-composition";
+import { EditorCheckboxFields } from "./station-editor-checkbox-fields.js";
+import { EditorCheckboxPreview } from "./station-editor-checkbox-preview.js";
+import { EditorInputFields } from "./station-editor-input-fields.js";
+import { EditorInputPreview } from "./station-editor-input-preview.js";
+import { EditorIconFields } from "./station-editor-icon-fields.js";
+import { EditorCardPreview } from "./station-editor-card-preview.js";
+import { EditorButtonPreview } from "./station-editor-button-preview.js";
+import { editorPaletteCategory, editorPaletteLabel, listInsertableEditorComponents, resolveEditorPaletteSelection } from "./station-editor-palette.js";
 
 import { useEffect, useReducer, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 import { Button } from "../../../../packages/ui-core/index";
@@ -7,7 +19,7 @@ import { prepareEditorArtifact, readEditorArtifact, requestArtifactDownload, sam
 import { importCatalogArtifact } from "./station-editor-artifact";
 import { StationWorkspaceSave } from "./station-workspace-save";
 import { StationWorkspaceRevisionSave } from "./station-workspace-revision-save";
-import { supportsButtonDisplayText, type ButtonProperties } from "../../../../packages/station-composition/index";
+import { validButtonProperties, supportsComponentDisplayText, supportsButtonDisplayText, type InputProperties, type ButtonProperties } from "../../../../packages/station-composition/index";
 import type { EditorLayer } from "../../../../packages/station-editor/index";
 import {
   projectEditorLayers, selectEditorLayer,
@@ -20,14 +32,14 @@ import {
 type State = Readonly<{
   entry: EditorCatalogEntry; history: EditorHistory; selection: LayersSelection;
   pendingRef: string | null;
-  columns: string; rows: string; buttonText: string; propertyVariant: string; propertyDisabled: string; message: string; invalid: boolean;
+  columns: string; rows: string; buttonText: string; propertyVariant: string; propertyDisabled: string; propertyMode: string; propertyPlacement: string; propertyAsset: string; propertyCatalog: string; inputType: string; inputPlaceholder: string; inputReadOnly: string; checkboxDefaultChecked: string; dialogTitle: string; dialogDescription: string; message: string; invalid: boolean;
   document: CompositionArtifact | null; savedText: string | null;
   pendingArtifact: Readonly<{ document: CompositionArtifact; savedText: string | null }> | null;
 }>;
 type Action =
   | { type: "structure"; operation: "add-node" | "remove-subtree" | "reorder-node" | "reparent-node"; componentRef?: string; parentRef?: string; slotRef?: string; direction?: "before" | "after" }
   | { type: "select"; ref: string }
-  | { type: "field"; field: "columns" | "rows" | "buttonText" | "propertyVariant" | "propertyDisabled"; value: string }
+  | { type: "field"; field: "columns" | "rows" | "buttonText" | "propertyVariant" | "propertyDisabled" | "propertyMode" | "propertyPlacement" | "propertyAsset" | "propertyCatalog" | "inputType" | "inputPlaceholder" | "inputReadOnly" | "checkboxDefaultChecked" | "dialogTitle" | "dialogDescription"; value: string }
   | { type: "apply" | "save" | "discard" | "undo" | "redo" | "apply-text" | "reset-text" | "apply-properties" | "reset-properties" | "restore-fields" }
   | { type: "request-switch"; ref: string }
   | { type: "cancel-switch" | "confirm-switch" }
@@ -40,13 +52,14 @@ function fields(session: EditorSession, selection: LayersSelection) {
   const result = projectEditorInspector(session, selection, session.draftRevision);
   const placement = result.accepted && result.snapshot.kind === "node" ? result.snapshot.placement : null;
   const node = session.transaction.draft.nodes.find(item => item.ref === selection.selectedRef);
-  return { propertyVariant: node?.properties?.variant ?? "default", propertyDisabled: String(node?.properties?.disabled ?? false), buttonText: node?.text ?? "", columns: placement ? String(placement.columnSpan) : "", rows: placement ? String(placement.rowSpan) : "" };
+  const dialog = node?.properties && validDialogProperties(node.properties) ? node.properties : undefined;
+  return { dialogTitle: dialog?.title ?? "Dialog", dialogDescription: dialog?.description ?? "", checkboxDefaultChecked: String(node?.properties?.defaultChecked ?? false), inputType: node?.properties?.inputType ?? "text", inputPlaceholder: node?.properties?.placeholder ?? "", inputReadOnly: String(node?.properties?.readOnly ?? false), propertyMode: node?.properties?.presentation?.mode ?? "text", propertyPlacement: node?.properties?.presentation?.placement ?? "start", propertyAsset: node?.properties?.presentation?.icon.assetRef ?? "", propertyCatalog: node?.properties?.presentation?.icon.catalogVersion ?? "", propertyVariant: node?.properties?.variant ?? "default", propertyDisabled: String(node?.properties?.disabled ?? false), buttonText: node?.text ?? "", columns: placement ? String(placement.columnSpan) : "", rows: placement ? String(placement.rowSpan) : "" };
 }
 function initialState(ref: string): State | null {
   const result = initializeCatalogEditorSession(ref, "session:visual-workbench");
   if (!result.accepted) return null;
   return { entry: result.entry, history: createEditorHistory(result.session), selection: { selectedRef: null },
-    columns: "", rows: "", buttonText: "", propertyVariant: "default", propertyDisabled: "false", message: "Select a layer to edit its size.", invalid: false, pendingRef: null,
+    columns: "", rows: "", buttonText: "", propertyVariant: "default", propertyDisabled: "false", propertyMode: "text", propertyPlacement: "start", propertyAsset: "", propertyCatalog: "", inputType: "text", inputPlaceholder: "", inputReadOnly: "false", checkboxDefaultChecked: "false", dialogTitle: "Dialog", dialogDescription: "", message: "Select a layer to edit its size.", invalid: false, pendingRef: null,
     document: null, savedText: null, pendingArtifact: null };
 }
 function replaceArtifact(state: State, candidate: { document: CompositionArtifact; savedText: string | null }): State {
@@ -75,7 +88,7 @@ function historyBlocked(state: State): boolean {
 }
 function propertiesPending(state: State): boolean {
   const applied = fields(state.history.session, state.selection);
-  return state.propertyVariant !== applied.propertyVariant || state.propertyDisabled !== applied.propertyDisabled;
+  return state.propertyVariant !== applied.propertyVariant || state.propertyDisabled !== applied.propertyDisabled || state.propertyMode !== applied.propertyMode || state.propertyPlacement !== applied.propertyPlacement || state.propertyAsset !== applied.propertyAsset || state.propertyCatalog !== applied.propertyCatalog || state.inputType !== applied.inputType || state.inputPlaceholder !== applied.inputPlaceholder || state.inputReadOnly !== applied.inputReadOnly || state.checkboxDefaultChecked !== applied.checkboxDefaultChecked || state.dialogTitle !== applied.dialogTitle || state.dialogDescription !== applied.dialogDescription;
 }
 function textPending(state: State): boolean {
   return state.buttonText !== fields(state.history.session, state.selection).buttonText;
@@ -141,13 +154,17 @@ function reducer(state: State | null, action: Action): State | null {
     if (!nodeRef) return { ...state, invalid: true, message: "Select a button to edit properties." };
     const common = { sessionRef: state.history.session.sessionRef, compositionRef: state.entry.compositionRef,
       expectedDraftRevision: state.history.session.draftRevision, nodeRef };
+    const dialogSelected = state.history.session.transaction.draft.nodes.find(node => node.ref === nodeRef)?.componentRef === "component:dialog";
+    const checkboxSelected = state.history.session.transaction.draft.nodes.find(node => node.ref === nodeRef)?.componentRef === "component:checkbox";
+    const inputSelected = state.history.session.transaction.draft.nodes.find(node => node.ref === nodeRef)?.componentRef === "component:input";
     const intent = action.type === "apply-properties" ? { ...common, type: "set-properties" as const,
-      properties: { variant: state.propertyVariant as ButtonProperties["variant"], disabled: state.propertyDisabled === "true" } }
+      properties: dialogSelected ? { kind: "dialog" as const, title: state.dialogTitle, description: state.dialogDescription, disabled: state.propertyDisabled === "true" } : checkboxSelected ? { kind: "checkbox" as const, defaultChecked: state.checkboxDefaultChecked === "true", disabled: state.propertyDisabled === "true" } : inputSelected ? { kind: "input" as const, inputType: state.inputType as InputProperties["inputType"], placeholder: state.inputPlaceholder, disabled: state.propertyDisabled === "true", readOnly: state.inputReadOnly === "true" } : { variant: state.propertyVariant as ButtonProperties["variant"], disabled: state.propertyDisabled === "true",
+        ...(state.propertyAsset || state.propertyMode !== "text" ? { presentation: { mode: state.propertyMode as NonNullable<ButtonProperties["presentation"]>["mode"], placement: state.propertyPlacement as NonNullable<ButtonProperties["presentation"]>["placement"], icon: { assetRef: state.propertyAsset, catalogVersion: state.propertyCatalog } } } : {}) } }
       : { ...common, type: "reset-properties" as const };
     const result = applyEditorHistoryStructure(state.history, intent, state.entry.registry);
-    if (!result.accepted) return { ...state, invalid: true, message: "These button properties are invalid. The composition is unchanged." };
+    if (!result.accepted) return { ...state, invalid: true, message: dialogSelected ? "These dialog properties are invalid. The composition is unchanged." : checkboxSelected ? "These checkbox properties are invalid. The composition is unchanged." : inputSelected ? "These input properties are invalid. The composition is unchanged." : "These button properties are invalid. The composition is unchanged." };
     return { ...state, history: result.history, ...fields(result.history.session, state.selection), invalid: false,
-      message: result.changed ? "Button properties updated. Save or discard your changes." : "The properties are already applied." };
+      message: result.changed ? (dialogSelected ? "Dialog properties updated. Save or discard your changes." : checkboxSelected ? "Checkbox properties updated. Save or discard your changes." : inputSelected ? "Input properties updated. Save or discard your changes." : "Button properties updated. Save or discard your changes.") : "The properties are already applied." };
   }
   if (action.type === "apply-text" || action.type === "reset-text") {
     if (propertiesPending(state)) return { ...state, invalid: false, message: "Apply or restore the property fields before editing text." };
@@ -249,6 +266,7 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
   catalogSelect: React.RefObject<HTMLSelectElement | null> }) {
   const [expanded, setExpanded] = useState(() => new Set([state.history.session.transaction.draft.rootRef]));
   const [paletteRef, setPaletteRef] = useState(() => state.entry.registry.list()[0]?.id ?? "");
+  const [paletteQuery, setPaletteQuery] = useState("");
   const [parentRef, setParentRef] = useState(state.history.session.transaction.draft.rootRef);
   const [slotRef, setSlotRef] = useState("");
   const [moveParentRef, setMoveParentRef] = useState("");
@@ -257,6 +275,8 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
   const items = useRef(new Map<string, HTMLButtonElement>());
   const fileInput = useRef<HTMLInputElement>(null);
   const workbench = useRef<HTMLElement>(null);
+  const [portalHost, setPortalHost] = useState<HTMLElement | null>(null);
+  useEffect(() => { setPortalHost(workbench.current); }, []);
   const returnFocus = useRef<"file" | "saved">("file");
   const restoreOpenFocus = useRef(false);
   useEffect(() => {
@@ -355,16 +375,20 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
     if (!node) return null;
     const layout = state.entry.registry.get(node.componentRef)?.layout;
     const children = layer.children.map(child => renderPreview(child));
-    const container = layout === "grid" ? "grid grid-cols-12 auto-rows-[3rem] gap-2" :
+    const container = layout === "grid" ? "grid grid-cols-12 auto-rows-[3rem] gap-2 max-sm:flex max-sm:flex-col" :
       layout === "row" ? "flex flex-wrap gap-2" : "flex flex-col gap-2";
     if (node.kind === "root") return <div data-root-ref={node.nodeRef} className={container}>{children}</div>;
     const properties = node.properties;
     const variant = properties?.variant ?? "default";
-    const appearance = variant === "outline" ? "bg-transparent border-foreground/50" :
-      variant === "ghost" ? "bg-transparent border-transparent" : "bg-primary/15 border-primary/40";
     const parent = byPreviewRef.get(node.parentRef);
     const parentLayout = parent && state.entry.registry.get(parent.componentRef)?.layout;
-    return <div key={node.nodeRef} role={children.length ? "group" : "img"} aria-label={layerName(state, node.nodeRef) + " preview"}
+    if (node.componentRef === "component:card") return <EditorCardPreview key={node.nodeRef}
+      node={node} label={layerName(state, node.nodeRef)}
+      style={parentLayout === "grid" ? { gridColumn: `span ${node.columnSpan}`, gridRow: `span ${node.rowSpan}` } :
+        parentLayout === "row" ? { flexBasis: `${node.columnSpan / 12 * 100}%` } : undefined}>{children}</EditorCardPreview>;
+    return <div key={node.nodeRef} role={children.length || node.componentRef === "component:dialog" ? "group" : "img"} aria-label={layerName(state, node.nodeRef) + " preview"}
+      title={layerName(state, node.nodeRef)}
+      tabIndex={properties?.presentation?.mode === "icon" ? 0 : undefined}
       data-node-ref={node.nodeRef} data-parent-ref={node.parentRef} data-slot-ref={node.slotRef}
       data-column-span={node.columnSpan} data-row-span={node.rowSpan}
       data-selected={node.selected ? "true" : "false"}
@@ -373,9 +397,9 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
       style={parentLayout === "grid" ? { gridColumn: `span ${node.columnSpan}`, gridRow: `span ${node.rowSpan}` } :
         parentLayout === "row" ? { flexBasis: `${node.columnSpan / 12 * 100}%` } : undefined}
       className={"flex min-h-12 min-w-0 flex-col items-center justify-center overflow-hidden rounded-md border px-2 text-sm " +
-        (supportsButtonDisplayText(node.componentRef) ? appearance : "bg-card") +
-        (node.selected ? " ring-2 ring-primary/30" : "") + (properties?.disabled ? " opacity-50" : "")}>
-      <span className="block max-w-full truncate" title={layerName(state, node.nodeRef)}>{layerName(state, node.nodeRef)}</span>{children.length ? <div className={container + " w-full"}>{children}</div> : null}
+        "bg-card" +
+        (node.selected ? " ring-2 ring-primary/30" : "") + (parentLayout === "row" ? " max-sm:basis-full!" : "")}>
+      {node.componentRef === "component:dialog" ? <EditorDialogPreview label={layerName(state, node.nodeRef)} properties={properties}>{children}</EditorDialogPreview> : node.componentRef === "component:checkbox" ? <EditorCheckboxPreview label={layerName(state, node.nodeRef)} properties={properties} /> : node.componentRef === "component:input" ? <EditorInputPreview label={layerName(state, node.nodeRef)} properties={properties} /> : supportsButtonDisplayText(node.componentRef) ? <EditorButtonPreview label={layerName(state, node.nodeRef)} properties={properties === undefined || validButtonProperties(properties) ? properties : undefined} /> : <span className="block max-w-full truncate" title={layerName(state, node.nodeRef)}>{layerName(state, node.nodeRef)}</span>}{children.length && node.componentRef !== "component:dialog" ? <div className={container + " w-full"}>{children}</div> : null}
     </div>;
   };
   const blocked = historyBlocked(state);
@@ -384,6 +408,8 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
   const activeParent = parents.find(node => node.ref === parentRef) ?? parents[0];
   const slots = activeParent ? state.entry.registry.get(activeParent.componentRef)?.slots.filter(slot => slot.childPolicy !== "none") ?? [] : [];
   const activeSlot = slots.find(slot => slot.id === slotRef)?.id ?? slots[0]?.id ?? "";
+  const matchingDescriptors = listInsertableEditorComponents(state.history.session, state.entry.registry, activeParent?.ref ?? "", activeSlot, paletteQuery);
+  const activePaletteRef = resolveEditorPaletteSelection(matchingDescriptors, paletteRef);
   const expandParent = (parent: string) => setExpanded(previous => {
     const next = new Set(previous); let ref: string | undefined = parent; const seen = new Set<string>();
     while (ref && !seen.has(ref)) { next.add(ref); seen.add(ref); ref = graph.nodes.find(node => node.ref === ref)?.placement?.parentRef; }
@@ -393,7 +419,11 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
   const moveParent = parents.find(node => node.ref === moveParentRef) ?? parents.find(node => node.ref === selectedNode?.placement?.parentRef) ?? parents[0];
   const moveSlots = moveParent ? state.entry.registry.get(moveParent.componentRef)?.slots.filter(slot => slot.childPolicy !== "none") ?? [] : [];
   const moveSlot = moveSlots.find(slot => slot.id === moveSlotRef)?.id ?? moveSlots.find(slot => slot.id === selectedNode?.placement?.slotRef)?.id ?? moveSlots[0]?.id ?? "";
-  const textEditable = !!selectedNode?.placement && supportsButtonDisplayText(selectedNode.componentRef);
+  const textEditable = !!selectedNode?.placement && supportsComponentDisplayText(selectedNode.componentRef);
+  const buttonEditable = !!selectedNode?.placement && supportsButtonDisplayText(selectedNode.componentRef);
+  const dialogEditable = !!selectedNode?.placement && selectedNode.componentRef === "component:dialog";
+  const checkboxEditable = !!selectedNode?.placement && selectedNode.componentRef === "component:checkbox";
+  const inputEditable = !!selectedNode?.placement && selectedNode.componentRef === "component:input";
   const siblings = selectedNode?.placement ? graph.nodes.filter(node => node.placement?.parentRef === selectedNode.placement!.parentRef &&
     node.placement?.slotRef === selectedNode.placement!.slotRef) : [];
   const siblingIndex = siblings.findIndex(node => node.ref === selectedNode?.ref);
@@ -411,7 +441,7 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
     if (!direction) return;
     event.preventDefault(); dispatch({ type: direction });
   };
-  return <section ref={workbench} onKeyDown={historyShortcut} aria-label="Composition editor" data-draft-revision={state.history.session.draftRevision}
+  return <OverlayPortalProvider container={portalHost}><section ref={workbench} onKeyDown={historyShortcut} aria-label="Composition editor" data-draft-revision={state.history.session.draftRevision}
     data-base-revision={state.history.session.base.revision} className="overflow-hidden rounded-xl border bg-card shadow-sm">
     <header className="flex flex-wrap items-center gap-3 border-b p-4">
       <div className="mr-auto"><label htmlFor="editor-composition" className="mb-1 block text-sm">Composition</label>
@@ -491,6 +521,7 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
       </section>
       <section aria-labelledby="preview-heading" className="min-w-0 border-b p-5 lg:border-b-0">
         <h2 id="preview-heading" className="mb-4 font-semibold">Preview</h2>
+        <p className="mb-3 text-xs text-muted-foreground sm:hidden">Compact preview stacks components. Saved sizes are preserved.</p>
         {preview.accepted ? <div className="rounded-lg border bg-muted/30 p-3" aria-label="Composition preview">
           {layers.accepted ? renderPreview(layers.root) : null}
         </div> : <p role="alert">Preview unavailable. Your composition has been preserved.</p>}
@@ -515,7 +546,7 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
           <Button type="submit" variant="outline" disabled={!editable}>Apply size</Button>
         </form>
         {textEditable ? <form onSubmit={event => { event.preventDefault(); dispatch({ type: "apply-text" }); }} className="mt-5 space-y-3 border-t pt-4">
-          <label htmlFor="editor-button-text" className="block text-sm">Button text</label>
+          <label htmlFor="editor-button-text" className="block text-sm">{dialogEditable ? "Dialog trigger label" : checkboxEditable ? "Checkbox label" : inputEditable ? "Input label" : "Button text"}</label>
           <input id="editor-button-text" value={state.buttonText} placeholder={layerName(state, selectedNode!.ref)}
             onChange={event => dispatch({ type: "field", field: "buttonText", value: event.target.value })}
             aria-invalid={state.invalid} aria-describedby="text-help editor-feedback" autoComplete="off"
@@ -526,7 +557,7 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
             <Button type="button" variant="outline" onClick={() => dispatch({ type: "reset-text" })}>Reset text</Button>
           </div>
         </form> : null}
-        {textEditable ? <form onSubmit={event => { event.preventDefault(); dispatch({ type: "apply-properties" }); }} className="mt-5 space-y-3 border-t pt-4">
+        {buttonEditable ? <form onSubmit={event => { event.preventDefault(); dispatch({ type: "apply-properties" }); }} className="mt-5 space-y-3 border-t pt-4">
           <label htmlFor="editor-button-variant" className="block text-sm">Button variant</label>
           <select id="editor-button-variant" value={state.propertyVariant}
             onChange={event => dispatch({ type: "field", field: "propertyVariant", value: event.target.value })}
@@ -536,17 +567,36 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
           <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={state.propertyDisabled === "true"}
             onChange={event => dispatch({ type: "field", field: "propertyDisabled", value: String(event.target.checked) })}
             aria-describedby="properties-help" />Disabled preview</label>
+          <EditorIconFields mode={state.propertyMode} placement={state.propertyPlacement} assetRef={state.propertyAsset} catalogVersion={state.propertyCatalog}
+            change={(field, value) => dispatch({ type: "field", field, value })} />
           <p id="properties-help" className="text-xs text-muted-foreground">Presentation only. Reset restores the original appearance.</p>
+          <div className="flex flex-wrap gap-2"><Button type="submit" variant="outline">Apply properties</Button>
+            <Button type="button" variant="outline" onClick={() => dispatch({ type: "reset-properties" })}>Reset properties</Button></div>
+        </form> : null}
+        {dialogEditable ? <form onSubmit={event => { event.preventDefault(); dispatch({ type: "apply-properties" }); }} className="mt-5 space-y-3 border-t pt-4">
+          <EditorDialogFields title={state.dialogTitle} description={state.dialogDescription} disabled={state.propertyDisabled} invalid={state.invalid}
+            change={(field, value) => dispatch({ type: "field", field, value })} />
+          <div className="flex flex-wrap gap-2"><Button type="submit" variant="outline">Apply properties</Button>
+            <Button type="button" variant="outline" onClick={() => dispatch({ type: "reset-properties" })}>Reset properties</Button></div>
+        </form> : null}
+        {checkboxEditable ? <form onSubmit={event => { event.preventDefault(); dispatch({ type: "apply-properties" }); }} className="mt-5 space-y-3 border-t pt-4">
+          <EditorCheckboxFields defaultChecked={state.checkboxDefaultChecked} disabled={state.propertyDisabled} change={(field, value) => dispatch({ type: "field", field, value })} />
+          <div className="flex flex-wrap gap-2"><Button type="submit" variant="outline">Apply properties</Button>
+            <Button type="button" variant="outline" onClick={() => dispatch({ type: "reset-properties" })}>Reset properties</Button></div>
+        </form> : null}
+        {inputEditable ? <form onSubmit={event => { event.preventDefault(); dispatch({ type: "apply-properties" }); }} className="mt-5 space-y-3 border-t pt-4">
+          <EditorInputFields inputType={state.inputType} placeholder={state.inputPlaceholder} readOnly={state.inputReadOnly} disabled={state.propertyDisabled} invalid={state.invalid}
+            change={(field, value) => dispatch({ type: "field", field, value })} />
           <div className="flex flex-wrap gap-2"><Button type="submit" variant="outline">Apply properties</Button>
             <Button type="button" variant="outline" onClick={() => dispatch({ type: "reset-properties" })}>Reset properties</Button></div>
         </form> : null}
         {editable ? <Button variant="outline" className="mt-3" onClick={() => dispatch({ type: "restore-fields" })}>Restore fields</Button> : null}
         <div role="group" aria-label="Composition structure" className="mt-5 space-y-3 border-t pt-4">
           <h3 className="font-semibold">Build composition</h3>
-          <div><label htmlFor="editor-component" className="mb-1 block text-sm">Component to add</label>
-            <select id="editor-component" value={paletteRef} disabled={blocked} onChange={event => setPaletteRef(event.target.value)}
+          <div><label htmlFor="editor-palette-search" className="mb-1 block text-sm">Search insertable components</label><input id="editor-palette-search" type="search" placeholder="Name or category" value={paletteQuery} onChange={event => setPaletteQuery(event.target.value)} className="mb-2 w-full rounded-md border bg-background p-2" /><p className="mb-1 text-xs text-muted-foreground">{matchingDescriptors.length} compatible catalog descriptors available in this composition. Other foundation controls are source-only.</p><label htmlFor="editor-component" className="mb-1 block text-sm">Component to add</label>
+            <select id="editor-component" value={activePaletteRef} disabled={blocked || matchingDescriptors.length === 0} onChange={event => setPaletteRef(event.target.value)}
               className="w-full rounded-md border bg-background p-2">
-              {state.entry.registry.list().map(component => <option key={component.id} value={component.id}>{componentName(component.id)}</option>)}
+              {matchingDescriptors.map(component => <option key={component.id} value={component.id}>{editorPaletteLabel(component)} · {editorPaletteCategory(component)}</option>)}
             </select></div>
           <div><label htmlFor="editor-parent" className="mb-1 block text-sm">Container</label>
             <select id="editor-parent" value={activeParent?.ref ?? ""} disabled={blocked} onChange={event => { setParentRef(event.target.value); setSlotRef(""); }}
@@ -558,14 +608,14 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
               className="w-full rounded-md border bg-background p-2">
               {slots.map(slot => <option key={slot.id} value={slot.id}>{slot.id === "content" ? "Content" : slot.id.replace("button-", "Button ")}</option>)}
             </select></div>
-          <Button variant="outline" disabled={blocked || !activeParent || !activeSlot || !paletteRef}
+          <Button variant="outline" disabled={blocked || !activeParent || !activeSlot || !activePaletteRef}
             onClick={() => { if (activeParent) setExpanded(previous => {
                 const next = new Set(previous); let ref: string | undefined = activeParent.ref;
                 const seen = new Set<string>();
                 while (ref && !seen.has(ref)) { next.add(ref); seen.add(ref); ref = graph.nodes.find(node => node.ref === ref)?.placement?.parentRef; }
                 return next;
               });
-              dispatch({ type: "structure", operation: "add-node", componentRef: paletteRef, parentRef: activeParent?.ref ?? "", slotRef: activeSlot }); }}>Add component</Button>
+              dispatch({ type: "structure", operation: "add-node", componentRef: activePaletteRef, parentRef: activeParent?.ref ?? "", slotRef: activeSlot }); }}>Add component</Button>
           <div role="group" aria-label="Move selected component" className="space-y-3 border-t pt-3">
             <h4 className="font-medium">Move selected component</h4>
             <div><label htmlFor="editor-move-parent" className="mb-1 block text-sm">Destination container</label>
@@ -599,5 +649,5 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
       <p className="text-xs text-muted-foreground">Save changes accepts this session. Save locally retains a separate copy in this browser; use Open saved after reload.</p>
       <p className="text-xs text-muted-foreground">Save As file requests a portable download. Browser storage can be cleared; keep exported files for retention.</p>
     </footer>
-  </section>;
+  </section></OverlayPortalProvider>;
 }

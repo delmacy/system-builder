@@ -1,3 +1,4 @@
+import { freezeComponentProperties } from "@system-builder/station-composition";
 import type { CompositionNode, CompositionNodePlacement, CompositionNodeRef } from "@system-builder/station-composition";
 import { projectEditorLayers, type LayersSelection } from "./layers.js";
 import type { EditorSession } from "./session.js";
@@ -21,7 +22,7 @@ export type InspectorSnapshot =
       readonly nodeRef: CompositionNodeRef;
       readonly componentRef: string;
       readonly text?: string;
-      readonly properties?: import("@system-builder/station-composition").ButtonProperties;
+      readonly properties?: import("@system-builder/station-composition").ComponentProperties;
       readonly placement: Readonly<CompositionNodePlacement> | null;
       readonly editable: boolean;
     };
@@ -125,7 +126,7 @@ export function projectEditorInspector(
       nodeRef: node.ref,
       componentRef: node.componentRef,
       ...(node.text === undefined ? {} : { text: node.text }),
-      ...(node.properties === undefined ? {} : { properties: Object.freeze({ ...node.properties }) }),
+      ...(node.properties === undefined ? {} : { properties: freezeComponentProperties(node.properties) }),
       placement: node.placement ? Object.freeze({ ...node.placement }) : null,
       editable: node.ref !== session.transaction.draft.rootRef,
     }),
