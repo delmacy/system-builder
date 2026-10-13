@@ -11,12 +11,14 @@ export function StationOverlayFoundationLab() {
   const [confirmations, setConfirmations] = useState(0);
   const [activeStep, setActiveStep] = useState("design");
   const [activeNode, setActiveNode] = useState<string | null>("station");
+  const [compactTree, setCompactTree] = useState(false);
   const [paletteOpen, setPaletteOpen] = useState(false);
   return <section ref={setContainer} aria-label="Overlay foundation reference" className="my-4 space-y-4 rounded-lg border p-4">
     <OverlayPortalProvider container={container}><h2 className="text-lg font-semibold">Overlays and navigation</h2>
     <button type="button" onClick={() => setPaletteOpen(true)} className="rounded border px-3 py-2 text-sm">Open command palette</button>
     <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} actions={[{id:"save",label:"Save reference",keywords:"write",onSelect:()=>setCommand("Palette Save")},{id:"duplicate",label:"Duplicate reference",onSelect:()=>setCommand("Palette Duplicate")},{id:"blocked",label:"Unavailable command",disabled:true,onSelect:()=>setCommand("Forbidden") }]} />
-    <NavigationTree label="Studio navigation tree" selectedId={activeNode} onSelect={setActiveNode} nodes={[{id:"station",label:"Station",children:[{id:"components",label:"Components"},{id:"studios",label:"Studios",children:[{id:"editor",label:"Component Editor"},{id:"unavailable",label:"Unavailable Studio",disabled:true}]}]},{id:"documents",label:"Documents"}]} />
+    <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={compactTree} onChange={event => setCompactTree(event.target.checked)} /> Compact tree navigation</label>
+    <div className={compactTree ? "w-24 max-w-full" : "w-full"}><NavigationTree label="Studio navigation tree" compact={compactTree} selectedId={activeNode} onSelect={setActiveNode} nodes={[{id:"station",label:"Station",children:[{id:"components",label:"Components"},{id:"studios",label:"Studios",children:[{id:"editor",label:"Component Editor"},{id:"unavailable",label:"Unavailable Studio",disabled:true}]}]},{id:"documents",label:"Documents",icon:"artifact.document"}]} /></div>
     <output aria-label="Navigation tree selection" className="block text-xs">Selected: {activeNode}</output>
     <Stepper aria-label="Component workflow steps" activeId={activeStep} onActiveChange={setActiveStep} steps={[{id:"design",label:"Design",description:"Compose UI"},{id:"review",label:"Review",description:"Check changes"},{id:"publish",label:"Publish",description:"Example only",disabled:true}]} />
     <Breadcrumb><BreadcrumbItem><BreadcrumbLink href="#overlay-reference">Station</BreadcrumbLink></BreadcrumbItem><BreadcrumbSeparator /><BreadcrumbItem><BreadcrumbPage>Component Lab</BreadcrumbPage></BreadcrumbItem></Breadcrumb>
