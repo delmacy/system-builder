@@ -1,7 +1,7 @@
 "use client";
 import { useCallback, useRef, useState } from "react";
 import { StationIcon } from "@system-builder/ui-icons";
-import { Button, PropertyInspector, type PropertyGroupDefinition } from "@system-builder/ui-core";
+import { ToolbarGroup, ToolbarButton, PaneHeader, AccessibleTooltipProvider, AccessibleTooltip, AccessibleTooltipTrigger, AccessibleTooltipContent, OverlayPortalProvider, PropertyInspector, type PropertyGroupDefinition } from "@system-builder/ui-core";
 import { createStudioFoundation, INSTALLED_STUDIO_AREAS, switchStudioArea, updateStudioSnapshot, type StudioAreaId, type StudioSnapshot } from "./station-studio-foundation";
 import { StationWorkflowWorkbench } from "./station-workflow-workbench";
 import { StationProcessContextWorkbench } from "./station-process-context-workbench";
@@ -13,6 +13,7 @@ export function StationStudioWorkbench({ onOpenComposition }: { onOpenCompositio
   const [request, setRequest] = useState<EditorArtifactOpenRequest | null>(null);
   const [editorOpened, setEditorOpened] = useState(false);
   const nextRequest = useRef(0);
+  const [portalHost, setPortalHost] = useState<HTMLElement | null>(null);
   const receive = useCallback((area: StudioAreaId, snapshot: StudioSnapshot) => {
     setPresentation(current => {
       const result = updateStudioSnapshot(current.state, area, snapshot);
@@ -45,10 +46,10 @@ export function StationStudioWorkbench({ onOpenComposition }: { onOpenCompositio
       { id: "replacement", label: "Replacement", value: unavailable ?? (snapshot?.pending ? "Confirmation pending" : "None") },
     ],
   }];
-  return <section aria-label="Studio foundation" className="min-w-0 space-y-4" data-active-area={state.active}>
-    <header className="space-y-2"><h1 className="flex items-center gap-2 text-xl font-semibold"><StationIcon token="view.grid" size={22} className="text-primary" />Studios</h1><p className="text-sm text-muted-foreground">Switch between installed areas. Each area keeps its draft, references and selection. Close or reload requires explicit retained revision reopening.</p></header>
-    <nav aria-label="Studio areas" className="flex flex-wrap gap-2">{INSTALLED_STUDIO_AREAS.map(area =>
-      <Button key={area.id} aria-pressed={state.active === area.id} aria-controls={"studio-area-" + area.id} variant={state.active === area.id ? "default" : "outline"} onClick={() => setPresentation(current => ({ ...current, state: switchStudioArea(current.state, area.id).state }))}><StationIcon token={area.id === "process-context" ? "studio.process-context" : "studio.workflow"} className="shrink-0" />{area.title}</Button>)}</nav>
+  return <OverlayPortalProvider container={portalHost}><AccessibleTooltipProvider delay={200}><section ref={setPortalHost} aria-label="Studio foundation" className="min-w-0 space-y-4" data-active-area={state.active}>
+    <div className="space-y-2"><h1 className="sr-only">Studios</h1><PaneHeader title="Studios" className="px-0" /><p className="text-sm text-muted-foreground">Switch between installed areas. Each area keeps its draft, references and selection. Close or reload requires explicit retained revision reopening.</p></div>
+    <nav aria-label="Studio areas"><ToolbarGroup label="Studio area commands" className="gap-1 rounded-md border p-1">{INSTALLED_STUDIO_AREAS.map(area =>
+      <AccessibleTooltip key={area.id}><AccessibleTooltipTrigger className="" render={<ToolbarButton label={area.title} pressed={state.active === area.id} aria-controls={"studio-area-" + area.id} onClick={() => setPresentation(current => ({ ...current, state: switchStudioArea(current.state, area.id).state }))} icon={<StationIcon token={area.id === "process-context" ? "studio.process-context" : "studio.workflow"} className="shrink-0" />} />} /><AccessibleTooltipContent>{area.title}</AccessibleTooltipContent></AccessibleTooltip>)}</ToolbarGroup></nav>
     <p role="status" className="text-sm">{active.title} active. {unavailable ? "Shared snapshot unavailable; inspect the owning workbench. Draft preserved." : "Selection and draft stay scoped to this area."}</p>
     <div className="grid min-w-0 items-start gap-4 xl:grid-cols-[minmax(0,1fr)_20rem]">
       <div className="min-w-0">
@@ -58,5 +59,5 @@ export function StationStudioWorkbench({ onOpenComposition }: { onOpenCompositio
       <PropertyInspector aria-label="Shared Studio Inspector" groups={groups} className="break-all" />
     </div>
     {editorOpened ? <section aria-label="Referenced composition editor"><StationEditorWorkbench artifactRequest={request} onArtifactRequestConsumed={consumed} /></section> : null}
-  </section>;
+  </section></AccessibleTooltipProvider></OverlayPortalProvider>;
 }
