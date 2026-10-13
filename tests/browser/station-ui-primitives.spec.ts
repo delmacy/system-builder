@@ -113,3 +113,16 @@ test("Construction B InputGroup keeps semantic search and enables icon-only clea
   await expect(search).toHaveValue("");
   await expect(clear).toBeDisabled();
 });
+
+test("Construction B PasswordField toggles visibility without losing input or activating form", async ({ page }) => {
+  const lab = await openPrimitives(page);
+  const secret = lab.getByRole("textbox", { name: "Password visibility" });
+  await secret.fill("sample-only");
+  await expect(secret).toHaveAttribute("type", "password");
+  await lab.getByRole("button", { name: "Show password" }).click();
+  await expect(secret).toHaveAttribute("type", "text");
+  await expect(secret).toHaveValue("sample-only");
+  await lab.getByRole("button", { name: "Hide password" }).click();
+  await expect(secret).toHaveAttribute("type", "password");
+  await expect(secret).toHaveValue("sample-only");
+});
