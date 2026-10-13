@@ -108,3 +108,11 @@ export function CardContent({ className, ...props }: HTMLAttributes<HTMLDivEleme
 export function CardFooter({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   return <div {...props} data-slot="card-footer" className={cn("flex items-center gap-2 p-4 pt-0", className)} />;
 }
+
+
+export type SpinnerProps = HTMLAttributes<HTMLSpanElement> & Readonly<{ label?: string }>;
+/** Status indicator without ownership of the async operation. */
+export function Spinner({ label = "Loading", className, ...props }: SpinnerProps) {
+  return <span {...props} data-slot="spinner" role="status" aria-label={label}
+    className={cn("inline-flex size-5 shrink-0 animate-spin rounded-full border-2 border-muted-foreground/25 border-t-primary motion-reduce:animate-none", className)} />;
+}
