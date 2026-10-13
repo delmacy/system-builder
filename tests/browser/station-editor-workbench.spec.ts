@@ -2149,5 +2149,5 @@ test("Construction G exposes registered color field in real Editor and admits in
   await picker.selectOption("ui:color-field");
   await page.getByRole("button", { name: "Add component", exact: true }).click();
   await expect(page.getByTestId("draft-state")).toHaveText("Unsaved changes");
-  await expect(editor(page)).toContainText("color-field");
+  await expect(page.getByRole("treeitem", { name: /Ui:color Field 3/i })).toBeVisible();
 });
