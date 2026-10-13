@@ -16,6 +16,9 @@ export function StationFileManagerWorkbench({ onOpen }: { onOpen: (text: string)
   const [selected, setSelected] = useState<string | null>(null);
   const [comparisonRef, setComparisonRef] = useState("");
   const [name, setName] = useState("");
+  const [creatingFolder, setCreatingFolder] = useState(false);
+  const [inspectorOpen, setInspectorOpen] = useState(false);
+  const [expanded, setExpanded] = useState<string[]>([WORKSPACE_ROOT]);
   const [ready, setReady] = useState(false);
   const [message, setMessage] = useState("Opening your local workspace…");
   const input = useRef<HTMLInputElement>(null);
@@ -35,6 +38,11 @@ export function StationFileManagerWorkbench({ onOpen }: { onOpen: (text: string)
     return () => { sequence.current++; };
   }, [refresh]);
   const navigate = (ref: string) => { sequence.current++; setFolder(ref); setSelected(null); setComparisonRef(""); };
+  const hierarchy = (parent: string | null, depth = 0): { ref: string; name: string; depth: number; children: boolean }[] =>
+    view.workspace.folders.filter(f => f.parentRef === parent).flatMap(f => [
+      { ref: f.ref, name: f.name, depth, children: view.workspace.folders.some(child => child.parentRef === f.ref) },
+      ...(expanded.includes(f.ref) ? hierarchy(f.ref, depth + 1) : [])
+    ]);
   const selectFile = (ref: string) => { setSelected(ref); setComparisonRef(""); };
   const mutate = (intent: WorkspaceIntent, expected = view.text) => {
     try {
@@ -74,29 +82,37 @@ export function StationFileManagerWorkbench({ onOpen }: { onOpen: (text: string)
     } catch { setReady(false); setMessage("Workspace unavailable. Editor unchanged."); }
   };
   const currentFolder = view.workspace.folders.find(f => f.ref === folder)!;
-  return <section aria-label="Artifact workspace" data-content-view={contentView} className="min-w-0 overflow-hidden rounded-xl border bg-background">
-    <header className="space-y-3 border-b p-4">
-      <div className="flex flex-wrap items-center gap-3"><h1 className="mr-auto flex items-center gap-2 text-lg font-semibold"><StationIcon token="workspace.folder-open" size={22} className="text-primary" />File Manager</h1>
-        <Button variant="outline" onClick={refresh}><StationIcon token="action.refresh" className="shrink-0" />Refresh workspace</Button>
-        <Button variant="outline" disabled={!ready} onClick={() => input.current?.click()}><StationIcon token="action.import" className="shrink-0" />Import composition</Button>
-        <input ref={input} type="file" accept=".composition.json,application/json" aria-label="Import workspace composition" className="sr-only"
-          onChange={event => { const file = event.target.files?.[0]; event.target.value = ""; if (file && ready) void importFile(file); }} />
+  return <section aria-label="Artifact workspace" data-content-view={contentView} className="flex h-full min-h-[360px] min-w-0 flex-col overflow-hidden rounded-xl border bg-background">
+    <header className="shrink-0 border-b p-2">
+      <div role="toolbar" aria-label="File Manager actions" className="flex flex-wrap items-center gap-1">
+        <Button variant="ghost" aria-label="Refresh workspace" title="Refresh workspace" onClick={refresh}><StationIcon token="action.refresh" /></Button>
+        <Button variant="ghost" aria-label="Import composition" title="Import composition" disabled={!ready} onClick={() => input.current?.click()}><StationIcon token="action.import" /></Button>
+        <Button variant="ghost" aria-label="Create folder" title="Create folder" aria-pressed={creatingFolder} disabled={!ready} onClick={() => setCreatingFolder(!creatingFolder)}><StationIcon token="workspace.new-folder" /></Button>
+        <Button variant="ghost" aria-label="Up one folder" title="Up one folder" disabled={currentFolder.parentRef === null} onClick={() => navigate(currentFolder.parentRef!)}><StationIcon token="navigation.parent" /></Button>
+        <span className="mx-1 h-5 border-l" aria-hidden="true" />
+        <Button variant={contentView === "grid" ? "secondary" : "ghost"} aria-label="Icon view" title="Icon view" aria-pressed={contentView === "grid"} onClick={() => setContentView("grid")}><StationIcon token="view.grid" /></Button>
+        <Button variant={contentView === "list" ? "secondary" : "ghost"} aria-label="List view" title="List view" aria-pressed={contentView === "list"} onClick={() => setContentView("list")}><StationIcon token="view.list" /></Button>
+        <Button className="ml-auto" variant={inspectorOpen ? "secondary" : "ghost"} aria-label="Toggle Inspector" title="Toggle Inspector" aria-pressed={inspectorOpen} onClick={() => setInspectorOpen(!inspectorOpen)}><StationIcon token="view.list" /></Button>
+        <input ref={input} type="file" accept=".composition.json,application/json" aria-label="Import workspace composition" className="sr-only" onChange={event => { const file = event.target.files?.[0]; event.target.value = ""; if (file && ready) void importFile(file); }} />
       </div>
-      <p className="break-words text-sm" aria-label="Current workspace folder">{workspaceFolderLabel(view.workspace, folder)}</p>
-      <div className="flex flex-wrap items-end gap-3"><label className="min-w-0 flex-1 text-sm">New folder name
-        <input className="mt-1 w-full rounded-md border bg-background p-2" value={name} maxLength={160}
-          disabled={!ready} onChange={event => setName(event.target.value)} /></label>
-        <Button disabled={!ready} onClick={() => { if (mutate({ type: "create-folder", ref: "folder:" + crypto.randomUUID(), parentRef: folder, name })) setName(""); }}><StationIcon token="workspace.new-folder" className="shrink-0" />Create folder</Button>
-        <Button variant="outline" disabled={currentFolder.parentRef === null} onClick={() => navigate(currentFolder.parentRef!)}><StationIcon token="navigation.parent" className="shrink-0" />Up one folder</Button>
+      <div aria-label="Current workspace path" className="mt-2 flex min-w-0 items-center gap-2 rounded-md border px-2 py-1 text-sm">
+        <StationIcon token="workspace.folder-open" /><span className="min-w-0 truncate">{workspaceFolderLabel(view.workspace, folder)}</span>
       </div>
+      {creatingFolder ? <form className="mt-2 flex gap-2" onSubmit={event => { event.preventDefault(); if (name.trim() && mutate({ type: "create-folder", ref: "folder:" + crypto.randomUUID(), parentRef: folder, name })) { setName(""); setCreatingFolder(false); } }}>
+        <input autoFocus className="min-w-0 flex-1 rounded-md border bg-background px-2" aria-label="New folder name" placeholder="New folder name" value={name} maxLength={160} disabled={!ready} onChange={event => setName(event.target.value)} />
+        <Button type="submit" disabled={!ready || !name.trim()}>Create</Button><Button type="button" variant="ghost" onClick={() => setCreatingFolder(false)}>Cancel</Button>
+      </form> : null}
     </header>
-    <div className="grid min-w-0 gap-0 md:grid-cols-[180px_minmax(0,1fr)_280px]">
-      <nav aria-label="Workspace folders" className="min-w-0 space-y-1 border-b p-4 md:border-r">
-        {view.workspace.folders.map(f => <Button key={f.ref} variant={folder === f.ref ? "secondary" : "ghost"}
-          className="h-auto w-full justify-start whitespace-normal break-words text-left" aria-current={folder === f.ref ? "location" : undefined}
-          onClick={() => navigate(f.ref)}><StationIcon token={folder === f.ref ? "workspace.folder-open" : "workspace.folder"} className="shrink-0 text-primary" /><span className="min-w-0">{workspaceFolderLabel(view.workspace, f.ref)}</span></Button>)}
+    <div className={`grid min-h-0 min-w-0 flex-1 overflow-hidden ${inspectorOpen ? "md:grid-cols-[200px_minmax(0,1fr)_280px]" : "md:grid-cols-[200px_minmax(0,1fr)]"}`}>
+      <nav aria-label="Workspace folders" className="min-h-0 min-w-0 overflow-auto border-r p-2">
+        {hierarchy(null).map(f => <div key={f.ref} className="flex min-w-0 items-center" style={{ paddingLeft: Math.min(12, f.depth) * 12 }}>
+          {f.children ? <button type="button" className="w-6 shrink-0 rounded hover:bg-accent" aria-label={expanded.includes(f.ref) ? `Collapse ${f.name}` : `Expand ${f.name}`} aria-expanded={expanded.includes(f.ref)} onClick={() => setExpanded(previous => previous.includes(f.ref) ? previous.filter(ref => ref !== f.ref) : [...previous, f.ref])}>{expanded.includes(f.ref) ? "−" : "+"}</button> : <span className="w-6 shrink-0" />}
+          <Button variant={folder === f.ref ? "secondary" : "ghost"} className="h-auto min-w-0 flex-1 justify-start gap-2" aria-current={folder === f.ref ? "location" : undefined} onClick={() => { navigate(f.ref); setExpanded(previous => [...new Set([...previous, f.ref])]); }}>
+            <StationIcon token={folder === f.ref ? "workspace.folder-open" : "workspace.folder"} className="shrink-0" /><span className="min-w-0 truncate" title={f.name}>{f.name}</span>
+          </Button>
+        </div>)}
       </nav>
-      <section aria-label="Folder contents" className="min-w-0 space-y-2 p-4">
+      <section aria-label="Folder contents" className="min-h-0 min-w-0 overflow-auto p-3">
         <div className="flex flex-wrap items-center gap-2">
           <h2 className="mr-auto font-semibold">Files and folders</h2>
           <div role="group" aria-label="Folder view" className="flex gap-1">
@@ -104,7 +120,7 @@ export function StationFileManagerWorkbench({ onOpen }: { onOpen: (text: string)
             <Button variant={contentView === "list" ? "secondary" : "ghost"} aria-label="List view" title="List view" aria-pressed={contentView === "list"} onClick={() => setContentView("list")}><StationIcon token="view.list" />List</Button>
           </div>
         </div>
-        <div className={contentView === "grid" ? "grid grid-cols-2 gap-3 lg:grid-cols-3" : "space-y-2"}>
+        <div className={contentView === "grid" ? "grid grid-cols-[repeat(auto-fill,minmax(120px,1fr))] gap-3" : "space-y-2"}>
           {view.workspace.folders.filter(f => f.parentRef === folder).map(f => <Button key={f.ref} variant="ghost"
             className={contentView === "grid" ? "h-auto min-h-28 w-full flex-col gap-2 rounded-xl border px-3 py-4 whitespace-normal break-words text-center" : "h-auto w-full justify-start gap-3 whitespace-normal break-words"}
             onClick={() => navigate(f.ref)}><StationIcon token="workspace.folder" size={contentView === "grid" ? 42 : 22} className="shrink-0 text-primary" /><span className="min-w-0">Folder: {f.name}</span></Button>)}
@@ -117,7 +133,7 @@ export function StationFileManagerWorkbench({ onOpen }: { onOpen: (text: string)
         </div>
         {!view.workspace.folders.some(f => f.parentRef === folder) && !view.workspace.files.some(f => f.folderRef === folder) ? <div className="flex flex-col items-center gap-2 rounded-lg border border-dashed p-8 text-muted-foreground"><StationIcon token="workspace.folder-open" size={36} /><p className="text-sm">This folder is empty.</p></div> : null}
       </section>
-      <aside aria-label="File Inspector" className="min-w-0 space-y-3 border-t p-4 md:border-l">
+      {inspectorOpen ? <aside aria-label="File Inspector" className="min-w-0 space-y-3 border-t p-4 md:border-l">
         <h2 className="font-semibold">Inspector</h2>
         {chosen && document ? <><dl className="space-y-2 break-words text-sm">
           <dt>Name</dt><dd>{chosen.name}</dd><dt>Folder</dt><dd>{workspaceFolderLabel(view.workspace, chosen.folderRef)}</dd>
