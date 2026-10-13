@@ -12,7 +12,6 @@ export function StationStudioWorkbench({ onOpenComposition }: { onOpenCompositio
   const [presentation, setPresentation] = useState(() => ({ state: createStudioFoundation(), invalid: { "process-context": false, workflow: false } }));
   const [request, setRequest] = useState<EditorArtifactOpenRequest | null>(null);
   const [editorOpened, setEditorOpened] = useState(false);
-  const [splitEnabled, setSplitEnabled] = useState(false);
   const [splitFraction, setSplitFraction] = useState(0.68);
   const nextRequest = useRef(0);
   const receive = useCallback((area: StudioAreaId, snapshot: StudioSnapshot) => {
@@ -57,24 +56,20 @@ export function StationStudioWorkbench({ onOpenComposition }: { onOpenCompositio
         nodes={INSTALLED_STUDIO_AREAS.map(area => ({ id: area.id, label: area.title, icon: area.id === "process-context" ? "studio.process-context" : "studio.workflow" }))} />
     </div>
     <p role="status" className="text-sm">{active.title} active. {unavailable ? "Shared snapshot unavailable; inspect the owning workbench. Draft preserved." : "Selection and draft stay scoped to this area."}</p>
-    <div className="flex min-w-0 items-center gap-2">
-      <Button aria-pressed={splitEnabled} onClick={() => setSplitEnabled(value => !value)}>Split inspector layout</Button>
-      {splitEnabled && <output aria-label="Studio split ratio" className="text-xs text-muted-foreground">{Math.round(splitFraction * 100)}%</output>}
-    </div>
-    {splitEnabled ?
-      <SplitPane label="Studio workbench split" fraction={splitFraction} onFractionChange={setSplitFraction} className="h-[28rem] w-full"
-        first={<div className="min-w-0 p-2">
-          <div id="studio-area-process-context" hidden={state.active !== "process-context"}><StationProcessContextWorkbench onOpen={openComposition} onSnapshot={contextSnapshot} /></div>
-          <div id="studio-area-workflow" hidden={state.active !== "workflow"}><StationWorkflowWorkbench onSnapshot={workflowSnapshot} /></div>
-        </div>}
-        second={<PropertyInspector aria-label="Shared Studio Inspector" groups={groups} className="break-all" />} />
-    : <div className="grid min-w-0 items-start gap-4 xl:grid-cols-[minmax(0,1fr)_20rem]">
+    <div className="grid min-w-0 items-start gap-4 xl:grid-cols-[minmax(0,1fr)_20rem]">
       <div className="min-w-0">
         <div id="studio-area-process-context" hidden={state.active !== "process-context"}><StationProcessContextWorkbench onOpen={openComposition} onSnapshot={contextSnapshot} /></div>
         <div id="studio-area-workflow" hidden={state.active !== "workflow"}><StationWorkflowWorkbench onSnapshot={workflowSnapshot} /></div>
       </div>
       <PropertyInspector aria-label="Shared Studio Inspector" groups={groups} className="break-all" />
-    </div>}
+    </div>
+    <section aria-label="Studio workstation layout preview" className="min-w-0 space-y-2 rounded border p-2">
+      <h2 className="text-sm font-semibold">Adjustable layout preview</h2>
+      <SplitPane label="Studio context preview split" fraction={splitFraction} onFractionChange={setSplitFraction} className="h-24 w-full"
+        first={<p className="p-2 text-xs">Active: {active.title}</p>}
+        second={<p className="p-2 text-xs">Artifact: {snapshot?.identity?.artifactId ?? "None"}</p>} />
+      <output aria-label="Studio split ratio" className="text-xs text-muted-foreground">{Math.round(splitFraction * 100)}%</output>
+    </section>
     {editorOpened ? <section aria-label="Referenced composition editor"><StationEditorWorkbench artifactRequest={request} onArtifactRequestConsumed={consumed} /></section> : null}
   </section>;
 }
