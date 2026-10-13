@@ -27,3 +27,16 @@ A component must not receive `EDITOR_READY` from descriptor registration alone. 
 - G-F: PR #1196 for EditorSession operation, Inspector/preview, undo/redo and browser round trip. Closure is conditional on exact-head CI.
 
 After successful CI and merge, the three fields are qualified for the composition editor's source-bound inert property workflow. This qualification does not assert arbitrary dynamic schema editing or Core-persisted publishing.
+
+
+## Integrated validation evidence — 2026-10-13
+
+The consolidated implementation at commit `59ce25c3` passed:
+- Deterministic CI
+- Merge Candidate CI
+- Heavy Product Tests
+- Station Frontend Quality
+- Station Cross-Platform Build
+- Station Editor Browser Journey (production build, Playwright interaction and save/reopen)
+
+Automation Handoff State Machine was cancelled because multiple branch pushes overlapped. This is not a successful gate. A final exact-head validation cycle is required after this evidence update before merge and before declaring full Construction G enclosure.
