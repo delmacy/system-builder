@@ -2198,12 +2198,12 @@ for (const field of [
     await page.getByLabel("Field label", { exact: true }).fill(field.label);
     await page.getByLabel(field.input, { exact: true }).fill(field.value);
     if (field.id === "ui:property-picker")
-      await page.getByLabel("Choices (ID | label | disabled)", { exact: true }).fill("warm | Warm | false\\ncool | Cool | false");
+      await page.getByLabel("Choices (ID | label | disabled)", { exact: true }).fill("warm | Warm | false\ncool | Cool | false");
     if (field.id === "ui:document-text-field")
       await page.getByLabel("Maximum characters", { exact: true }).fill("600");
     await page.getByRole("button", { name: "Apply field properties", exact: true }).click();
     await expect(page.getByTestId("draft-state")).toHaveText("Unsaved changes");
-    const visual = page.getByRole("img", { name: /Ui:.* Field 3 preview/i });
+    const visual = page.getByRole("img", { name: /Ui:.* 3 preview/i });
     await expect(visual.getByText(field.label, { exact: true })).toBeVisible();
     await page.getByRole("button", { name: "Save locally", exact: true }).click();
     await page.reload();
