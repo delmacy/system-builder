@@ -9,7 +9,7 @@ export type EditorPreviewNode =
       readonly nodeRef: string;
       readonly componentRef: string;
       readonly text?: string;
-      readonly properties?: import("@system-builder/station-composition").ButtonProperties;
+      readonly properties?: import("@system-builder/station-composition").CompositionNode["properties"];
       readonly parentRef: null;
       readonly slotRef: null;
       readonly columnSpan: null;
@@ -21,7 +21,7 @@ export type EditorPreviewNode =
       readonly nodeRef: string;
       readonly componentRef: string;
       readonly text?: string;
-      readonly properties?: import("@system-builder/station-composition").ButtonProperties;
+      readonly properties?: import("@system-builder/station-composition").CompositionNode["properties"];
       readonly parentRef: string;
       readonly slotRef: string;
       readonly columnSpan: number;
