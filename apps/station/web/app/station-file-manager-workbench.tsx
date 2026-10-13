@@ -102,7 +102,7 @@ export function StationFileManagerWorkbench({ onOpen }: { onOpen: (text: string)
     } catch { setReady(false); setMessage("Workspace unavailable. Editor unchanged."); }
   };
   const currentFolder = view.workspace.folders.find(f => f.ref === folder)!;
-  return <section aria-label="Artifact workspace" data-content-view={contentView} className="flex h-full min-h-[360px] min-w-0 flex-col overflow-hidden rounded-xl border bg-background">
+  return <section aria-label="Artifact workspace" data-content-view={contentView} className="flex h-full min-h-0 min-w-0 flex-col overflow-hidden rounded-none border bg-background">
     <header className="shrink-0 border-b p-2">
       <div role="toolbar" aria-label="File Manager actions" className="flex flex-wrap items-center gap-1">
         <Button variant="ghost" aria-label="Refresh workspace" title="Refresh workspace" onClick={refresh}><StationIcon token="action.refresh" /></Button>
@@ -142,7 +142,7 @@ export function StationFileManagerWorkbench({ onOpen }: { onOpen: (text: string)
         <div className={contentView === "grid" ? "grid grid-cols-[repeat(auto-fill,minmax(120px,1fr))] gap-3" : "space-y-2"}>
           {view.workspace.folders.filter(f => f.parentRef === folder).map(f => <Button key={f.ref} variant="ghost"
             className={contentView === "grid" ? "h-auto min-h-28 w-full flex-col gap-2 rounded-xl border px-3 py-4 whitespace-normal break-words text-center" : "h-auto w-full justify-start gap-3 whitespace-normal break-words"}
-            onClick={() => navigate(f.ref)}><StationIcon token="workspace.folder" size={contentView === "grid" ? 42 : 22} className="shrink-0 text-primary" /><span className="min-w-0">Folder: {f.name}</span></Button>)}
+            onClick={() => navigate(f.ref)}><StationIcon token="workspace.folder" size={contentView === "grid" ? 42 : 22} className="shrink-0 text-primary" /><span className="min-w-0">{f.name}</span></Button>)}
           {view.workspace.files.filter(f => f.folderRef === folder).map(f => <Button key={f.ref} aria-label={f.name} variant={selected === f.ref ? "secondary" : "ghost"}
             aria-pressed={selected === f.ref}
             className={contentView === "grid" ? "h-auto min-h-28 w-full flex-col gap-2 rounded-xl border px-3 py-4 whitespace-normal break-words text-center" : "h-auto w-full justify-start gap-3 whitespace-normal break-words"}
