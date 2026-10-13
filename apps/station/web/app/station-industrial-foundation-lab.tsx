@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { PaneHeader, PropertyField, PropertySection, StatusBar, Toolbar, ToolbarButton, ToolbarGroup, ToolbarSeparator, ToolbarToggleGroup, Input, SearchField, SelectField, TabStrip, SplitPane, DockGroup, FilterBar } from "../../../../packages/ui-core/index";
+import { PaneHeader, PropertyField, PropertySection, StatusBar, Toolbar, ToolbarButton, ToolbarGroup, ToolbarSeparator, ToolbarToggleGroup, Input, SearchField, SelectField, TabStrip, SplitPane, DockGroup, FilterBar, ColorField, PropertyPicker } from "../../../../packages/ui-core/index";
 import { StationIcon } from "../../../../packages/ui-icons/index";
 
 /** Construction D proof surface; commands are local demo state, not editor mutation. */
@@ -16,6 +16,8 @@ export function StationIndustrialFoundationLab() {
   const [lockSplit, setLockSplit] = useState(false);
   const [dockActive, setDockActive] = useState("properties");
   const [onlyActive, setOnlyActive] = useState(false);
+  const [accentColor, setAccentColor] = useState("#3366CC");
+  const [editorMode, setEditorMode] = useState("select");
   return <section className="space-y-3 rounded-lg border p-4" aria-label="Industrial toolbar foundation" data-slot="industrial-foundation-lab">
     <PaneHeader title="Workstation components" subtitle="Construction D · source-owned presentation" />
     <TabStrip label="Workspace views" activeId={activeTab} onActiveChange={setActiveTab} tabs={[{id:"inspector",label:"Inspector"},{id:"assets",label:"Assets"}]} />
@@ -41,6 +43,12 @@ export function StationIndustrialFoundationLab() {
       <DockGroup label="Workspace docks" activeId={dockActive} onActiveChange={setDockActive} panels={[{id:"properties",label:"Properties",icon:"settings",content:<p className="text-sm">Properties pane</p>},{id:"layers",label:"Layers",icon:"view.list",content:<p className="text-sm">Layer hierarchy</p>}]} />
     } second={<div className="p-3 text-sm">Document preview area</div>} />
     <output aria-label="Split ratio" className="block text-xs">Split: {Math.round(splitFraction*100)}%</output>
+    <PropertySection title="Editor fields">
+      <ColorField label="Preview accent" value={accentColor} onValueChange={setAccentColor} />
+      <PropertyPicker label="Editor interaction mode" value={editorMode} onValueChange={setEditorMode}
+        choices={[{id:"select",label:"Select"},{id:"inspect",label:"Inspect"},{id:"locked",label:"Restricted",disabled:true}]} />
+      <output aria-label="Editor fields state" className="text-xs">Color: {accentColor} · Mode: {editorMode}</output>
+    </PropertySection>
     <StatusBar label="Industrial component demo status" trailing={`${alignment} · ${density} · ${query.length} search chars`}>{saved ? "Saved locally" : "Unsaved demo"}</StatusBar>
   </section>;
 }

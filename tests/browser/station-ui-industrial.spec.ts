@@ -111,3 +111,14 @@ test("Component Lab component browser switches item details without discarding l
   await expect(page.getByRole("complementary", { name: "Component Details" })).toContainText("SplitPane");
   await expect(lab.getByRole("separator", { name: "Document panel split divider" })).toBeVisible();
 });
+
+test("Construction F color and property controls retain bounded values and reject disabled choices", async ({ page }) => {
+  const lab = await openIndustrial(page);
+  const picker = lab.getByRole("combobox", { name: "Editor interaction mode" });
+  await picker.selectOption("inspect");
+  await expect(lab.getByLabel("Editor fields state")).toContainText("Mode: inspect");
+  await expect(picker.locator('option[value="locked"]')).toBeDisabled();
+  await expect(lab.getByLabel("Preview accent hex")).toHaveText("#3366CC");
+  await lab.getByLabel("Preview accent picker").fill("#112233");
+  await expect(lab.getByLabel("Editor fields state")).toContainText("#112233");
+});
