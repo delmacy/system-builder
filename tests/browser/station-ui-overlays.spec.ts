@@ -6,6 +6,7 @@ async function openLab(page: Page) {
   await page.locator('[data-app-ref="app:component-lab"]').click();
   const win = page.getByRole("dialog", { name: "Component Lab", exact: true });
   await win.getByRole("button", { name: "Maximize window", exact: true }).click();
+  await win.getByRole("tab", { name: "Overlays" }).click();
   const lab = page.getByRole("region", { name: "Overlay foundation reference", exact: true });
   await expect(lab).toBeVisible();
   return lab;
