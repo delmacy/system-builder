@@ -9,4 +9,5 @@ export * from "./overlays.js";
 export * from "./industrial.js";
 export * from "./data-table.js";
 export * from "./catalog-capabilities.js";
+export * from "./input-group.js";
 export * from "./input-extensions.js";
