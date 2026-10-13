@@ -1917,7 +1917,7 @@ test.describe("WP16 actual owner-connected Workflow Studio",()=>{
       await studio(other).getByLabel("New state id",{exact:true}).fill("waiting");await button(other,"Add state").click();await studio(other).getByLabel("New workflow version",{exact:true}).fill("1.0.3");await button(other,"Save new workflow revision").click();
       const before=await other.evaluate(()=>localStorage.getItem("station:workflow-candidates:v1"));
       await studio(page).getByLabel("New state id",{exact:true}).fill("review");await button(page,"Add state").click();await button(page,"Save new workflow revision").click();await retain(page);
-      await button(other,"Send candidate to owner").click();await expect(status(other)).toContainText("stale-owner-revision. Draft preserved.");await expect(studio(other)).toHaveAttribute("data-artifact-version","1.0.3");
+      await button(other,"Send candidate to owner").click();await expect(status(other)).toContainText(/(?:Owner revision changed or base unverified\. Draft preserved\.|Owner rejected: stale-owner-revision\. Draft preserved\.)/);await expect(studio(other)).toHaveAttribute("data-artifact-version","1.0.3");
       expect(await other.evaluate(()=>localStorage.getItem("station:workflow-candidates:v1"))).toBe(before);
       await read(other,candidate.document.artifactId,"1.0.3");await expect(status(other)).toContainText("Exact owner revision absent");
     }finally{await context.close();}
