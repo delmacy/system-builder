@@ -4,7 +4,7 @@ import { ComponentRegistry } from "./registry.js";
 import { normalizeComponentDescriptor } from "./validation.js";
 import { UI_FOUNDATION_DESCRIPTORS } from "./ui-foundation-descriptors.js";
 import { validateCompositionGraph } from "./graph-validation.js";
-import { defineCompositionGraph } from "./graph.js";
+import { defineCompositionGraph, type CompositionNode } from "./graph.js";
 
 const root = normalizeComponentDescriptor({
   id: "test:foundation-grid", family: "layout-container", layout: "grid",
@@ -24,7 +24,7 @@ const cases = [
 function graph(id: string, properties: unknown) {
   return defineCompositionGraph({ rootRef: "root", nodes: [
     { ref: "root", componentRef: root.id },
-    { ref: "field", componentRef: id, placement: { parentRef: "root", slotRef: "content", columnSpan: 2, rowSpan: 2 }, properties },
+    { ref: "field", componentRef: id, placement: { parentRef: "root", slotRef: "content", columnSpan: 2, rowSpan: 2 }, properties: properties as CompositionNode["properties"] },
   ] });
 }
 test("Construction G canonical graph admits typed fields and rejects malformed overrides", () => {
