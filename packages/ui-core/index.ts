@@ -10,6 +10,7 @@ export * from "./industrial.js";
 export * from "./data-table.js";
 export * from "./catalog-capabilities.js";
 export * from "./avatar.js";
+export * from "./stepper.js";
 export * from "./input-extensions.js";
 export * from "./combobox.js";
 export * from "./password-field.js";
