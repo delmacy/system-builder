@@ -2,7 +2,7 @@
 {
   "id": "TASK-780",
   "title": "Constrain file labels with full-name access",
-  "status": "ready",
+  "status": "verification",
   "priority": 780,
   "milestone": "WP-UI-FOUNDATION-01",
   "model_tier": "cheap",

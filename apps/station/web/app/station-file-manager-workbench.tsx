@@ -106,15 +106,15 @@ export function StationFileManagerWorkbench({ onOpen }: { onOpen: (text: string)
           </ToolbarGroup>
         </div>
         <div className={contentView === "grid" ? "grid grid-cols-2 gap-3 lg:grid-cols-3" : "space-y-2"}>
-          {view.workspace.folders.filter(f => f.parentRef === folder).map(f => <Button key={f.ref} variant="ghost"
+          {view.workspace.folders.filter(f => f.parentRef === folder).map(f => <Button key={f.ref} variant="ghost" title={"Folder: " + f.name}
             className={contentView === "grid" ? "h-auto min-h-28 w-full flex-col gap-2 rounded-xl border px-3 py-4 whitespace-normal break-words text-center" : "h-auto w-full justify-start gap-3 whitespace-normal break-words"}
-            onClick={() => navigate(f.ref)}><StationIcon token="workspace.folder" size={contentView === "grid" ? 42 : 22} className="shrink-0 text-primary" /><span className="min-w-0">Folder: {f.name}</span></Button>)}
-          {view.workspace.files.filter(f => f.folderRef === folder).map(f => <Button key={f.ref} aria-label={f.name} variant={selected === f.ref ? "secondary" : "ghost"}
+            onClick={() => navigate(f.ref)}><StationIcon token="workspace.folder" size={contentView === "grid" ? 42 : 22} className="shrink-0 text-primary" /><span data-slot="workspace-item-label" className="block w-full min-w-0 truncate">Folder: {f.name}</span></Button>)}
+          {view.workspace.files.filter(f => f.folderRef === folder).map(f => <Button key={f.ref} aria-label={f.name} title={f.name} variant={selected === f.ref ? "secondary" : "ghost"}
             aria-pressed={selected === f.ref}
             className={contentView === "grid" ? "h-auto min-h-28 w-full flex-col gap-2 rounded-xl border px-3 py-4 whitespace-normal break-words text-center" : "h-auto w-full justify-start gap-3 whitespace-normal break-words"}
             onClick={() => selectFile(f.ref)}>
             <StationIcon token="artifact.composition" size={contentView === "grid" ? 42 : 22} className="shrink-0 text-primary" />
-            <span className="min-w-0">{f.name}</span><span aria-hidden="true" className="text-xs text-muted-foreground">Composition</span></Button>)}
+            <span data-slot="workspace-item-label" className="block w-full min-w-0 truncate">{f.name}</span><span aria-hidden="true" className="text-xs text-muted-foreground">Composition</span></Button>)}
         </div>
         {!view.workspace.folders.some(f => f.parentRef === folder) && !view.workspace.files.some(f => f.folderRef === folder) ? <div className="flex flex-col items-center gap-2 rounded-lg border border-dashed p-8 text-muted-foreground"><StationIcon token="workspace.folder-open" size={36} /><p className="text-sm">This folder is empty.</p></div> : null}
       </section>

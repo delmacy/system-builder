@@ -58,3 +58,37 @@ test("File Manager shared fields and compact view commands preserve local state"
   await expect(up).toBeEnabled(); await up.press("Enter");
   await expect(ws.getByLabel("Current workspace folder", { exact: true })).toHaveText("Workspace");
 });
+
+
+test("long actual workspace filenames fit grid and list with full-name access", async ({ page }, info) => {
+  const filename = "report-" + "a".repeat(80) + ".composition.json";
+  await page.goto("/component-editor");
+  const editor = page.getByRole("region", { name: "Composition editor", exact: true });
+  await editor.getByLabel("Workspace copy name", { exact: true }).fill(filename);
+  await editor.getByRole("button", { name: "Save to workspace", exact: true }).click();
+  await expect(editor.getByRole("status")).toContainText("Workspace copy saved");
+  await page.goto("/");
+  await page.getByRole("button", { name: "Open applications", exact: true }).click();
+  await page.locator('[data-app-ref="app:file-manager"]').click();
+  const win = page.getByRole("dialog", { name: "File Manager", exact: true });
+  await win.getByRole("button", { name: "Maximize window", exact: true }).click();
+  const ws = win.getByRole("region", { name: "Artifact workspace", exact: true });
+  const file = ws.getByRole("button", { name: filename, exact: true });
+  await expect(file).toHaveAttribute("title", filename);
+  const retained = await page.evaluate(() => localStorage.getItem("station:artifact-workspace:v1"));
+  for (const width of [1280, 390]) {
+    await page.setViewportSize({ width, height: 860 });
+    for (const mode of ["Icon view", "List view"]) {
+      await ws.getByRole("button", { name: mode, exact: true }).press("Enter");
+      await file.press("Enter");
+      await expect(file).toHaveAttribute("aria-pressed", "true");
+      await expect(ws.getByRole("complementary", { name: "File Inspector", exact: true })).toContainText(filename);
+      const button = await file.boundingBox(), label = await file.locator('[data-slot="workspace-item-label"]').boundingBox();
+      expect(button).not.toBeNull(); expect(label).not.toBeNull();
+      expect(label!.x).toBeGreaterThanOrEqual(button!.x);
+      expect(label!.x + label!.width).toBeLessThanOrEqual(button!.x + button!.width);
+      expect(await page.evaluate(() => localStorage.getItem("station:artifact-workspace:v1"))).toBe(retained);
+    }
+    await info.attach(`file-manager-long-name-${width}`, { body: await ws.screenshot({ animations: "disabled" }), contentType: "image/png" });
+  }
+});
