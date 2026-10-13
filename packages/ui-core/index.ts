@@ -17,3 +17,5 @@ export * from "./input-extensions.js";
 export * from "./combobox.js";
 export * from "./password-field.js";
 export * from "./input-group.js";
+
+export * from "./workstation.js";
