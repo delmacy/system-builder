@@ -165,3 +165,22 @@ test("Construction C navigation tree expands, selects and handles keyboard trave
   await expect(win.getByLabel("Navigation tree selection")).toContainText("editor");
   await expect(tree.getByRole("treeitem", { name: "Unavailable Studio" })).toBeDisabled();
 });
+
+test("Construction C tree keyboard skips disabled nodes and Space selects visible leaf", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Open applications", exact: true }).click();
+  await page.locator('[data-app-ref="app:component-lab"]').click();
+  const win = page.getByRole("dialog", { name: "Component Lab", exact: true });
+  await win.getByRole("tab", { name: "Overlays" }).click();
+  const tree = win.getByRole("tree", { name: "Studio navigation tree" });
+  const station = tree.getByRole("treeitem", { name: "Station" });
+  await station.focus();
+  await station.press("ArrowRight");
+  await tree.getByRole("treeitem", { name: "Studios" }).click();
+  const editor = tree.getByRole("treeitem", { name: "Component Editor" });
+  await editor.focus();
+  await editor.press("ArrowDown");
+  await expect(tree.getByRole("treeitem", { name: "Documents" })).toBeFocused();
+  await page.keyboard.press(" ");
+  await expect(win.getByLabel("Navigation tree selection")).toContainText("documents");
+});
