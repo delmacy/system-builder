@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { PaneHeader, PropertyField, PropertySection, StatusBar, Toolbar, ToolbarButton, ToolbarGroup, ToolbarSeparator, ToolbarToggleGroup, Input, SearchField, SelectField, TabStrip, SplitPane, DockGroup, FilterBar, ColorField, PropertyPicker } from "../../../../packages/ui-core/index";
+import { PaneHeader, PropertyField, PropertySection, StatusBar, Toolbar, ToolbarButton, ToolbarGroup, ToolbarSeparator, ToolbarToggleGroup, Input, SearchField, SelectField, TabStrip, SplitPane, DockGroup, FilterBar, ColorField, PropertyPicker, DocumentTextField } from "../../../../packages/ui-core/index";
 import { StationIcon } from "../../../../packages/ui-icons/index";
 
 /** Construction D proof surface; commands are local demo state, not editor mutation. */
@@ -18,6 +18,7 @@ export function StationIndustrialFoundationLab() {
   const [onlyActive, setOnlyActive] = useState(false);
   const [accentColor, setAccentColor] = useState("#3366CC");
   const [editorMode, setEditorMode] = useState("select");
+  const [documentNotes, setDocumentNotes] = useState("Plain text workspace notes.");
   return <section className="space-y-3 rounded-lg border p-4" aria-label="Industrial toolbar foundation" data-slot="industrial-foundation-lab">
     <PaneHeader title="Workstation components" subtitle="Construction D · source-owned presentation" />
     <TabStrip label="Workspace views" activeId={activeTab} onActiveChange={setActiveTab} tabs={[{id:"inspector",label:"Inspector"},{id:"assets",label:"Assets"}]} />
@@ -49,6 +50,7 @@ export function StationIndustrialFoundationLab() {
         choices={[{id:"select",label:"Select"},{id:"inspect",label:"Inspect"},{id:"locked",label:"Restricted",disabled:true}]} />
       <output aria-label="Editor fields state" className="text-xs">Color: {accentColor} · Mode: {editorMode}</output>
     </PropertySection>
+    <DocumentTextField label="Workspace notes" value={documentNotes} onValueChange={setDocumentNotes} maxLength={120} rows={3} />
     <StatusBar label="Industrial component demo status" trailing={`${alignment} · ${density} · ${query.length} search chars`}>{saved ? "Saved locally" : "Unsaved demo"}</StatusBar>
   </section>;
 }
