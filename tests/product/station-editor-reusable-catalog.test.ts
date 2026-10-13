@@ -19,10 +19,10 @@ test("WP9 real nested installation converges owning projections and responsive l
   assert.equal(layers.root.children[0]!.children[0]!.children[0]!.nodeRef, "panel:primary");
   const changed = ok(act(h, { type: "set-properties", nodeRef: "panel:primary", properties: { variant: "outline", disabled: true } }));
   const selection = { selectedRef: "panel:primary" }; const inspector = projectEditorInspector(changed.session, selection, changed.session.draftRevision);
-  assert.ok(inspector.accepted); if (inspector.accepted && inspector.snapshot.kind === "node") assert.equal(inspector.snapshot.properties?.variant, "outline");
+  assert.ok(inspector.accepted); if (inspector.accepted && inspector.snapshot.kind === "node") assert.equal((inspector.snapshot.properties && "variant" in inspector.snapshot.properties ? inspector.snapshot.properties.variant : undefined), "outline");
   const preview = projectEditorPreview(changed.session, entry.registry, selection); assert.ok(preview.accepted);
   if (preview.accepted) assert.equal(preview.snapshot.nodes.find(n => n.nodeRef === selection.selectedRef)?.properties?.disabled, true);
-  assert.equal(projectResponsiveComposition(changed.session.transaction.draft, entry.registry, 390, []).nodes.find(n => n.ref === "panel:primary")?.properties?.variant, "outline");
+  assert.equal((projectResponsiveComposition(changed.session.transaction.draft, entry.registry, 390, []).nodes.find(n => n.ref === "panel:primary")?.properties as { variant?: string } | undefined)?.variant, "outline");
 });
 test("WP9 typed panel and row reject incompatible installed families/layouts/slots and unknown refs atomically", () => {
   const { h } = setup(); const before = JSON.stringify(h);

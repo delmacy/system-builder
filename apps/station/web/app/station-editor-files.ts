@@ -4,11 +4,22 @@ import { resolveEditorCatalogEntry } from "./station-editor-catalog.js";
 import { exportCatalogArtifact, importCatalogArtifact } from "./station-editor-artifact.js";
 
 export interface FileOperationMetadata { readonly artifactId: string; readonly createdAt: string }
+/** Compare inert serializable properties independently of codec key ordering. */
+function samePropertyData(left: unknown, right: unknown): boolean {
+  if (Object.is(left, right)) return true;
+  if (Array.isArray(left) || Array.isArray(right)) return Array.isArray(left) && Array.isArray(right) &&
+    left.length === right.length && left.every((item, index) => samePropertyData(item, right[index]));
+  if (!left || !right || typeof left !== "object" || typeof right !== "object") return false;
+  const l = left as Record<string, unknown>, r = right as Record<string, unknown>;
+  const keys = Object.keys(l);
+  return keys.length === Object.keys(r).length &&
+    keys.every(key => Object.hasOwn(r, key) && samePropertyData(l[key], r[key]));
+}
 export function sameEditorArtifactGraph(left: CompositionGraph, right: CompositionGraph): boolean {
   return left.rootRef === right.rootRef && left.nodes.length === right.nodes.length && left.nodes.every((node, i) => {
     const other = right.nodes[i]!;
     return node.ref === other.ref && node.componentRef === other.componentRef &&
-      node.properties?.variant === other.properties?.variant && node.properties?.disabled === other.properties?.disabled &&
+      samePropertyData(node.properties, other.properties) &&
       Object.hasOwn(node, "properties") === Object.hasOwn(other, "properties") &&
       node.text === other.text && Object.hasOwn(node, "text") === Object.hasOwn(other, "text") &&
       node.placement?.parentRef === other.placement?.parentRef && node.placement?.slotRef === other.placement?.slotRef &&

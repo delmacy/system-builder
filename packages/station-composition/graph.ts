@@ -1,4 +1,5 @@
 import type { ComponentDescriptor } from "./types.js";
+import type { FoundationFieldProperties } from "./ui-foundation-properties.js";
 
 export type CompositionNodeRef = string;
 export type ComponentRef = ComponentDescriptor["id"];
@@ -17,7 +18,7 @@ export interface CompositionNode {
   /** Inert display override for admitted installed buttons; never action/HTML authority. */
   readonly text?: string;
   /** Typed inert button presentation only; never action/authorization. */
-  readonly properties?: ButtonProperties;
+  readonly properties?: ButtonProperties | FoundationFieldProperties;
   readonly placement?: CompositionNodePlacement;
 }
 

@@ -51,7 +51,7 @@ test("WP8 properties/text/span/structure share history and removal undo restores
   h = move(h, "undo"); assert.deepEqual(value(h), { variant: "ghost", disabled: false });
   assert.equal(h.session.transaction.draft.nodes[1]!.text, "Confirmar");
   h = move(move(move(h, "undo"), "undo"), "undo"); assert.equal(value(h), undefined); assert.equal(h.session.transaction.dirty, false);
-  h = move(h, "redo"); assert.equal(value(h)?.variant, "ghost");
+  h = move(h, "redo"); assert.equal(((value(h) as ButtonProperties | undefined)?.variant), "ghost");
 });
 
 test("WP8 identical application preserves redo; reset omits only properties and selects minimal schema", () => {

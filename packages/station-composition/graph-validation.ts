@@ -1,6 +1,7 @@
 import type { ComponentRegistry } from "./registry.js";
 import { validButtonProperties, validButtonDisplayText, supportsButtonDisplayText, type CompositionGraph, type CompositionNode } from "./graph.js";
 import { validateCompositionPlacement } from "./validation.js";
+import { validFoundationFieldProperties } from "./ui-foundation-properties.js";
 
 export type CompositionGraphFindingCode =
   | "duplicate-node-ref"
@@ -43,8 +44,9 @@ export function validateCompositionGraph(graph: CompositionGraph, registry: Comp
       findings.push(finding("invalid-display-text", node.ref, "invalid button display text"));
     }
     if (Object.hasOwn(node, "properties") && (node.ref === graph.rootRef ||
-        !supportsButtonDisplayText(node.componentRef) || !validButtonProperties(node.properties))) {
-      findings.push(finding("invalid-button-properties", node.ref, "invalid button properties"));
+        !(supportsButtonDisplayText(node.componentRef) ? validButtonProperties(node.properties) :
+          validFoundationFieldProperties(node.componentRef, node.properties)))) {
+      findings.push(finding("invalid-button-properties", node.ref, "invalid component properties"));
     }
     const child = registry.get(node.componentRef);
     if (child === null) {

@@ -40,7 +40,7 @@ function fields(session: EditorSession, selection: LayersSelection) {
   const result = projectEditorInspector(session, selection, session.draftRevision);
   const placement = result.accepted && result.snapshot.kind === "node" ? result.snapshot.placement : null;
   const node = session.transaction.draft.nodes.find(item => item.ref === selection.selectedRef);
-  return { propertyVariant: node?.properties?.variant ?? "default", propertyDisabled: String(node?.properties?.disabled ?? false), buttonText: node?.text ?? "", columns: placement ? String(placement.columnSpan) : "", rows: placement ? String(placement.rowSpan) : "" };
+  return { propertyVariant: (node?.properties && "variant" in node.properties ? node.properties.variant : "default"), propertyDisabled: String(node?.properties?.disabled ?? false), buttonText: node?.text ?? "", columns: placement ? String(placement.columnSpan) : "", rows: placement ? String(placement.rowSpan) : "" };
 }
 function initialState(ref: string): State | null {
   const result = initializeCatalogEditorSession(ref, "session:visual-workbench");
@@ -359,7 +359,7 @@ function ActiveWorkbench({ state, dispatch, catalogSelect }: { state: State; dis
       layout === "row" ? "flex flex-wrap gap-2" : "flex flex-col gap-2";
     if (node.kind === "root") return <div data-root-ref={node.nodeRef} className={container}>{children}</div>;
     const properties = node.properties;
-    const variant = properties?.variant ?? "default";
+    const variant = properties && "variant" in properties ? properties.variant : "default";
     const appearance = variant === "outline" ? "bg-transparent border-foreground/50" :
       variant === "ghost" ? "bg-transparent border-transparent" : "bg-primary/15 border-primary/40";
     const parent = byPreviewRef.get(node.parentRef);

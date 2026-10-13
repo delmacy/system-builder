@@ -21,7 +21,7 @@ export type InspectorSnapshot =
       readonly nodeRef: CompositionNodeRef;
       readonly componentRef: string;
       readonly text?: string;
-      readonly properties?: import("@system-builder/station-composition").ButtonProperties;
+      readonly properties?: import("@system-builder/station-composition").CompositionNode["properties"];
       readonly placement: Readonly<CompositionNodePlacement> | null;
       readonly editable: boolean;
     };
