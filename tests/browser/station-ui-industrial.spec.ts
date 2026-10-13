@@ -129,6 +129,8 @@ test("Construction F document text control enforces length and preserves plain t
   await notes.fill("<script>alert(1)</script> notes");
   await expect(notes).toHaveValue("<script>alert(1)</script> notes");
   await expect(lab.getByLabel("Workspace notes character count")).toContainText("/ 120");
-  await notes.fill("x".repeat(140));
+  await notes.fill("x".repeat(120));
+  await notes.press("End");
+  await notes.press("z");
   await expect(notes).toHaveValue("x".repeat(120));
 });
