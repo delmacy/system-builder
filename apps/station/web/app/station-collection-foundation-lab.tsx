@@ -1,6 +1,6 @@
 "use client";
 import { useMemo, useState } from "react";
-import { DataTable, SearchField, SelectField, type DataTableColumn } from "../../../../packages/ui-core/index";
+import { DataTable, EmptyState, Pagination, SearchField, SelectField, type DataTableColumn } from "../../../../packages/ui-core/index";
 
 type AssetRow = { id: string; name: string; kind: string };
 const assets: readonly AssetRow[] = [
@@ -34,8 +34,8 @@ export function StationCollectionFoundationLab() {
         { value: "all", label: "All kinds" }, { value: "Document", label: "Document" },
         { value: "Composition", label: "Composition" }, { value: "Process", label: "Process" }]} />
     </div>
-    <DataTable label="Reference assets" rows={pageRows} columns={columns} sort={sort} onSortChange={setSort} rowKey={row => row.id} selectedKey={visibleSelection} onSelect={setSelectedKey} />
-    <nav aria-label="Collection pages" className="flex items-center gap-2 text-xs"><button type="button" disabled={currentPage === 0} onClick={() => setPage(p => Math.max(0, p - 1))}>Previous page</button><span>Page {currentPage + 1} of {pageCount}</span><button type="button" disabled={currentPage >= pageCount - 1} onClick={() => setPage(p => Math.min(pageCount - 1, p + 1))}>Next page</button></nav>
+    {filtered.length === 0 ? <EmptyState title="No matching assets" description="Adjust the search or select another asset kind." /> : <DataTable label="Reference assets" rows={pageRows} columns={columns} sort={sort} onSortChange={setSort} rowKey={row => row.id} selectedKey={visibleSelection} onSelect={setSelectedKey} /> }
+    <Pagination aria-label="Collection pages" page={currentPage} pageCount={pageCount} onPageChange={setPage} />
     <p role="status" aria-label="Collection selection state" className="text-xs text-muted-foreground">Selected: {visibleSelection ?? "none"} · Rows: {filtered.length}</p>
   </section>;
 }
