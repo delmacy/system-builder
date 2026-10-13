@@ -122,3 +122,13 @@ test("Construction F color and property controls retain bounded values and rejec
   await lab.getByLabel("Preview accent picker").fill("#112233");
   await expect(lab.getByLabel("Editor fields state")).toContainText("#112233");
 });
+
+test("Construction F document text control enforces length and preserves plain text", async ({ page }) => {
+  const lab = await openIndustrial(page);
+  const notes = lab.getByRole("textbox", { name: "Workspace notes" });
+  await notes.fill("<script>alert(1)</script> notes");
+  await expect(notes).toHaveValue("<script>alert(1)</script> notes");
+  await expect(lab.getByLabel("Workspace notes character count")).toContainText("/ 120");
+  await notes.fill("x".repeat(140));
+  await expect(notes).toHaveValue("x".repeat(120));
+});
