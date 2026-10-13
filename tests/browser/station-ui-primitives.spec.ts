@@ -133,3 +133,22 @@ test("Construction B PasswordField toggles visibility without losing input or ac
   await expect(secret).toHaveAttribute("type", "password");
   await expect(secret).toHaveValue("sample-only");
 });
+
+test("Construction B combobox supports Home, End, Escape restoration and safe option identity", async ({ page }) => {
+  const lab = await openPrimitives(page);
+  const input = lab.getByRole("combobox", { name: "Asset type autocomplete" });
+  await input.fill("");
+  await input.press("End");
+  await expect(input).toHaveAttribute("aria-expanded", "true");
+  const last = lab.getByRole("option", { name: "Process" });
+  await expect(input).toHaveAttribute("aria-activedescendant", await last.getAttribute("id"));
+  await input.press("Home");
+  const first = lab.getByRole("option", { name: "Composition" });
+  await expect(input).toHaveAttribute("aria-activedescendant", await first.getAttribute("id"));
+  await input.press("Enter");
+  await expect(input).toHaveValue("Composition");
+  await input.fill("unmatched");
+  await input.press("Escape");
+  await expect(input).toHaveAttribute("aria-expanded", "false");
+  await expect(input).toHaveValue("Composition");
+});
