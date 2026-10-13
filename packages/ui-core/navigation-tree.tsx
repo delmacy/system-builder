@@ -16,8 +16,8 @@ export type NavigationTreeProps = Readonly<{
 /** Lightweight, controlled identity selection and local disclosure; no File Manager ownership. */
 export function NavigationTree({ label, nodes, selectedId, onSelect, compact = false }: NavigationTreeProps) {
   const [expanded, setExpanded] = useState<ReadonlySet<string>>(() => new Set());
-  const flatten = (items: readonly NavigationTreeNode[], depth = 1): Array<{node: NavigationTreeNode; depth: number}> =>
-    items.flatMap(node => [{ node, depth }, ...(node.children?.length && expanded.has(node.id) ? flatten(node.children, depth + 1) : [])]);
+  const flatten = (items: readonly NavigationTreeNode[], depth = 1): Array<{node: NavigationTreeNode; depth: number; position: number; size: number}> =>
+    items.flatMap((node, index) => [{ node, depth, position: index + 1, size: items.length }, ...(node.children?.length && expanded.has(node.id) ? flatten(node.children, depth + 1) : [])]);
   const visible = flatten(nodes);
   const toggle = (id: string) => setExpanded(current => { const next = new Set(current); if (next.has(id)) next.delete(id); else next.add(id); return next; });
   const parentOf = (id: string, items: readonly NavigationTreeNode[] = nodes, parent: string | null = null): string | null => {
@@ -59,9 +59,9 @@ export function NavigationTree({ label, nodes, selectedId, onSelect, compact = f
   const ids = inspect(nodes);
   if (ids.some(id => !id.trim()) || new Set(ids).size !== ids.length) throw new Error("NavigationTree requires unique nonempty IDs");
   return <nav data-slot="navigation-tree" aria-label={label} className="min-w-0">
-    <ul role="tree" aria-label={label} className="max-w-full space-y-1 overflow-x-hidden">{visible.map(({node,depth}) =>
-      <li key={node.id} role="none"><button id={"nav-tree-" + node.id} role="treeitem" type="button" disabled={node.disabled}
-        aria-level={depth} aria-expanded={node.children?.length ? expanded.has(node.id) : undefined}
+    <ul role="tree" aria-label={label} className="max-w-full space-y-1 overflow-x-hidden">{visible.map(({node,depth,position,size}) =>
+      <li key={node.id} role="none"><button role="treeitem" type="button" disabled={node.disabled}
+        aria-level={depth} aria-posinset={position} aria-setsize={size} aria-expanded={node.children?.length ? expanded.has(node.id) : undefined}
         aria-selected={selectedId === node.id} aria-label={node.label} title={compact ? node.label : undefined} onKeyDown={event => handleKey(event,node)}
         onClick={() => { if (node.children?.length) toggle(node.id); onSelect(node.id); }}
         className={cn("flex w-full min-w-0 items-center gap-2 rounded px-2 py-1.5 text-left text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring disabled:opacity-50", selectedId === node.id ? "bg-accent" : "hover:bg-muted")}
