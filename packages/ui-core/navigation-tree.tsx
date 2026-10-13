@@ -2,7 +2,7 @@
 
 import { useState, type KeyboardEvent } from "react";
 import { cn } from "./components.js";
-import { StationIcon, type IconToken } from "../ui-icons/index.js";
+import { StationIcon, type IconToken } from "@system-builder/ui-icons";
 
 export type NavigationTreeNode = Readonly<{ id: string; label: string; disabled?: boolean; icon?: IconToken; children?: readonly NavigationTreeNode[] }>;
 export type NavigationTreeProps = Readonly<{
