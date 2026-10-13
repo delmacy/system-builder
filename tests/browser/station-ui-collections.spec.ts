@@ -24,7 +24,8 @@ test("collection table filters, selects with keyboard, and handles empty results
   await select.focus(); await page.keyboard.press("Enter");
   await expect(lab.getByRole("status", { name: "Collection selection state" })).toContainText("asset-002");
   await lab.getByRole("combobox", { name: "Filter collection kind" }).selectOption("Document");
-  await expect(lab.getByRole("table")).toContainText("No results");
+  await expect(lab.getByText("No matching assets", { exact: true })).toBeVisible();
+  await expect(lab.getByRole("table")).toHaveCount(0);
   await expect(lab.getByRole("status", { name: "Collection selection state" })).toContainText("none");
   await info.attach("collection-empty", { body: await lab.screenshot({ animations: "disabled" }), contentType: "image/png" });
 });
