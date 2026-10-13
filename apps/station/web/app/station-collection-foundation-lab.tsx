@@ -1,6 +1,6 @@
 "use client";
 import { useMemo, useState } from "react";
-import { Avatar, DataTable, EmptyState, Pagination, SearchField, SelectField, type DataTableColumn } from "../../../../packages/ui-core/index";
+import { Avatar, CollectionView, DataTable, EmptyState, Pagination, SearchField, SelectField, type DataTableColumn } from "../../../../packages/ui-core/index";
 
 type AssetRow = { id: string; name: string; kind: string };
 const assets: readonly AssetRow[] = [
@@ -15,6 +15,8 @@ const columns: readonly DataTableColumn<AssetRow>[] = [
 export function StationCollectionFoundationLab() {
   const [query, setQuery] = useState("");
   const [kind, setKind] = useState("all");
+  const [display, setDisplay] = useState<"table" | "cards">("table");
+  const [collectionState, setCollectionState] = useState<"ready" | "loading" | "error">("ready");
   const [selectedKey, setSelectedKey] = useState<string | null>(null);
   const [page, setPage] = useState(0);
   const pageSize = 2;
@@ -35,7 +37,14 @@ export function StationCollectionFoundationLab() {
         { value: "all", label: "All kinds" }, { value: "Document", label: "Document" },
         { value: "Composition", label: "Composition" }, { value: "Process", label: "Process" }]} />
     </div>
-    {filtered.length === 0 ? <EmptyState title="No matching assets" description="Adjust the search or select another asset kind." /> : <DataTable label="Reference assets" rows={pageRows} columns={columns} sort={sort} onSortChange={setSort} rowKey={row => row.id} selectedKey={visibleSelection} onSelect={setSelectedKey} /> }
+    <div className="flex flex-wrap gap-2">
+      <label className="text-xs">Collection presentation <select aria-label="Collection presentation" value={display} onChange={event => setDisplay(event.target.value as "table" | "cards")}><option value="table">Table</option><option value="cards">Cards</option></select></label>
+      <label className="text-xs">Collection state <select aria-label="Collection state" value={collectionState} onChange={event => setCollectionState(event.target.value as "ready" | "loading" | "error")}><option value="ready">Ready</option><option value="loading">Loading</option><option value="error">Error</option></select></label>
+    </div>
+    {display === "cards" ? <CollectionView label="Reference asset cards" rows={pageRows} rowKey={row => row.id} selectedKey={visibleSelection} onSelect={setSelectedKey} state={collectionState}
+      renderItem={row => <span className="block min-w-0"><strong className="block truncate">{row.name}</strong><span className="text-xs text-muted-foreground">{row.kind}</span></span>} /> :
+      collectionState === "ready" && filtered.length === 0 ? <EmptyState title="No matching assets" description="Adjust the search or select another asset kind." /> :
+      <DataTable label="Reference assets" rows={pageRows} columns={columns} sort={sort} onSortChange={setSort} rowKey={row => row.id} selectedKey={visibleSelection} onSelect={setSelectedKey} state={collectionState} /> }
     <Pagination aria-label="Collection pages" page={currentPage} pageCount={pageCount} onPageChange={setPage} />
     <p role="status" aria-label="Collection selection state" className="text-xs text-muted-foreground">Selected: {visibleSelection ?? "none"} · Rows: {filtered.length}</p>
   </section>;

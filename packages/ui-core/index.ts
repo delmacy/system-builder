@@ -19,3 +19,5 @@ export * from "./password-field.js";
 export * from "./input-group.js";
 
 export * from "./workstation.js";
+
+export * from "./collection-view.js";
