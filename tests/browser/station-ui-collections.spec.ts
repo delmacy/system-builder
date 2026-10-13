@@ -66,3 +66,23 @@ test("Construction E cards expose loading, error, empty and keyboard selection",
   await lab.getByRole("searchbox", { name: "Search collection assets" }).fill("not present");
   await expect(cards.getByRole("status")).toContainText("No items");
 });
+
+test("Construction E keeps sorted paged card selection bounded at 390px", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+  await page.getByRole("button", { name: "Open applications", exact: true }).click();
+  await page.locator('[data-app-ref="app:component-lab"]').click();
+  const win = page.getByRole("dialog", { name: "Component Lab", exact: true });
+  await win.getByRole("tab", { name: "Collections" }).click();
+  const lab = win.getByRole("region", { name: "Collection foundation reference" });
+  await lab.getByRole("combobox", { name: "Collection presentation" }).selectOption("cards");
+  const cards = lab.getByRole("region", { name: "Reference asset cards" });
+  await expect(cards.getByRole("button")).toHaveCount(2);
+  await lab.getByRole("button", { name: "Next page" }).click();
+  await expect(cards.getByRole("button")).toHaveCount(1);
+  await cards.getByRole("button", { name: "Select asset-002" }).click();
+  await expect(lab.getByRole("status", { name: "Collection selection state" })).toContainText("asset-002");
+  await lab.getByRole("button", { name: "Previous page" }).click();
+  await expect(lab.getByRole("status", { name: "Collection selection state" })).toContainText("none");
+  await expect(cards).toHaveJSProperty("scrollWidth", await cards.evaluate(el => el.clientWidth));
+});
