@@ -30,7 +30,7 @@ export type ToolbarButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, "
 export function ToolbarButton({ label, icon, pressed, children, className, type = "button", ...props }: ToolbarButtonProps) {
   if (!label.trim()) throw new Error("ToolbarButton requires a nonempty accessible label");
   return createElement("button", {
-    ...props, type, "aria-label": label,
+    ...props, type, "aria-label": label, title: props.title ?? (children == null ? label : undefined),
     ...(pressed === undefined ? {} : { "aria-pressed": pressed }),
     "data-slot": "toolbar-button", "data-state": pressed === undefined ? "action" : pressed ? "on" : "off",
     className: cn("inline-flex h-[var(--sb-control-height-sm)] min-w-[var(--sb-control-height-sm)] items-center justify-center gap-1 rounded-[var(--sb-radius-control)] px-2 text-xs hover:bg-accent hover:text-accent-foreground data-[state=on]:bg-[var(--sb-selection)] disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring", className),
