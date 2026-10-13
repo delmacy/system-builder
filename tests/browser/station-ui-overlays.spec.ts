@@ -279,3 +279,21 @@ test("Construction C palette active descendant identifies enabled commands only"
   await search.press("Escape");
   await expect(palette).not.toBeVisible();
 });
+
+test("Construction C compact tree preserves navigation at 390px", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+  await page.getByRole("button", { name: "Open applications", exact: true }).click();
+  await page.locator('[data-app-ref="app:component-lab"]').click();
+  const win = page.getByRole("dialog", { name: "Component Lab", exact: true });
+  await win.getByRole("tab", { name: "Overlays" }).click();
+  await win.getByLabel("Compact tree navigation").check();
+  const tree = win.getByRole("tree", { name: "Studio navigation tree" });
+  const station = tree.getByRole("treeitem", { name: "Station" });
+  await station.focus();
+  await station.press("ArrowRight");
+  const components = tree.getByRole("treeitem", { name: "Components" });
+  await expect(components).toBeVisible();
+  await expect(components).toHaveAttribute("title", "Components");
+  await expect(tree).toHaveJSProperty("scrollWidth", await tree.evaluate(el => el.clientWidth));
+});
