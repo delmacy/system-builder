@@ -70,3 +70,19 @@ test("Construction D dock and filter retain controlled states at narrow viewport
   await expect(active).toHaveAttribute("aria-pressed", "true");
   await expect(filters.getByRole("searchbox", { name: "Document workspace search" })).toHaveValue("layer");
 });
+
+test("Construction D real Studio geometry is adjustable without replacing workbench identity", async ({ page }) => {
+  await page.goto("/studios");
+  const preview = page.getByRole("region", { name: "Studio workstation layout preview" });
+  const divider = preview.getByRole("separator", { name: "Studio context preview split divider" });
+  await expect(preview.getByLabel("Studio split ratio")).toContainText("68%");
+  await divider.focus();
+  await divider.press("Home");
+  await expect(preview.getByLabel("Studio split ratio")).toContainText("15%");
+  await divider.press("End");
+  await expect(preview.getByLabel("Studio split ratio")).toContainText("85%");
+  const nav = page.getByRole("tree", { name: "Installed Studio navigation" });
+  await nav.getByRole("treeitem", { name: "Workflow" }).click();
+  await expect(preview).toContainText("Workflow");
+  await expect(preview.getByLabel("Studio split ratio")).toContainText("85%");
+});
