@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Alert, Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle,
   Checkbox, Combobox, DateTimeField, FileField, FieldDescription, FieldMessage, Label, NumberField, Progress, RadioGroup, Skeleton,
-  Slider, Switch, Textarea } from "../../../../packages/ui-core/index";
+  Slider, Spinner, Switch, Textarea } from "../../../../packages/ui-core/index";
 
 export function StationPrimitiveFoundationLab() {
   const [enabled, setEnabled] = useState(false);
@@ -55,6 +55,7 @@ export function StationPrimitiveFoundationLab() {
     <div className="grid gap-3 sm:grid-cols-2">
       <Alert>Information reference</Alert><Alert variant="success">Success reference</Alert>
       <Alert variant="warning">Warning reference</Alert><Alert variant="error">Error reference</Alert>
+      <div className="flex items-center gap-2" aria-label="Spinner demonstration"><Spinner label="Loading component example" /><span className="text-sm">Loading component example</span></div>
       <div className="space-y-2" aria-busy="true" aria-label="Loading reference"><FieldDescription>Loading reference</FieldDescription>
         <Skeleton className="w-3/4" /><Skeleton className="w-1/2" /></div>
       <div className="space-y-2"><FieldDescription>Indeterminate progress</FieldDescription><Progress aria-label="Indeterminate reference" /></div>
