@@ -259,3 +259,23 @@ test("Construction C roving tab stop follows focused visible tree item", async (
   await expect(documents).toHaveAttribute("tabindex", "0");
   await expect(station).toHaveAttribute("tabindex", "-1");
 });
+
+test("Construction C palette active descendant identifies enabled commands only", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Open applications", exact: true }).click();
+  await page.locator('[data-app-ref="app:component-lab"]').click();
+  const win = page.getByRole("dialog", { name: "Component Lab", exact: true });
+  await win.getByRole("tab", { name: "Overlays" }).click();
+  await win.getByRole("button", { name: "Open command palette" }).click();
+  const palette = page.getByRole("dialog", { name: "Commands" });
+  const search = palette.getByRole("combobox", { name: "Search commands" });
+  const first = palette.getByRole("option", { name: "Save reference" });
+  await expect(search).toHaveAttribute("aria-activedescendant", await first.getAttribute("id"));
+  await search.press("End");
+  const second = palette.getByRole("option", { name: "Duplicate reference" });
+  await expect(search).toHaveAttribute("aria-activedescendant", await second.getAttribute("id"));
+  await search.fill("Unavailable command");
+  await expect(search).not.toHaveAttribute("aria-activedescendant", /.+/);
+  await search.press("Escape");
+  await expect(palette).not.toBeVisible();
+});
