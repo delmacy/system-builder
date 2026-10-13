@@ -122,3 +122,22 @@ test("Construction C Stepper changes active view without executing workflow comm
   await expect(stepper.getByRole("button", { name: /Review/ })).toHaveAttribute("aria-current", "step");
   await expect(stepper.getByRole("button", { name: /Publish/ })).toBeDisabled();
 });
+
+test("Construction C navigation tree expands, selects and handles keyboard traversal", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Open applications", exact: true }).click();
+  await page.locator('[data-app-ref="app:component-lab"]').click();
+  const win = page.getByRole("dialog", { name: "Component Lab", exact: true });
+  await win.getByRole("tab", { name: "Overlays" }).click();
+  const tree = win.getByRole("tree", { name: "Studio navigation tree" });
+  const station = tree.getByRole("treeitem", { name: "Station" });
+  await station.focus();
+  await station.press("ArrowRight");
+  await expect(station).toHaveAttribute("aria-expanded", "true");
+  await station.press("ArrowDown");
+  await expect(tree.getByRole("treeitem", { name: "Components" })).toBeFocused();
+  await tree.getByRole("treeitem", { name: "Studios" }).click();
+  await tree.getByRole("treeitem", { name: "Component Editor" }).click();
+  await expect(win.getByLabel("Navigation tree selection")).toContainText("editor");
+  await expect(tree.getByRole("treeitem", { name: "Unavailable Studio" })).toBeDisabled();
+});
