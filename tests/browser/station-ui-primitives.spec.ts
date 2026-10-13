@@ -6,6 +6,7 @@ async function openPrimitives(page: Page) {
   await page.locator('[data-app-ref="app:component-lab"]').click();
   const win = page.getByRole("dialog", { name: "Component Lab", exact: true });
   if (await win.getAttribute("data-window-mode") !== "MAXIMIZED") await win.getByRole("button", { name: "Maximize window", exact: true }).click();
+  await win.getByRole("tab", { name: "Primitives" }).click();
   const lab = page.getByRole("region", { name: "Primitive foundation reference", exact: true });
   await expect(lab).toBeVisible();
   return lab;
