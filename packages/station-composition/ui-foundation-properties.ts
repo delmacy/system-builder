@@ -20,13 +20,17 @@ function keysMatch(value: Record<string, unknown>, expected: readonly string[]):
   });
 }
 const safeText = (value: unknown, max: number) =>
-  typeof value === "string" && value.length <= max && !/[\\u0000-\\u0008\\u000B\\u000C\\u000E-\\u001F]/u.test(value);
+  typeof value === "string" && value.length <= max && ![...value].some(char => { const code = char.codePointAt(0)!; return code < 32 && code !== 9 && code !== 10 && code !== 13 || code === 127; });
 const labelValid = (value: unknown) => safeText(value, 120) && (value as string).trim().length > 0;
 const flag = (value: unknown) => typeof value === "boolean";
 /** Closed-world validation; never accept callbacks, unknown keys, accessors or CSS. */
 export function validFoundationFieldProperties(ref: string, input: unknown): input is FoundationFieldProperties {
   try {
-    if (!plainRecord(input) || !labelValid(input.label) || !flag(input.disabled)) return false;
+    if (!plainRecord(input)) return false;
+    const expected = ref === "ui:color-field" ? ["label", "value", "disabled"] :
+      ref === "ui:property-picker" ? ["label", "value", "choices", "disabled"] :
+      ref === "ui:document-text-field" ? ["label", "value", "rows", "maxLength", "disabled", "readOnly"] : null;
+    if (!expected || !keysMatch(input, expected) || !labelValid(input.label) || !flag(input.disabled)) return false;
     if (ref === "ui:color-field") {
       return keysMatch(input, ["label", "value", "disabled"]) &&
         typeof input.value === "string" && /^#[0-9a-fA-F]{6}$/.test(input.value);
