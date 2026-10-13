@@ -36,3 +36,14 @@ G preserves the canonical registry/graph/session/history/codec path. The three s
 ## Change boundaries
 
 Review and documentation may proceed without changing unrelated Station UI or Core authority. If evidence reveals a missing behavior, open an explicitly bounded implementation/test increment; require exact-head CI and re-review before merging. Avoid a duplicate editor, duplicate Registry and fake provider readiness.
+
+## Follow-up source and integration reconciliation
+
+Repository checks after PR #1197 integration:
+
+- **B**: PasswordField PR #1159 is **merged** (`b5de689d`), and Avatar PR #1158 is **merged** (`b59b377c`); their old coverage row saying "pending exact-head checks" is stale. This confirms integration, **not** full keyboard/screen-reader qualification or general Editor insertion.
+- **E**: `packages/ui-core/collection-view.tsx` and the Collection Lab are in current `main`. `tests/browser/station-ui-collections.spec.ts` explicitly covers loading/error/empty/keyboard selection and 390px sorted/paged card interaction. The E report still says "ACTIVE / INTEGRATED PROOF PENDING", so its status requires a source-backed final evidence signoff. The tests do not imply virtualization or backend data ownership.
+- **F**: PR #1185 was merged (`238e07a1`); PR #1186 is **closed without merge**, not a successful integration. Nevertheless `packages/ui-core/document-text-field.tsx` exists on `main` and the Construction G PR #1196 proved actual editor use on its final exact head. Track the document field's actual integration lineage separately instead of attributing it to #1186.
+- **G**: PR #1196 is merged as `646bd3a7` after all seven exact-head workflows passed.
+
+This reconciliation updates evidence only. The whole WP is **not** declared closed until the remaining B/C/E/F qualifications and the original Documentation & Enclosure inventory are dispositioned with specific test pointers.
