@@ -29,3 +29,14 @@ test("Construction G rejects accessor properties before invoking them", () => {
   assert.equal(called, false);
   assert.equal(valid("ui:color-field", Object.assign(Object.create({ inherited: true }), color)), false);
 });
+
+test("Construction G rejects actual control characters and top-level getter access without execution", () => {
+  assert.equal(valid("ui:document-text-field", { ...document, value: "line\u0000bad" }), false);
+  assert.equal(valid("ui:document-text-field", { ...document, value: "line\u0001bad" }), false);
+  assert.equal(valid("ui:document-text-field", { ...document, value: "line\nnext" }), true);
+  let called = false;
+  const getter = { ...color };
+  Object.defineProperty(getter, "label", { enumerable: true, get() { called = true; throw Error("must not run"); } });
+  assert.equal(valid("ui:color-field", getter), false);
+  assert.equal(called, false);
+});
