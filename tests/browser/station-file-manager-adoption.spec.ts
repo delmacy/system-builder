@@ -43,6 +43,13 @@ test("File Manager shared fields and compact view commands preserve local state"
   await info.attach("file-manager-g-wide", { body: await ws.screenshot({ animations: "disabled" }), contentType: "image/png" });
   await page.setViewportSize({ width: 390, height: 860 });
   await expect(name).toHaveValue("Pending folder");
+  const workspaceBox = await ws.boundingBox(); expect(workspaceBox).not.toBeNull();
+  for (const label of ["Refresh workspace", "Import composition"]) {
+    const command = ws.getByRole("button", { name: label, exact: true });
+    const commandBox = await command.boundingBox(); expect(commandBox).not.toBeNull();
+    expect(commandBox!.x).toBeGreaterThanOrEqual(workspaceBox!.x);
+    expect(commandBox!.x + commandBox!.width).toBeLessThanOrEqual(workspaceBox!.x + workspaceBox!.width);
+  }
   const box = await group.boundingBox(); expect(box).not.toBeNull(); expect(box!.width).toBeLessThan(100);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   await info.attach("file-manager-g-narrow", { body: await ws.screenshot({ animations: "disabled" }), contentType: "image/png" });

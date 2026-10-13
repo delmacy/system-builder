@@ -77,7 +77,7 @@ export function StationFileManagerWorkbench({ onOpen }: { onOpen: (text: string)
   const currentFolder = view.workspace.folders.find(f => f.ref === folder)!;
   return <OverlayPortalProvider container={portalHost}><AccessibleTooltipProvider delay={200}><section ref={setPortalHost} aria-label="Artifact workspace" data-content-view={contentView} className="min-w-0 overflow-hidden rounded-xl border bg-background">
     <header className="space-y-3 border-b p-4">
-      <h1 className="sr-only">File Manager</h1><PaneHeader className="flex-wrap gap-2 border-0 p-0" title="File Manager" actions={<ToolbarGroup label="Workspace commands" className="flex-wrap gap-2">
+      <h1 className="sr-only">File Manager</h1><PaneHeader className="flex-wrap gap-2 border-0 p-0 [&_[data-slot=pane-actions]]:min-w-0 [&_[data-slot=pane-actions]]:max-w-full" title="File Manager" actions={<ToolbarGroup label="Workspace commands" className="min-w-0 max-w-full flex-wrap gap-2">
         <Button variant="outline" onClick={refresh}><StationIcon token="action.refresh" className="shrink-0" />Refresh workspace</Button>
         <Button variant="outline" disabled={!ready} onClick={() => input.current?.click()}><StationIcon token="action.import" className="shrink-0" />Import composition</Button>
         <input ref={input} type="file" accept=".composition.json,application/json" aria-label="Import workspace composition" className="sr-only"
