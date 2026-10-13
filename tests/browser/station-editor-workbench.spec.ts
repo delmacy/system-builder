@@ -1917,7 +1917,7 @@ test.describe("WP16 actual owner-connected Workflow Studio",()=>{
       await studio(other).getByLabel("New state id",{exact:true}).fill("waiting");await button(other,"Add state").click();await studio(other).getByLabel("New workflow version",{exact:true}).fill("1.0.3");await button(other,"Save new workflow revision").click();
       const before=await other.evaluate(()=>localStorage.getItem("station:workflow-candidates:v1"));
       await studio(page).getByLabel("New state id",{exact:true}).fill("review");await button(page,"Add state").click();await button(page,"Save new workflow revision").click();await retain(page);
-      await button(other,"Send candidate to owner").click();await expect(status(other)).toContainText("Owner revision changed");await expect(studio(other)).toHaveAttribute("data-artifact-version","1.0.3");
+      await button(other,"Send candidate to owner").click();await expect(status(other)).toContainText(/(?:Owner revision changed or base unverified\. Draft preserved\.|Owner rejected: stale-owner-revision\. Draft preserved\.)/);await expect(studio(other)).toHaveAttribute("data-artifact-version","1.0.3");
       expect(await other.evaluate(()=>localStorage.getItem("station:workflow-candidates:v1"))).toBe(before);
       await read(other,candidate.document.artifactId,"1.0.3");await expect(status(other)).toContainText("Exact owner revision absent");
     }finally{await context.close();}
@@ -2152,12 +2152,20 @@ test("Construction G exposes registered color field in real Editor and admits in
   await expect(page.getByRole("treeitem", { name: /Ui:color Field 3/i })).toBeVisible();
 });
 
-test("Construction G reopens a saved composition containing an admitted foundation field", async ({ page }) => {
-  await page.getByLabel("Component to add", { exact: true }).selectOption("ui:color-field");
-  await page.getByRole("button", { name: "Add component", exact: true }).click();
-  await expect(page.getByRole("treeitem", { name: /Ui:color Field 3/i })).toBeVisible();
-  await page.getByRole("button", { name: "Save locally", exact: true }).click();
-  await page.reload();
-  await page.getByRole("button", { name: "Open saved", exact: true }).click();
-  await expect(page.getByRole("treeitem", { name: /Ui:color Field 3/i })).toBeVisible();
-});
+for (const field of [
+  { id: "ui:color-field", label: /Ui:color Field 3/i },
+  { id: "ui:property-picker", label: /Ui:property Picker 3/i },
+  { id: "ui:document-text-field", label: /Ui:document Text Field 3/i },
+]) {
+  test(`Construction G reopens locally saved composition containing ${field.id}`, async ({ page }) => {
+    await page.getByLabel("Component to add", { exact: true }).selectOption(field.id);
+    await page.getByRole("button", { name: "Add component", exact: true }).click();
+    const layer = page.getByRole("treeitem", { name: field.label });
+    await expect(layer).toBeVisible();
+    await expect(page.getByTestId("draft-state")).toHaveText("Unsaved changes");
+    await page.getByRole("button", { name: "Save locally", exact: true }).click();
+    await page.reload();
+    await page.getByRole("button", { name: "Open saved", exact: true }).click();
+    await expect(page.getByRole("treeitem", { name: field.label })).toBeVisible();
+  });
+}
