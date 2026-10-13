@@ -21,3 +21,5 @@ export * from "./input-group.js";
 export * from "./workstation.js";
 
 export * from "./collection-view.js";
+
+export * from "./editor-fields.js";
