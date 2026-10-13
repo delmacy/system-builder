@@ -2152,12 +2152,20 @@ test("Construction G exposes registered color field in real Editor and admits in
   await expect(page.getByRole("treeitem", { name: /Ui:color Field 3/i })).toBeVisible();
 });
 
-test("Construction G reopens a saved composition containing an admitted foundation field", async ({ page }) => {
-  await page.getByLabel("Component to add", { exact: true }).selectOption("ui:color-field");
-  await page.getByRole("button", { name: "Add component", exact: true }).click();
-  await expect(page.getByRole("treeitem", { name: /Ui:color Field 3/i })).toBeVisible();
-  await page.getByRole("button", { name: "Save locally", exact: true }).click();
-  await page.reload();
-  await page.getByRole("button", { name: "Open saved", exact: true }).click();
-  await expect(page.getByRole("treeitem", { name: /Ui:color Field 3/i })).toBeVisible();
-});
+for (const field of [
+  { id: "ui:color-field", label: /Ui:color Field 3/i },
+  { id: "ui:property-picker", label: /Ui:property Picker 3/i },
+  { id: "ui:document-text-field", label: /Ui:document Text Field 3/i },
+]) {
+  test(`Construction G reopens locally saved composition containing ${field.id}`, async ({ page }) => {
+    await page.getByLabel("Component to add", { exact: true }).selectOption(field.id);
+    await page.getByRole("button", { name: "Add component", exact: true }).click();
+    const layer = page.getByRole("treeitem", { name: field.label });
+    await expect(layer).toBeVisible();
+    await expect(page.getByTestId("draft-state")).toHaveText("Unsaved changes");
+    await page.getByRole("button", { name: "Save locally", exact: true }).click();
+    await page.reload();
+    await page.getByRole("button", { name: "Open saved", exact: true }).click();
+    await expect(page.getByRole("treeitem", { name: field.label })).toBeVisible();
+  });
+}
