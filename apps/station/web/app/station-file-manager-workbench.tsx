@@ -37,7 +37,27 @@ export function StationFileManagerWorkbench({ onOpen }: { onOpen: (text: string)
     refresh();
     return () => { sequence.current++; };
   }, [refresh]);
-  const navigate = (ref: string) => { sequence.current++; setFolder(ref); setSelected(null); setComparisonRef(""); };
+  const navigate = (ref: string) => {
+    sequence.current++; setFolder(ref); setSelected(null); setComparisonRef("");
+    const ancestors: string[] = [];
+    let cursor: string | null = ref;
+    while (cursor) {
+      ancestors.push(cursor);
+      cursor = view.workspace.folders.find(f => f.ref === cursor)?.parentRef ?? null;
+    }
+    setExpanded(previous => [...new Set([...previous, ...ancestors])]);
+  };
+  const breadcrumbs = (() => {
+    const nodes: { ref: string; name: string }[] = [];
+    let cursor: string | null = folder;
+    while (cursor) {
+      const item = view.workspace.folders.find(f => f.ref === cursor);
+      if (!item) break;
+      nodes.unshift({ ref: item.ref, name: item.name });
+      cursor = item.parentRef;
+    }
+    return nodes;
+  })();
   const hierarchy = (parent: string | null, depth = 0): { ref: string; name: string; depth: number; children: boolean }[] =>
     view.workspace.folders.filter(f => f.parentRef === parent).flatMap(f => [
       { ref: f.ref, name: f.name, depth, children: view.workspace.folders.some(child => child.parentRef === f.ref) },
@@ -96,7 +116,13 @@ export function StationFileManagerWorkbench({ onOpen }: { onOpen: (text: string)
         <input ref={input} type="file" accept=".composition.json,application/json" aria-label="Import workspace composition" className="sr-only" onChange={event => { const file = event.target.files?.[0]; event.target.value = ""; if (file && ready) void importFile(file); }} />
       </div>
       <div aria-label="Current workspace path" className="mt-2 flex min-w-0 items-center gap-2 rounded-md border px-2 py-1 text-sm">
-        <StationIcon token="workspace.folder-open" /><span className="min-w-0 truncate">{workspaceFolderLabel(view.workspace, folder)}</span>
+        <StationIcon token="workspace.folder-open" className="shrink-0" />
+        {breadcrumbs.map((item, index) => <span key={item.ref} className="flex min-w-0 items-center gap-1">
+          {index > 0 ? <span aria-hidden="true" className="text-muted-foreground">/</span> : null}
+          <button type="button" className="max-w-48 truncate rounded px-1 hover:bg-accent focus-visible:outline focus-visible:outline-2"
+            title={item.name} aria-current={item.ref === folder ? "location" : undefined}
+            onClick={() => navigate(item.ref)}>{item.name}</button>
+        </span>)}
       </div>
       {creatingFolder ? <form className="mt-2 flex gap-2" onSubmit={event => { event.preventDefault(); if (name.trim() && mutate({ type: "create-folder", ref: "folder:" + crypto.randomUUID(), parentRef: folder, name })) { setName(""); setCreatingFolder(false); } }}>
         <input autoFocus className="min-w-0 flex-1 rounded-md border bg-background px-2" aria-label="New folder name" placeholder="New folder name" value={name} maxLength={160} disabled={!ready} onChange={event => setName(event.target.value)} />
@@ -113,13 +139,6 @@ export function StationFileManagerWorkbench({ onOpen }: { onOpen: (text: string)
         </div>)}
       </nav>
       <section aria-label="Folder contents" className="min-h-0 min-w-0 overflow-auto p-3">
-        <div className="flex flex-wrap items-center gap-2">
-          <h2 className="mr-auto font-semibold">Files and folders</h2>
-          <div role="group" aria-label="Folder view" className="flex gap-1">
-            <Button variant={contentView === "grid" ? "secondary" : "ghost"} aria-label="Icon view" title="Icon view" aria-pressed={contentView === "grid"} onClick={() => setContentView("grid")}><StationIcon token="view.grid" />Icons</Button>
-            <Button variant={contentView === "list" ? "secondary" : "ghost"} aria-label="List view" title="List view" aria-pressed={contentView === "list"} onClick={() => setContentView("list")}><StationIcon token="view.list" />List</Button>
-          </div>
-        </div>
         <div className={contentView === "grid" ? "grid grid-cols-[repeat(auto-fill,minmax(120px,1fr))] gap-3" : "space-y-2"}>
           {view.workspace.folders.filter(f => f.parentRef === folder).map(f => <Button key={f.ref} variant="ghost"
             className={contentView === "grid" ? "h-auto min-h-28 w-full flex-col gap-2 rounded-xl border px-3 py-4 whitespace-normal break-words text-center" : "h-auto w-full justify-start gap-3 whitespace-normal break-words"}
