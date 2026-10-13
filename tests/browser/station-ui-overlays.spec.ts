@@ -222,3 +222,78 @@ test("Construction C tree navigates expanded children and returns focus to paren
   await expect(tree.getByRole("treeitem", { name: "Components" })).toHaveCount(0);
   await expect(station).toBeFocused();
 });
+
+test("Construction C tree exposes sibling positions without duplicate DOM identities", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Open applications", exact: true }).click();
+  await page.locator('[data-app-ref="app:component-lab"]').click();
+  const win = page.getByRole("dialog", { name: "Component Lab", exact: true });
+  await win.getByRole("tab", { name: "Overlays" }).click();
+  const tree = win.getByRole("tree", { name: "Studio navigation tree" });
+  const station = tree.getByRole("treeitem", { name: "Station" });
+  await expect(station).toHaveAttribute("aria-posinset", "1");
+  await expect(station).toHaveAttribute("aria-setsize", "2");
+  await station.click();
+  const components = tree.getByRole("treeitem", { name: "Components" });
+  await expect(components).toHaveAttribute("aria-level", "2");
+  await expect(components).toHaveAttribute("aria-posinset", "1");
+  await expect(components).toHaveAttribute("aria-setsize", "2");
+  const ids = await tree.getByRole("treeitem").evaluateAll(items => items.map(item => item.id).filter(Boolean));
+  expect(new Set(ids).size).toBe(ids.length);
+});
+
+test("Construction C roving tab stop follows focused visible tree item", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Open applications", exact: true }).click();
+  await page.locator('[data-app-ref="app:component-lab"]').click();
+  const win = page.getByRole("dialog", { name: "Component Lab", exact: true });
+  await win.getByRole("tab", { name: "Overlays" }).click();
+  const tree = win.getByRole("tree", { name: "Studio navigation tree" });
+  const station = tree.getByRole("treeitem", { name: "Station" });
+  const documents = tree.getByRole("treeitem", { name: "Documents" });
+  await expect(station).toHaveAttribute("tabindex", "0");
+  await expect(documents).toHaveAttribute("tabindex", "-1");
+  await station.focus();
+  await station.press("ArrowDown");
+  await expect(documents).toBeFocused();
+  await expect(documents).toHaveAttribute("tabindex", "0");
+  await expect(station).toHaveAttribute("tabindex", "-1");
+});
+
+test("Construction C palette active descendant identifies enabled commands only", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Open applications", exact: true }).click();
+  await page.locator('[data-app-ref="app:component-lab"]').click();
+  const win = page.getByRole("dialog", { name: "Component Lab", exact: true });
+  await win.getByRole("tab", { name: "Overlays" }).click();
+  await win.getByRole("button", { name: "Open command palette" }).click();
+  const palette = page.getByRole("dialog", { name: "Commands" });
+  const search = palette.getByRole("combobox", { name: "Search commands" });
+  const first = palette.getByRole("option", { name: "Save reference" });
+  await expect(search).toHaveAttribute("aria-activedescendant", await first.getAttribute("id"));
+  await search.press("End");
+  const second = palette.getByRole("option", { name: "Duplicate reference" });
+  await expect(search).toHaveAttribute("aria-activedescendant", await second.getAttribute("id"));
+  await search.fill("Unavailable command");
+  await expect(search).not.toHaveAttribute("aria-activedescendant", /.+/);
+  await search.press("Escape");
+  await expect(palette).not.toBeVisible();
+});
+
+test("Construction C compact tree preserves navigation at 390px", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+  await page.getByRole("button", { name: "Open applications", exact: true }).click();
+  await page.locator('[data-app-ref="app:component-lab"]').click();
+  const win = page.getByRole("dialog", { name: "Component Lab", exact: true });
+  await win.getByRole("tab", { name: "Overlays" }).click();
+  await win.getByLabel("Compact tree navigation").check();
+  const tree = win.getByRole("tree", { name: "Studio navigation tree" });
+  const station = tree.getByRole("treeitem", { name: "Station" });
+  await station.focus();
+  await station.press("ArrowRight");
+  const components = tree.getByRole("treeitem", { name: "Components" });
+  await expect(components).toBeVisible();
+  await expect(components).toHaveAttribute("title", "Components");
+  await expect(tree).toHaveJSProperty("scrollWidth", await tree.evaluate(el => el.clientWidth));
+});

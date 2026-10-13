@@ -24,3 +24,11 @@ Status: ACTIVE / REVIEW (not enclosed)
 
 ## Next incremental priority
 Harden NavigationTree ARIA focus/parent disclosure and responsive examples; then bounded command palette keyboard semantics. Continue Construction C until tests explicitly close these gaps.
+
+## Consolidated qualification batch (2026-10-13)
+- NavigationTree sibling ARIA position and set size; remove duplicate static DOM IDs from tree items.
+- NavigationTree roving tab stop, retaining accessible compact names and arrow navigation.
+- CommandPalette per-instance list/option identity and `aria-activedescendant` for enabled active options.
+- Browser regressions for roving focus, active option identity and compact navigation at 390px.
+- Local aggregate gate on branch `ui/construction-c-final-integration-20261013`: architecture, TypeScript, ESLint, production build and **14/14** Overlays Playwright tests passed.
+- This batch does not yet prove real File Manager/Studio consumer integration, complete nested treegroup semantics, application-wide shortcuts or Component Editor round-trips. Keep those as explicit follow-up requirements rather than calling the entire Construction C closed.
