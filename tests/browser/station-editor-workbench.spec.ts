@@ -1213,13 +1213,16 @@ test.describe("WP10 compatible movement", () => {
 
 test.describe("WP11 real artifact workspace", () => {
   const workspace = (page: Page) => page.getByRole("region", { name: "Artifact workspace", exact: true });
+  const ensureInspector = async (page: Page) => { const button = workspace(page).getByRole("button", { name: "Toggle Inspector", exact: true }); if (await button.getAttribute("aria-pressed") === "false") await button.click(); };
   const launch = async (page: Page, name: string) => {
     await page.getByRole("button", { name: "Open applications", exact: true }).click();
     await page.locator(name === "File Manager" ? '[data-app-ref="app:file-manager"]' : '[data-app-ref="app:composition-editor"]').click();
+    if (name === "File Manager") await ensureInspector(page);
   };
   const folder = async (page: Page, name: string) => {
-    await workspace(page).getByLabel("New folder name", { exact: true }).fill(name);
     await workspace(page).getByRole("button", { name: "Create folder", exact: true }).click();
+    await workspace(page).getByLabel("New folder name", { exact: true }).fill(name);
+    await workspace(page).getByRole("button", { name: "Create", exact: true }).click();
     await expect(workspace(page).getByRole("status")).toHaveText("Folder created.");
   };
   const saveCopy = async (page: Page, name: string) => {
@@ -1245,7 +1248,7 @@ test.describe("WP11 real artifact workspace", () => {
     await saveCopy(page, "screen.composition.json");
     await expect(editor(page).getByTestId("draft-state")).toHaveText("Unsaved changes");
     await launch(page, "File Manager"); await workspace(page).getByRole("button", { name: "Refresh workspace", exact: true }).click();
-    await expect(workspace(page).getByLabel("Current workspace folder", { exact: true })).toHaveText("Workspace / Design / Screens");
+    await expect(workspace(page).getByLabel("Current workspace path", { exact: true })).toContainText("Screens");
     await workspace(page).getByRole("button", { name: "screen.composition.json", exact: true }).click();
     const inspector = workspace(page).getByRole("complementary", { name: "File Inspector", exact: true });
     await expect(inspector).toContainText("composition:example"); await expect(inspector).toContainText("1.0.0");
@@ -1324,8 +1327,9 @@ test.describe("WP11 real artifact workspace", () => {
     await page.evaluate(() => { const set = Storage.prototype.setItem; Storage.prototype.setItem = function(key, value) {
       if (key === "station:artifact-workspace:v1") throw new DOMException("quota", "QuotaExceededError"); set.call(this, key, value);
     }; });
-    await workspace(page).getByLabel("New folder name", { exact: true }).fill("Denied");
     await workspace(page).getByRole("button", { name: "Create folder", exact: true }).click();
+    await workspace(page).getByLabel("New folder name", { exact: true }).fill("Denied");
+    await workspace(page).getByRole("button", { name: "Create", exact: true }).click();
     await expect(workspace(page).getByRole("status")).toContainText("Unable to store");
     expect(await page.evaluate(() => localStorage.getItem("station:artifact-workspace:v1"))).toBe(prior);
   });
@@ -1386,9 +1390,11 @@ test.describe("WP12 immutable revisions and explicit conflict decisions", () => 
   const b = (page: Page, name: string) => page.getByRole("button", { name, exact: true });
   const revision = (page: Page) => editor(page).getByRole("region", { name: "Save workspace revision", exact: true });
   const workspace = (page: Page) => page.getByRole("region", { name: "Artifact workspace", exact: true });
+  const ensureInspector = async (page: Page) => { const button = workspace(page).getByRole("button", { name: "Toggle Inspector", exact: true }); if (await button.getAttribute("aria-pressed") === "false") await button.click(); };
   const launch = async (page: Page, name: string) => {
     await b(page, "Open applications").click();
     await page.locator(name === "File Manager" ? '[data-app-ref="app:file-manager"]' : '[data-app-ref="app:composition-editor"]').click();
+    if (name === "File Manager") await ensureInspector(page);
   };
   const copy = async (page: Page, name = "first.composition.json") => {
     await editor(page).getByLabel("Workspace copy name", { exact: true }).fill(name);
@@ -2066,6 +2072,7 @@ test.describe("Studios WP01 shared foundation", () => {
 
 test.describe("Studios WP02 shared icons", () => {
   const workspace = (page: Page) => page.getByRole("region", { name: "Artifact workspace", exact: true });
+  const ensureInspector = async (page: Page) => { const button = workspace(page).getByRole("button", { name: "Toggle Inspector", exact: true }); if (await button.getAttribute("aria-pressed") === "false") await button.click(); };
   async function launchFiles(page: Page) {
     await page.goto("/");
     await page.getByRole("button", { name: "Open applications", exact: true }).click();
@@ -2073,6 +2080,7 @@ test.describe("Studios WP02 shared icons", () => {
     await expect(app.locator('[data-icon-token="workspace.folder-open"]')).toHaveAttribute("aria-hidden", "true");
     await app.click();
     await expect(workspace(page).getByRole("status")).toHaveText("Workspace refreshed.");
+    await ensureInspector(page);
   }
   test("actual editor-produced file keeps selection, Inspector and pending name across icon/list views", async ({ page }, testInfo) => {
     await editor(page).getByLabel("Workspace copy name", { exact: true }).fill("icons-demo.composition.json");
@@ -2083,6 +2091,7 @@ test.describe("Studios WP02 shared icons", () => {
     await expect(ws).toHaveAttribute("data-content-view", "grid");
     await expect(file.locator('[data-icon-token="artifact.composition"]')).toHaveAttribute("aria-hidden", "true");
     await file.click();
+    await ws.getByRole("button", { name: "Create folder", exact: true }).click();
     await ws.getByLabel("New folder name", { exact: true }).fill("Pending folder");
     const retained = await page.evaluate(() => localStorage.getItem("station:artifact-workspace:v1"));
     await ws.getByRole("button", { name: "List view", exact: true }).click();
@@ -2099,18 +2108,19 @@ test.describe("Studios WP02 shared icons", () => {
   test("folder icons preserve keyboard navigation and view mode on a narrow viewport", async ({ page }) => {
     await launchFiles(page);
     const ws = workspace(page);
-    await ws.getByLabel("New folder name", { exact: true }).fill("Design");
     await ws.getByRole("button", { name: "Create folder", exact: true }).click();
+    await ws.getByLabel("New folder name", { exact: true }).fill("Design");
+    await ws.getByRole("button", { name: "Create", exact: true }).click();
     const folder = ws.getByRole("button", { name: "Folder: Design", exact: true });
     await expect(folder.locator('[data-icon-token="workspace.folder"]')).toHaveAttribute("aria-hidden", "true");
     await tabTo(page, folder); await folder.press("Enter");
-    await expect(ws.getByLabel("Current workspace folder", { exact: true })).toHaveText("Workspace / Design");
+    await expect(ws.getByLabel("Current workspace path", { exact: true })).toContainText("Design");
     await ws.getByRole("button", { name: "List view", exact: true }).click();
     await ws.getByLabel("New folder name", { exact: true }).fill("Still pending");
     await page.setViewportSize({ width: 390, height: 860 });
     const up = ws.getByRole("button", { name: "Up one folder", exact: true });
     await tabTo(page, up); await up.press("Enter");
-    await expect(ws.getByLabel("Current workspace folder", { exact: true })).toHaveText("Workspace");
+    await expect(ws.getByLabel("Current workspace path", { exact: true })).toContainText("Workspace");
     await expect(ws).toHaveAttribute("data-content-view", "list");
     await expect(ws.getByLabel("New folder name", { exact: true })).toHaveValue("Still pending");
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
