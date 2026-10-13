@@ -122,3 +122,27 @@ test("Construction C Stepper changes active view without executing workflow comm
   await expect(stepper.getByRole("button", { name: /Review/ })).toHaveAttribute("aria-current", "step");
   await expect(stepper.getByRole("button", { name: /Publish/ })).toBeDisabled();
 });
+
+
+test("Construction C CommandPalette filters, executes approved choices and rejects disabled actions", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Open applications", exact: true }).click();
+  await page.locator('[data-app-ref="app:component-lab"]').click();
+  const win = page.getByRole("dialog", { name: "Component Lab", exact: true });
+  await win.getByRole("tab", { name: "Overlays" }).click();
+  await win.getByRole("button", { name: "Open command palette" }).click();
+  const palette = page.getByRole("dialog", { name: "Commands" });
+  await expect(palette).toBeVisible();
+  const search = palette.getByRole("combobox", { name: "Search commands" });
+  await search.fill("write");
+  await expect(palette.getByRole("option", { name: "Save reference" })).toBeVisible();
+  await search.press("Enter");
+  await expect(palette).not.toBeVisible();
+  await expect(win.getByLabel("Overlay reference state")).toContainText("Palette Save");
+  await win.getByRole("button", { name: "Open command palette" }).click();
+  await expect(palette.getByRole("option", { name: "Unavailable command" })).toBeDisabled();
+  await search.fill("unknown");
+  await expect(palette.getByText("No commands found")).toBeVisible();
+  await search.press("Escape");
+  await expect(palette).not.toBeVisible();
+});
