@@ -2116,6 +2116,7 @@ test.describe("Studios WP02 shared icons", () => {
     await tabTo(page, folder); await folder.press("Enter");
     await expect(ws.getByLabel("Current workspace path", { exact: true })).toContainText("Design");
     await ws.getByRole("button", { name: "List view", exact: true }).click();
+    await ws.getByRole("button", { name: "Create folder", exact: true }).click();
     await ws.getByLabel("New folder name", { exact: true }).fill("Still pending");
     await page.setViewportSize({ width: 390, height: 860 });
     const up = ws.getByRole("button", { name: "Up one folder", exact: true });
