@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Stepper } from "../../../../packages/ui-core/index";
+import { NavigationTree, Stepper } from "../../../../packages/ui-core/index";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, AlertDialog, AlertDialogClose, AlertDialogContent, AlertDialogDescription, AlertDialogTitle, AlertDialogTrigger, AccessibleTooltip, AccessibleTooltipContent, AccessibleTooltipProvider, AccessibleTooltipTrigger, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator, Collapsible, CollapsibleContent, CollapsibleTrigger, ContextMenu, ContextMenuTrigger, Dialog, DialogClose, DialogContent, DialogDescription, DialogTitle, DialogTrigger, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSubmenu, DropdownMenuSubmenuTrigger, DropdownMenuTrigger, Menubar, OverlayPortalProvider, Popover, PopoverClose, PopoverContent, PopoverTrigger, Tabs, TabsContent, TabsList, TabsTrigger } from "../../../../packages/ui-core/index";
 
 export function StationOverlayFoundationLab() {
@@ -10,8 +10,11 @@ export function StationOverlayFoundationLab() {
   const [command, setCommand] = useState("None");
   const [confirmations, setConfirmations] = useState(0);
   const [activeStep, setActiveStep] = useState("design");
+  const [activeNode, setActiveNode] = useState<string | null>("station");
   return <section ref={setContainer} aria-label="Overlay foundation reference" className="my-4 space-y-4 rounded-lg border p-4">
     <OverlayPortalProvider container={container}><h2 className="text-lg font-semibold">Overlays and navigation</h2>
+    <NavigationTree label="Studio navigation tree" selectedId={activeNode} onSelect={setActiveNode} nodes={[{id:"station",label:"Station",children:[{id:"components",label:"Components"},{id:"studios",label:"Studios",children:[{id:"editor",label:"Component Editor"},{id:"unavailable",label:"Unavailable Studio",disabled:true}]}]},{id:"documents",label:"Documents"}]} />
+    <output aria-label="Navigation tree selection" className="block text-xs">Selected: {activeNode}</output>
     <Stepper aria-label="Component workflow steps" activeId={activeStep} onActiveChange={setActiveStep} steps={[{id:"design",label:"Design",description:"Compose UI"},{id:"review",label:"Review",description:"Check changes"},{id:"publish",label:"Publish",description:"Example only",disabled:true}]} />
     <Breadcrumb><BreadcrumbItem><BreadcrumbLink href="#overlay-reference">Station</BreadcrumbLink></BreadcrumbItem><BreadcrumbSeparator /><BreadcrumbItem><BreadcrumbPage>Component Lab</BreadcrumbPage></BreadcrumbItem></Breadcrumb>
     <div id="overlay-reference" className="flex flex-wrap gap-2">
