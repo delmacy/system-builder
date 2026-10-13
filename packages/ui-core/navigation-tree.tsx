@@ -2,17 +2,19 @@
 
 import { useState, type KeyboardEvent } from "react";
 import { cn } from "./components.js";
+import { StationIcon, type IconToken } from "../ui-icons/index.js";
 
-export type NavigationTreeNode = Readonly<{ id: string; label: string; disabled?: boolean; children?: readonly NavigationTreeNode[] }>;
+export type NavigationTreeNode = Readonly<{ id: string; label: string; disabled?: boolean; icon?: IconToken; children?: readonly NavigationTreeNode[] }>;
 export type NavigationTreeProps = Readonly<{
   label: string;
   nodes: readonly NavigationTreeNode[];
   selectedId: string | null;
   onSelect: (id: string) => void;
+  compact?: boolean;
 }>;
 
 /** Lightweight, controlled identity selection and local disclosure; no File Manager ownership. */
-export function NavigationTree({ label, nodes, selectedId, onSelect }: NavigationTreeProps) {
+export function NavigationTree({ label, nodes, selectedId, onSelect, compact = false }: NavigationTreeProps) {
   const [expanded, setExpanded] = useState<ReadonlySet<string>>(() => new Set());
   const flatten = (items: readonly NavigationTreeNode[], depth = 1): Array<{node: NavigationTreeNode; depth: number}> =>
     items.flatMap(node => [{ node, depth }, ...(node.children?.length && expanded.has(node.id) ? flatten(node.children, depth + 1) : [])]);
@@ -38,11 +40,11 @@ export function NavigationTree({ label, nodes, selectedId, onSelect }: Navigatio
     <ul role="tree" aria-label={label} className="max-w-full space-y-1 overflow-x-hidden">{visible.map(({node,depth}) =>
       <li key={node.id} role="none"><button id={"nav-tree-" + node.id} role="treeitem" type="button" disabled={node.disabled}
         aria-level={depth} aria-expanded={node.children?.length ? expanded.has(node.id) : undefined}
-        aria-selected={selectedId === node.id} onKeyDown={event => handleKey(event,node)}
+        aria-selected={selectedId === node.id} aria-label={node.label} title={compact ? node.label : undefined} onKeyDown={event => handleKey(event,node)}
         onClick={() => { if (node.children?.length) toggle(node.id); onSelect(node.id); }}
         className={cn("flex w-full min-w-0 items-center gap-2 rounded px-2 py-1.5 text-left text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring disabled:opacity-50", selectedId === node.id ? "bg-accent" : "hover:bg-muted")}
-        style={{paddingInlineStart: (depth - 1) * 16 + 8}}>
-        <span aria-hidden="true">{node.children?.length ? expanded.has(node.id) ? "▾" : "▸" : "•"}</span><span className="truncate">{node.label}</span>
+        style={{paddingInlineStart: compact ? 8 : (depth - 1) * 16 + 8}}>
+        <span aria-hidden="true" className="shrink-0">{node.children?.length ? expanded.has(node.id) ? "▾" : "▸" : "•"}</span><StationIcon token={node.icon ?? (node.children?.length ? expanded.has(node.id) ? "workspace.folder-open" : "workspace.folder" : "artifact.document")} /><span className={cn("truncate", compact && "sr-only")}>{node.label}</span>
       </button></li>)}</ul>
   </nav>;
 }
