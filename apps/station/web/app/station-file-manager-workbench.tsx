@@ -112,7 +112,7 @@ export function StationFileManagerWorkbench({ onOpen }: { onOpen: (text: string)
         <span className="mx-1 h-5 border-l" aria-hidden="true" />
         <Button variant={contentView === "grid" ? "secondary" : "ghost"} aria-label="Icon view" title="Icon view" aria-pressed={contentView === "grid"} onClick={() => setContentView("grid")}><StationIcon token="view.grid" /></Button>
         <Button variant={contentView === "list" ? "secondary" : "ghost"} aria-label="List view" title="List view" aria-pressed={contentView === "list"} onClick={() => setContentView("list")}><StationIcon token="view.list" /></Button>
-        <Button className="ml-auto" variant={inspectorOpen ? "secondary" : "ghost"} aria-label="Toggle Inspector" title="Toggle Inspector" aria-pressed={inspectorOpen} onClick={() => setInspectorOpen(!inspectorOpen)}><StationIcon token="view.list" /></Button>
+        <Button className="ml-auto" variant={inspectorOpen ? "secondary" : "ghost"} aria-label="Toggle Inspector" title={inspectorOpen ? "Hide Inspector" : "Show Inspector"} aria-pressed={inspectorOpen} onClick={() => setInspectorOpen(!inspectorOpen)}><StationIcon token="layout.split" /></Button>
         <input ref={input} type="file" accept=".composition.json,application/json" aria-label="Import workspace composition" className="sr-only" onChange={event => { const file = event.target.files?.[0]; event.target.value = ""; if (file && ready) void importFile(file); }} />
       </div>
       <div aria-label="Current workspace path" className="mt-2 flex min-w-0 items-center gap-2 rounded-md border px-2 py-1 text-sm">
