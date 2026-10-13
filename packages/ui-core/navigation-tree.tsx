@@ -51,10 +51,9 @@ export function NavigationTree({ label, nodes, selectedId, onSelect, compact = f
       else { const parent = parentOf(node.id); if (parent) { event.preventDefault(); focusNode(event, parent); } }
     }
     else if (event.key === "ArrowRight" && node.children?.length && expanded.has(node.id)) {
-      const first = visible.findIndex(item => item.node.id === node.id) + 1;
-      const child = visible[first];
-      const current = visible[first - 1];
-      if (child && current && child.depth > current.depth) { event.preventDefault(); focusNode(event, child.node.id); }
+      const parentIndex = visible.findIndex(item => item.node.id === node.id);
+      const next = visible.slice(parentIndex + 1).find(item => item.depth === visible[parentIndex]?.depth + 1 && !item.node.disabled);
+      if (next) { event.preventDefault(); focusNode(event, next.node.id); }
     }
     else if ((event.key === "Enter" || event.key === " ") && !node.disabled) { event.preventDefault(); if (node.children?.length) toggle(node.id); onSelect(node.id); }
   };
