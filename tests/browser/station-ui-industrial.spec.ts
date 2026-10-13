@@ -31,9 +31,11 @@ test("workstation controls retain live state in compact dark mode and tab switch
   await expect(lab.getByRole("button", { name: "Assets", exact: true })).toHaveAttribute("aria-current", "page");
   await lab.getByRole("searchbox", { name: "Search workstation controls" }).fill("toolbar");
   await lab.getByRole("combobox", { name: "Workstation density" }).selectOption("comfortable");
+  await page.getByRole("dialog", { name: "Component Lab", exact: true }).getByRole("tab", { name: "Foundations" }).click();
   const visual = page.getByRole("region", { name: "Visual foundation reference", exact: true });
   await visual.getByLabel("Reference theme", { exact: true }).selectOption("dark");
   await visual.getByLabel("Reference density", { exact: true }).selectOption("compact");
+  await page.getByRole("dialog", { name: "Component Lab", exact: true }).getByRole("tab", { name: "Industrial" }).click();
   await page.setViewportSize({ width: 480, height: 860 });
   await expect(lab.getByRole("searchbox", { name: "Search workstation controls" })).toHaveValue("toolbar");
   await expect(lab.getByRole("combobox", { name: "Workstation density" })).toHaveValue("comfortable");
