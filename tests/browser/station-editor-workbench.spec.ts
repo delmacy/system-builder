@@ -1281,6 +1281,39 @@ test.describe("WP11 real artifact workspace", () => {
     expect(await page.evaluate(() => localStorage.getItem("station:artifact-workspace:v1"))).toBe(stored);
   });
 
+  test("FM-02 history and controlled tree survive breadcrumb and back-forward navigation", async ({ page }) => {
+    await page.goto("/"); await launch(page, "File Manager");
+    const w = workspace(page);
+    await folder(page, "First");
+    await w.getByRole("button", { name: "Folder: First", exact: true }).click();
+    await folder(page, "Second");
+    await w.getByRole("button", { name: "Folder: Second", exact: true }).click();
+    await expect(w.getByLabel("Current workspace path")).toContainText("Second");
+    await w.getByRole("button", { name: "Back to previous folder" }).click();
+    await expect(w.getByLabel("Current workspace path")).toContainText("First");
+    await w.getByRole("button", { name: "Forward to next folder" }).click();
+    await expect(w.getByLabel("Current workspace path")).toContainText("Second");
+    await w.getByRole("button", { name: "Preview shared folder tree" }).click();
+    const tree = w.getByRole("tree", { name: "Shared workspace folder tree" });
+    await expect(tree.getByRole("treeitem", { name: "Second" })).toHaveAttribute("aria-selected", "true");
+    await w.getByRole("button", { name: "Up one folder" }).click();
+    await expect(tree.getByRole("treeitem", { name: "First" })).toHaveAttribute("aria-selected", "true");
+    await expect(w.getByRole("button", { name: "Forward to next folder" })).toBeDisabled();
+  });
+
+  test("FM-02 narrow viewport retains accessible navigation, contents and inspector", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("/"); await launch(page, "File Manager");
+    const w = workspace(page);
+    await expect(w.getByRole("navigation", { name: "Workspace folders" })).toBeVisible();
+    await expect(w.getByRole("region", { name: "Folder contents" })).toBeVisible();
+    await expect(w.getByRole("complementary", { name: "File Inspector" })).toBeVisible();
+    const width = await w.evaluate(element => element.getBoundingClientRect().width);
+    expect(width).toBeLessThanOrEqual(390);
+    await w.getByRole("button", { name: "List view" }).click();
+    await expect(w).toHaveAttribute("data-content-view", "list");
+  });
+
   test("nested folders + editor-produced copy + Inspector + guarded singleton reopening", async ({ page }, testInfo) => {
     await page.goto("/"); await launch(page, "File Manager");
     await folder(page, "Design"); await workspace(page).getByRole("button", { name: "Folder: Design", exact: true }).click();
