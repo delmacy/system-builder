@@ -36,7 +36,7 @@ export function StationFileManagerWorkbench({ onOpen }: { onOpen: (text: string)
         const entries = current.entries.filter(ref => result.workspace.folders.some(f => f.ref === ref));
         if (!entries.length) return { entries: [WORKSPACE_ROOT], index: 0 };
         const active = current.entries[current.index];
-        const index = entries.includes(active) ? entries.indexOf(active) : 0;
+        const index = active !== undefined && entries.includes(active) ? entries.indexOf(active) : 0;
         return { entries, index };
       });
       setMessage("Workspace refreshed.");
