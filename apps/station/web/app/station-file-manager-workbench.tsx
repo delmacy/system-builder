@@ -128,8 +128,8 @@ export function StationFileManagerWorkbench({ onOpen }: { onOpen: (text: string)
         <Button variant="ghost" aria-label="Refresh workspace" title="Refresh workspace" onClick={refresh}><StationIcon token="action.refresh" /></Button>
         <Button variant="ghost" aria-label="Import composition" title="Import composition" disabled={!ready} onClick={() => input.current?.click()}><StationIcon token="action.import" /></Button>
         <Button variant="ghost" aria-label="Create folder" title="Create folder" aria-pressed={creatingFolder} disabled={!ready} onClick={() => setCreatingFolder(!creatingFolder)}><StationIcon token="workspace.new-folder" /></Button>
-        <Button variant="ghost" aria-label="Back to previous folder" title="Back" disabled={locationHistory.index === 0} onClick={() => travelHistory(-1)}><StationIcon token="navigation.back" /></Button>
-        <Button variant="ghost" aria-label="Forward to next folder" title="Forward" disabled={locationHistory.index >= locationHistory.entries.length - 1} onClick={() => travelHistory(1)}><StationIcon token="navigation.forward" /></Button>
+        <Button variant="ghost" aria-label="Back to previous folder" title="Back" disabled={locationHistory.index === 0} onClick={() => travelHistory(-1)}><span aria-hidden="true">←</span></Button>
+        <Button variant="ghost" aria-label="Forward to next folder" title="Forward" disabled={locationHistory.index >= locationHistory.entries.length - 1} onClick={() => travelHistory(1)}><span aria-hidden="true">→</span></Button>
         <Button variant="ghost" aria-label="Up one folder" title="Up one folder" disabled={currentFolder.parentRef === null} onClick={() => navigate(currentFolder.parentRef!)}><StationIcon token="navigation.parent" /></Button>
         <Button variant={sharedNavigationPreview ? "secondary" : "ghost"} aria-label="Preview shared folder tree"
           title="Preview shared folder tree" aria-pressed={sharedNavigationPreview}
