@@ -13,6 +13,8 @@ export function StationFileManagerWorkbench({ onOpen }: { onOpen: (text: string)
   const [view, setView] = useState<{ workspace: ArtifactWorkspace; text: string | null }>(() => ({ workspace: emptyArtifactWorkspace(), text: null }));
   const [contentView, setContentView] = useState<"grid" | "list">("grid");
   const [sharedNavigationPreview, setSharedNavigationPreview] = useState(false);
+  const [fileFilter, setFileFilter] = useState("");
+  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
   const [folder, setFolder] = useState(WORKSPACE_ROOT);
   const [locationHistory, setLocationHistory] = useState<{ entries: string[]; index: number }>({ entries: [WORKSPACE_ROOT], index: 0 });
   const [selected, setSelected] = useState<string | null>(null);
@@ -129,6 +131,11 @@ export function StationFileManagerWorkbench({ onOpen }: { onOpen: (text: string)
     } catch { setReady(false); setMessage("Workspace unavailable. Editor unchanged."); }
   };
   const currentFolder = view.workspace.folders.find(f => f.ref === folder)!;
+  const filterName = fileFilter.trim().toLocaleLowerCase();
+  const visibleFolders = view.workspace.folders.filter(f => f.parentRef === folder && f.name.toLocaleLowerCase().includes(filterName))
+    .sort((a, b) => sortDirection === "asc" ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name));
+  const visibleFiles = view.workspace.files.filter(f => f.folderRef === folder && f.name.toLocaleLowerCase().includes(filterName))
+    .sort((a, b) => sortDirection === "asc" ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name));
   return <section aria-label="Artifact workspace" data-content-view={contentView} className="flex h-full min-h-0 min-w-0 flex-col overflow-hidden rounded-none border bg-background">
     <header className="shrink-0 border-b p-2">
       <div role="toolbar" aria-label="File Manager actions" className="flex flex-wrap items-center gap-1">
@@ -146,6 +153,15 @@ export function StationFileManagerWorkbench({ onOpen }: { onOpen: (text: string)
         <Button variant={contentView === "list" ? "secondary" : "ghost"} aria-label="List view" title="List view" aria-pressed={contentView === "list"} onClick={() => setContentView("list")}><StationIcon token="view.list" /></Button>
         <Button className="ml-auto" variant={inspectorOpen ? "secondary" : "ghost"} aria-label="Toggle Inspector" title={inspectorOpen ? "Hide Inspector" : "Show Inspector"} aria-pressed={inspectorOpen} onClick={() => setInspectorOpen(!inspectorOpen)}><StationIcon token="layout.split" /></Button>
         <input ref={input} type="file" accept=".composition.json,application/json" aria-label="Import workspace composition" className="sr-only" onChange={event => { const file = event.target.files?.[0]; event.target.value = ""; if (file && ready) void importFile(file); }} />
+      </div>
+      <div role="search" aria-label="Filter current folder" className="mt-2 flex min-w-0 items-center gap-2">
+        <StationIcon token="file.search" className="shrink-0" />
+        <input type="search" aria-label="Search current folder" value={fileFilter} onChange={event => setFileFilter(event.target.value)}
+          placeholder="Filter files and folders" className="min-w-0 flex-1 rounded-md border bg-background px-2 py-1 text-sm" />
+        <Button variant="ghost" aria-label="Sort current folder by name" title="Sort by name" aria-pressed={sortDirection === "desc"}
+          onClick={() => setSortDirection(current => current === "asc" ? "desc" : "asc")}>
+          <span aria-hidden="true">{sortDirection === "asc" ? "A–Z" : "Z–A"}</span>
+        </Button>
       </div>
       <div aria-label="Current workspace path" className="mt-2 flex min-w-0 items-center gap-2 overflow-x-auto rounded-md border px-2 py-1 text-sm">
         <StationIcon token="workspace.folder-open" className="shrink-0" />
@@ -173,17 +189,17 @@ export function StationFileManagerWorkbench({ onOpen }: { onOpen: (text: string)
       </nav>
       <section aria-label="Folder contents" className="min-h-48 min-w-0 overflow-auto p-3 md:min-h-0">
         <div className={contentView === "grid" ? "grid grid-cols-[repeat(auto-fill,minmax(120px,1fr))] gap-3" : "space-y-2"}>
-          {view.workspace.folders.filter(f => f.parentRef === folder).map(f => <Button key={f.ref} variant="ghost" aria-label={`Folder: ${f.name}`}
+          {visibleFolders.map(f => <Button key={f.ref} variant="ghost" aria-label={`Folder: ${f.name}`}
             className={contentView === "grid" ? "h-auto min-h-28 w-full flex-col gap-2 rounded-xl border px-3 py-4 whitespace-normal break-words text-center" : "h-auto w-full justify-start gap-3 whitespace-normal break-words"}
             onClick={() => navigate(f.ref)}><StationIcon token="workspace.folder" size={contentView === "grid" ? 42 : 22} className="shrink-0 text-primary" /><span className="min-w-0">{f.name}</span></Button>)}
-          {view.workspace.files.filter(f => f.folderRef === folder).map(f => <Button key={f.ref} aria-label={f.name} variant={selected === f.ref ? "secondary" : "ghost"}
+          {visibleFiles.map(f => <Button key={f.ref} aria-label={f.name} variant={selected === f.ref ? "secondary" : "ghost"}
             aria-pressed={selected === f.ref}
             className={contentView === "grid" ? "h-auto min-h-28 w-full flex-col gap-2 rounded-xl border px-3 py-4 whitespace-normal break-words text-center" : "h-auto w-full justify-start gap-3 whitespace-normal break-words"}
             onClick={() => selectFile(f.ref)}>
             <StationIcon token="artifact.composition" size={contentView === "grid" ? 42 : 22} className="shrink-0 text-primary" />
             <span className="min-w-0">{f.name}</span><span aria-hidden="true" className="text-xs text-muted-foreground">Composition</span></Button>)}
         </div>
-        {!view.workspace.folders.some(f => f.parentRef === folder) && !view.workspace.files.some(f => f.folderRef === folder) ? <div className="flex flex-col items-center gap-2 rounded-lg border border-dashed p-8 text-muted-foreground"><StationIcon token="workspace.folder-open" size={36} /><p className="text-sm">This folder is empty.</p></div> : null}
+        {visibleFolders.length === 0 && visibleFiles.length === 0 ? <div className="flex flex-col items-center gap-2 rounded-lg border border-dashed p-8 text-muted-foreground"><StationIcon token="workspace.folder-open" size={36} /><p className="text-sm">{filterName ? "No matching files or folders." : "This folder is empty."}</p></div> : null}
       </section>
       {inspectorOpen ? <aside aria-label="File Inspector" className="min-w-0 space-y-3 overflow-auto border-t p-4 md:border-t-0 md:border-l">
         <h2 className="font-semibold">Inspector</h2>
