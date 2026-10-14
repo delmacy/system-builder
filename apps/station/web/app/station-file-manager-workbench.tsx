@@ -1,7 +1,7 @@
 "use client";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { StationIcon } from "@system-builder/ui-icons";
-import { Button } from "../../../../packages/ui-core/index";
+import { Button, NavigationTree, type NavigationTreeNode } from "../../../../packages/ui-core/index";
 import { emptyArtifactWorkspace, loadArtifactWorkspace, mutateArtifactWorkspace, readWorkspaceComposition, workspaceDocument,
   WORKSPACE_ROOT, type ArtifactWorkspace, type WorkspaceIntent } from "./station-artifact-workspace";
 import { workspaceFolderLabel } from "./station-file-manager-app";
@@ -12,6 +12,7 @@ import { StationRevisionDiff } from "./station-revision-diff";
 export function StationFileManagerWorkbench({ onOpen }: { onOpen: (text: string) => void }) {
   const [view, setView] = useState<{ workspace: ArtifactWorkspace; text: string | null }>(() => ({ workspace: emptyArtifactWorkspace(), text: null }));
   const [contentView, setContentView] = useState<"grid" | "list">("grid");
+  const [sharedNavigationPreview, setSharedNavigationPreview] = useState(false);
   const [folder, setFolder] = useState(WORKSPACE_ROOT);
   const [selected, setSelected] = useState<string | null>(null);
   const [comparisonRef, setComparisonRef] = useState("");
@@ -63,6 +64,11 @@ export function StationFileManagerWorkbench({ onOpen }: { onOpen: (text: string)
       { ref: f.ref, name: f.name, depth, children: view.workspace.folders.some(child => child.parentRef === f.ref) },
       ...(expanded.includes(f.ref) ? hierarchy(f.ref, depth + 1) : [])
     ]);
+  const sharedFolderNodes = (parent: string | null): NavigationTreeNode[] =>
+    view.workspace.folders.filter(item => item.parentRef === parent).map(item => ({
+      id: item.ref, label: item.name, icon: "workspace.folder",
+      children: sharedFolderNodes(item.ref),
+    }));
   const selectFile = (ref: string) => { setSelected(ref); setComparisonRef(""); };
   const mutate = (intent: WorkspaceIntent, expected = view.text) => {
     try {
@@ -109,6 +115,9 @@ export function StationFileManagerWorkbench({ onOpen }: { onOpen: (text: string)
         <Button variant="ghost" aria-label="Import composition" title="Import composition" disabled={!ready} onClick={() => input.current?.click()}><StationIcon token="action.import" /></Button>
         <Button variant="ghost" aria-label="Create folder" title="Create folder" aria-pressed={creatingFolder} disabled={!ready} onClick={() => setCreatingFolder(!creatingFolder)}><StationIcon token="workspace.new-folder" /></Button>
         <Button variant="ghost" aria-label="Up one folder" title="Up one folder" disabled={currentFolder.parentRef === null} onClick={() => navigate(currentFolder.parentRef!)}><StationIcon token="navigation.parent" /></Button>
+        <Button variant={sharedNavigationPreview ? "secondary" : "ghost"} aria-label="Preview shared folder tree"
+          title="Preview shared folder tree" aria-pressed={sharedNavigationPreview}
+          onClick={() => setSharedNavigationPreview(previous => !previous)}><StationIcon token="workspace.folder" /></Button>
         <span className="mx-1 h-5 border-l" aria-hidden="true" />
         <Button variant={contentView === "grid" ? "secondary" : "ghost"} aria-label="Icon view" title="Icon view" aria-pressed={contentView === "grid"} onClick={() => setContentView("grid")}><StationIcon token="view.grid" /></Button>
         <Button variant={contentView === "list" ? "secondary" : "ghost"} aria-label="List view" title="List view" aria-pressed={contentView === "list"} onClick={() => setContentView("list")}><StationIcon token="view.list" /></Button>
@@ -131,7 +140,8 @@ export function StationFileManagerWorkbench({ onOpen }: { onOpen: (text: string)
     </header>
     <div className={`grid min-h-0 min-w-0 flex-1 overflow-hidden ${inspectorOpen ? "md:grid-cols-[200px_minmax(0,1fr)_280px]" : "md:grid-cols-[200px_minmax(0,1fr)]"}`}>
       <nav aria-label="Workspace folders" className="min-h-0 min-w-0 overflow-auto border-r p-2">
-        {hierarchy(null).map(f => <div key={f.ref} className="flex min-w-0 items-center" style={{ paddingLeft: Math.min(12, f.depth) * 12 }}>
+        {sharedNavigationPreview ? <NavigationTree label="Shared workspace folder tree" nodes={sharedFolderNodes(null)}
+          selectedId={folder} onSelect={navigate} /> : hierarchy(null).map(f => <div key={f.ref} className="flex min-w-0 items-center" style={{ paddingLeft: Math.min(12, f.depth) * 12 }}>
           {f.children ? <button type="button" className="w-6 shrink-0 rounded hover:bg-accent" aria-label={expanded.includes(f.ref) ? `Collapse ${f.name}` : `Expand ${f.name}`} aria-expanded={expanded.includes(f.ref)} onClick={() => setExpanded(previous => previous.includes(f.ref) ? previous.filter(ref => ref !== f.ref) : [...previous, f.ref])}>{expanded.includes(f.ref) ? "−" : "+"}</button> : <span className="w-6 shrink-0" />}
           <Button variant={folder === f.ref ? "secondary" : "ghost"} className="h-auto min-w-0 flex-1 justify-start gap-2" aria-current={folder === f.ref ? "location" : undefined} onClick={() => { navigate(f.ref); setExpanded(previous => [...new Set([...previous, f.ref])]); }}>
             <StationIcon token={folder === f.ref ? "workspace.folder-open" : "workspace.folder"} className="shrink-0" /><span className="min-w-0 truncate" title={f.name}>{f.name}</span>
