@@ -138,27 +138,27 @@ export function StationFileManagerWorkbench({ onOpen }: { onOpen: (text: string)
     .sort((a, b) => sortDirection === "asc" ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name));
   return <section aria-label="Artifact workspace" data-content-view={contentView} className="flex h-full min-h-0 min-w-0 flex-col overflow-hidden rounded-none border bg-background">
     <header className="shrink-0 border-b p-2">
-      <div role="toolbar" aria-label="File Manager actions" className="flex flex-wrap items-center gap-1">
-        <Button variant="ghost" aria-label="Refresh workspace" title="Refresh workspace" onClick={refresh}><StationIcon token="action.refresh" /></Button>
-        <Button variant="ghost" aria-label="Import composition" title="Import composition" disabled={!ready} onClick={() => input.current?.click()}><StationIcon token="action.import" /></Button>
-        <Button variant="ghost" aria-label="Create folder" title="Create folder" aria-pressed={creatingFolder} disabled={!ready} onClick={() => setCreatingFolder(!creatingFolder)}><StationIcon token="workspace.new-folder" /></Button>
-        <Button variant="ghost" aria-label="Back to previous folder" title="Back" disabled={locationHistory.index === 0} onClick={() => travelHistory(-1)}><span aria-hidden="true">←</span></Button>
-        <Button variant="ghost" aria-label="Forward to next folder" title="Forward" disabled={locationHistory.index >= locationHistory.entries.length - 1} onClick={() => travelHistory(1)}><span aria-hidden="true">→</span></Button>
-        <Button variant="ghost" aria-label="Up one folder" title="Up one folder" disabled={currentFolder.parentRef === null} onClick={() => navigate(currentFolder.parentRef!)}><StationIcon token="navigation.parent" /></Button>
-        <Button variant={sharedNavigationPreview ? "secondary" : "ghost"} aria-label="Preview shared folder tree"
+      <div role="toolbar" aria-label="File Manager actions" className="flex min-w-0 items-center gap-1 overflow-x-auto pb-1">
+        <Button className="shrink-0" variant="ghost" aria-label="Refresh workspace" title="Refresh workspace" onClick={refresh}><StationIcon token="action.refresh" /></Button>
+        <Button className="shrink-0" variant="ghost" aria-label="Import composition" title="Import composition" disabled={!ready} onClick={() => input.current?.click()}><StationIcon token="action.import" /></Button>
+        <Button className="shrink-0" variant="ghost" aria-label="Create folder" title="Create folder" aria-pressed={creatingFolder} disabled={!ready} onClick={() => setCreatingFolder(!creatingFolder)}><StationIcon token="workspace.new-folder" /></Button>
+        <Button className="shrink-0" variant="ghost" aria-label="Back to previous folder" title="Back" disabled={locationHistory.index === 0} onClick={() => travelHistory(-1)}><span aria-hidden="true">←</span></Button>
+        <Button className="shrink-0" variant="ghost" aria-label="Forward to next folder" title="Forward" disabled={locationHistory.index >= locationHistory.entries.length - 1} onClick={() => travelHistory(1)}><span aria-hidden="true">→</span></Button>
+        <Button className="shrink-0" variant="ghost" aria-label="Up one folder" title="Up one folder" disabled={currentFolder.parentRef === null} onClick={() => navigate(currentFolder.parentRef!)}><StationIcon token="navigation.parent" /></Button>
+        <Button className="shrink-0" variant={sharedNavigationPreview ? "secondary" : "ghost"} aria-label="Preview shared folder tree"
           title="Preview shared folder tree" aria-pressed={sharedNavigationPreview}
           onClick={() => setSharedNavigationPreview(previous => !previous)}><StationIcon token="workspace.folder" /></Button>
-        <span className="mx-1 h-5 border-l" aria-hidden="true" />
-        <Button variant={contentView === "grid" ? "secondary" : "ghost"} aria-label="Icon view" title="Icon view" aria-pressed={contentView === "grid"} onClick={() => setContentView("grid")}><StationIcon token="view.grid" /></Button>
-        <Button variant={contentView === "list" ? "secondary" : "ghost"} aria-label="List view" title="List view" aria-pressed={contentView === "list"} onClick={() => setContentView("list")}><StationIcon token="view.list" /></Button>
-        <Button className="ml-auto" variant={inspectorOpen ? "secondary" : "ghost"} aria-label="Toggle Inspector" title={inspectorOpen ? "Hide Inspector" : "Show Inspector"} aria-pressed={inspectorOpen} onClick={() => setInspectorOpen(!inspectorOpen)}><StationIcon token="layout.split" /></Button>
+        <span className="mx-1 h-5 shrink-0 border-l" aria-hidden="true" />
+        <Button className="shrink-0" variant={contentView === "grid" ? "secondary" : "ghost"} aria-label="Icon view" title="Icon view" aria-pressed={contentView === "grid"} onClick={() => setContentView("grid")}><StationIcon token="view.grid" /></Button>
+        <Button className="shrink-0" variant={contentView === "list" ? "secondary" : "ghost"} aria-label="List view" title="List view" aria-pressed={contentView === "list"} onClick={() => setContentView("list")}><StationIcon token="view.list" /></Button>
+        <Button className="ml-auto shrink-0" variant={inspectorOpen ? "secondary" : "ghost"} aria-label="Toggle Inspector" title={inspectorOpen ? "Hide Inspector" : "Show Inspector"} aria-pressed={inspectorOpen} onClick={() => setInspectorOpen(!inspectorOpen)}><StationIcon token="layout.split" /></Button>
         <input ref={input} type="file" accept=".composition.json,application/json" aria-label="Import workspace composition" className="sr-only" onChange={event => { const file = event.target.files?.[0]; event.target.value = ""; if (file && ready) void importFile(file); }} />
       </div>
       <div role="search" aria-label="Filter current folder" className="mt-2 flex min-w-0 items-center gap-2">
         <StationIcon token="file.search" className="shrink-0" />
         <input type="search" aria-label="Search current folder" value={fileFilter} onChange={event => setFileFilter(event.target.value)}
           placeholder="Filter files and folders" className="min-w-0 flex-1 rounded-md border bg-background px-2 py-1 text-sm" />
-        <Button variant="ghost" aria-label="Sort current folder by name" title="Sort by name" aria-pressed={sortDirection === "desc"}
+        <Button className="shrink-0" variant="ghost" aria-label="Sort current folder by name" title="Sort by name" aria-pressed={sortDirection === "desc"}
           onClick={() => setSortDirection(current => current === "asc" ? "desc" : "asc")}>
           <span aria-hidden="true">{sortDirection === "asc" ? "A–Z" : "Z–A"}</span>
         </Button>
