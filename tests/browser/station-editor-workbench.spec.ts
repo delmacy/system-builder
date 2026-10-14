@@ -1314,6 +1314,31 @@ test.describe("WP11 real artifact workspace", () => {
     await expect(w).toHaveAttribute("data-content-view", "list");
   });
 
+  test("FM-03 folder filter and sorting are reversible presentation operations", async ({ page }) => {
+    await page.goto("/"); await launch(page, "File Manager");
+    const w = workspace(page);
+    await folder(page, "Alpha");
+    await folder(page, "Beta");
+    const before = await page.evaluate(() => localStorage.getItem("station:artifact-workspace:v1"));
+    const contents = w.getByRole("region", { name: "Folder contents" });
+    await expect(contents.getByRole("button", { name: "Folder: Alpha" })).toBeVisible();
+    await expect(contents.getByRole("button", { name: "Folder: Beta" })).toBeVisible();
+    const search = w.getByRole("searchbox", { name: "Search current folder" });
+    await search.fill("alp");
+    await expect(contents.getByRole("button", { name: "Folder: Alpha" })).toBeVisible();
+    await expect(contents.getByRole("button", { name: "Folder: Beta" })).toHaveCount(0);
+    await expect(w.getByLabel("Visible folder item count")).toContainText("1 items shown");
+    await search.fill("absent");
+    await expect(contents).toContainText("No matching files or folders.");
+    await w.getByRole("button", { name: "Sort current folder by name" }).click();
+    await expect(w.getByRole("button", { name: "Sort current folder by name" })).toHaveAttribute("aria-pressed", "true");
+    await w.getByRole("button", { name: "Clear filter" }).click();
+    await expect(search).toHaveValue("");
+    await expect(contents.getByRole("button", { name: "Folder: Alpha" })).toBeVisible();
+    await expect(contents.getByRole("button", { name: "Folder: Beta" })).toBeVisible();
+    expect(await page.evaluate(() => localStorage.getItem("station:artifact-workspace:v1"))).toBe(before);
+  });
+
   test("nested folders + editor-produced copy + Inspector + guarded singleton reopening", async ({ page }, testInfo) => {
     await page.goto("/"); await launch(page, "File Manager");
     await folder(page, "Design"); await workspace(page).getByRole("button", { name: "Folder: Design", exact: true }).click();
