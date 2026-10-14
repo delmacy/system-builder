@@ -1261,6 +1261,26 @@ test.describe("WP11 real artifact workspace", () => {
     expect(await page.evaluate(() => localStorage.getItem("station:artifact-workspace:v1"))).toBe(stored);
   });
 
+  test("FM-01 integrated shared tree preview navigates canonical folders without persistence changes", async ({ page }) => {
+    await page.goto("/"); await launch(page, "File Manager");
+    const w = workspace(page);
+    await folder(page, "Prototype");
+    const stored = await page.evaluate(() => localStorage.getItem("station:artifact-workspace:v1"));
+    await w.getByRole("button", { name: "Preview shared folder tree", exact: true }).click();
+    await expect(w.getByRole("button", { name: "Preview shared folder tree", exact: true })).toHaveAttribute("aria-pressed", "true");
+    const tree = w.getByRole("tree", { name: "Shared workspace folder tree", exact: true });
+    await expect(tree).toBeVisible();
+    await tree.getByRole("treeitem", { name: "Workspace", exact: true }).click();
+    await tree.getByRole("treeitem", { name: "Prototype", exact: true }).click();
+    await expect(w.getByLabel("Current workspace path", { exact: true })).toContainText("Prototype");
+    await expect(tree.getByRole("treeitem", { name: "Prototype", exact: true })).toHaveAttribute("aria-selected", "true");
+    await w.getByRole("button", { name: "Up one folder", exact: true }).click();
+    await expect(w.getByLabel("Current workspace path", { exact: true })).toContainText("Workspace");
+    await w.getByRole("button", { name: "Preview shared folder tree", exact: true }).click();
+    await expect(w.getByRole("button", { name: "Preview shared folder tree", exact: true })).toHaveAttribute("aria-pressed", "false");
+    expect(await page.evaluate(() => localStorage.getItem("station:artifact-workspace:v1"))).toBe(stored);
+  });
+
   test("nested folders + editor-produced copy + Inspector + guarded singleton reopening", async ({ page }, testInfo) => {
     await page.goto("/"); await launch(page, "File Manager");
     await folder(page, "Design"); await workspace(page).getByRole("button", { name: "Folder: Design", exact: true }).click();
