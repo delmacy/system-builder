@@ -11,18 +11,26 @@ export type NavigationTreeProps = Readonly<{
   selectedId: string | null;
   onSelect: (id: string) => void;
   compact?: boolean;
+  expandedIds?: readonly string[];
+  onExpandedIdsChange?: (ids: readonly string[]) => void;
 }>;
 
 /** Lightweight, controlled identity selection and local disclosure; no File Manager ownership. */
-export function NavigationTree({ label, nodes, selectedId, onSelect, compact = false }: NavigationTreeProps) {
-  const [expanded, setExpanded] = useState<ReadonlySet<string>>(() => new Set());
+export function NavigationTree({ label, nodes, selectedId, onSelect, compact = false, expandedIds, onExpandedIdsChange }: NavigationTreeProps) {
+  const [localExpanded, setLocalExpanded] = useState<ReadonlySet<string>>(() => new Set());
+  const expanded = expandedIds === undefined ? localExpanded : new Set(expandedIds);
   const [focusId, setFocusId] = useState<string | null>(null);
   const flatten = (items: readonly NavigationTreeNode[], depth = 1): Array<{node: NavigationTreeNode; depth: number; position: number; size: number}> =>
     items.flatMap((node, index) => [{ node, depth, position: index + 1, size: items.length }, ...(node.children?.length && expanded.has(node.id) ? flatten(node.children, depth + 1) : [])]);
   const visible = flatten(nodes);
   const firstEnabled = visible.find(item => !item.node.disabled)?.node.id;
   const tabStop = visible.some(item => item.node.id === focusId && !item.node.disabled) ? focusId : firstEnabled;
-  const toggle = (id: string) => setExpanded(current => { const next = new Set(current); if (next.has(id)) next.delete(id); else next.add(id); return next; });
+  const toggle = (id: string) => {
+    const next = new Set(expanded);
+    if (next.has(id)) next.delete(id); else next.add(id);
+    if (expandedIds === undefined) setLocalExpanded(next);
+    else onExpandedIdsChange?.([...next]);
+  };
   const parentOf = (id: string, items: readonly NavigationTreeNode[] = nodes, parent: string | null = null): string | null => {
     for (const item of items) {
       if (item.id === id) return parent;
