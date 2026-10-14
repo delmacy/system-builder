@@ -14,6 +14,7 @@ export function StationFileManagerWorkbench({ onOpen }: { onOpen: (text: string)
   const [contentView, setContentView] = useState<"grid" | "list">("grid");
   const [sharedNavigationPreview, setSharedNavigationPreview] = useState(false);
   const [folder, setFolder] = useState(WORKSPACE_ROOT);
+  const [locationHistory, setLocationHistory] = useState<{ entries: string[]; index: number }>({ entries: [WORKSPACE_ROOT], index: 0 });
   const [selected, setSelected] = useState<string | null>(null);
   const [comparisonRef, setComparisonRef] = useState("");
   const [name, setName] = useState("");
@@ -38,8 +39,14 @@ export function StationFileManagerWorkbench({ onOpen }: { onOpen: (text: string)
     refresh();
     return () => { sequence.current++; };
   }, [refresh]);
-  const navigate = (ref: string) => {
+  const navigate = (ref: string, recordHistory = true) => {
+    if (!view.workspace.folders.some(item => item.ref === ref)) return;
     sequence.current++; setFolder(ref); setSelected(null); setComparisonRef("");
+    if (recordHistory) setLocationHistory(current => {
+      if (current.entries[current.index] === ref) return current;
+      const entries = [...current.entries.slice(0, current.index + 1), ref];
+      return { entries, index: entries.length - 1 };
+    });
     const ancestors: string[] = [];
     let cursor: string | null = ref;
     while (cursor) {
@@ -47,6 +54,13 @@ export function StationFileManagerWorkbench({ onOpen }: { onOpen: (text: string)
       cursor = view.workspace.folders.find(f => f.ref === cursor)?.parentRef ?? null;
     }
     setExpanded(previous => [...new Set([...previous, ...ancestors])]);
+  };
+  const travelHistory = (offset: -1 | 1) => {
+    const nextIndex = locationHistory.index + offset;
+    const target = locationHistory.entries[nextIndex];
+    if (!target) return;
+    setLocationHistory(current => ({ ...current, index: nextIndex }));
+    navigate(target, false);
   };
   const breadcrumbs = (() => {
     const nodes: { ref: string; name: string }[] = [];
@@ -114,6 +128,8 @@ export function StationFileManagerWorkbench({ onOpen }: { onOpen: (text: string)
         <Button variant="ghost" aria-label="Refresh workspace" title="Refresh workspace" onClick={refresh}><StationIcon token="action.refresh" /></Button>
         <Button variant="ghost" aria-label="Import composition" title="Import composition" disabled={!ready} onClick={() => input.current?.click()}><StationIcon token="action.import" /></Button>
         <Button variant="ghost" aria-label="Create folder" title="Create folder" aria-pressed={creatingFolder} disabled={!ready} onClick={() => setCreatingFolder(!creatingFolder)}><StationIcon token="workspace.new-folder" /></Button>
+        <Button variant="ghost" aria-label="Back to previous folder" title="Back" disabled={locationHistory.index === 0} onClick={() => travelHistory(-1)}><StationIcon token="navigation.back" /></Button>
+        <Button variant="ghost" aria-label="Forward to next folder" title="Forward" disabled={locationHistory.index >= locationHistory.entries.length - 1} onClick={() => travelHistory(1)}><StationIcon token="navigation.forward" /></Button>
         <Button variant="ghost" aria-label="Up one folder" title="Up one folder" disabled={currentFolder.parentRef === null} onClick={() => navigate(currentFolder.parentRef!)}><StationIcon token="navigation.parent" /></Button>
         <Button variant={sharedNavigationPreview ? "secondary" : "ghost"} aria-label="Preview shared folder tree"
           title="Preview shared folder tree" aria-pressed={sharedNavigationPreview}
