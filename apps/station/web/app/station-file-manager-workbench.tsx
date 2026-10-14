@@ -32,6 +32,13 @@ export function StationFileManagerWorkbench({ onOpen }: { onOpen: (text: string)
       if (!result.accepted) { setReady(false); setMessage("Workspace unavailable or invalid. Prior visible files are preserved. Retry Refresh workspace."); return; }
       setView({ workspace: result.workspace, text: result.storedText }); setReady(true); setSelected(null); setComparisonRef("");
       setFolder(current => result.workspace.folders.some(f => f.ref === current) ? current : WORKSPACE_ROOT);
+      setLocationHistory(current => {
+        const entries = current.entries.filter(ref => result.workspace.folders.some(f => f.ref === ref));
+        if (!entries.length) return { entries: [WORKSPACE_ROOT], index: 0 };
+        const active = current.entries[current.index];
+        const index = entries.includes(active) ? entries.indexOf(active) : 0;
+        return { entries, index };
+      });
       setMessage("Workspace refreshed.");
     } catch { setReady(false); setMessage("Workspace unavailable. Prior files are unchanged."); }
   }, []);
@@ -140,7 +147,7 @@ export function StationFileManagerWorkbench({ onOpen }: { onOpen: (text: string)
         <Button className="ml-auto" variant={inspectorOpen ? "secondary" : "ghost"} aria-label="Toggle Inspector" title={inspectorOpen ? "Hide Inspector" : "Show Inspector"} aria-pressed={inspectorOpen} onClick={() => setInspectorOpen(!inspectorOpen)}><StationIcon token="layout.split" /></Button>
         <input ref={input} type="file" accept=".composition.json,application/json" aria-label="Import workspace composition" className="sr-only" onChange={event => { const file = event.target.files?.[0]; event.target.value = ""; if (file && ready) void importFile(file); }} />
       </div>
-      <div aria-label="Current workspace path" className="mt-2 flex min-w-0 items-center gap-2 rounded-md border px-2 py-1 text-sm">
+      <div aria-label="Current workspace path" className="mt-2 flex min-w-0 items-center gap-2 overflow-x-auto rounded-md border px-2 py-1 text-sm">
         <StationIcon token="workspace.folder-open" className="shrink-0" />
         {breadcrumbs.map((item, index) => <span key={item.ref} className="flex min-w-0 items-center gap-1">
           {index > 0 ? <span aria-hidden="true" className="text-muted-foreground">/</span> : null}
@@ -154,8 +161,8 @@ export function StationFileManagerWorkbench({ onOpen }: { onOpen: (text: string)
         <Button type="submit" disabled={!ready || !name.trim()}>Create</Button><Button type="button" variant="ghost" onClick={() => setCreatingFolder(false)}>Cancel</Button>
       </form> : null}
     </header>
-    <div className={`grid min-h-0 min-w-0 flex-1 overflow-hidden ${inspectorOpen ? "md:grid-cols-[200px_minmax(0,1fr)_280px]" : "md:grid-cols-[200px_minmax(0,1fr)]"}`}>
-      <nav aria-label="Workspace folders" className="min-h-0 min-w-0 overflow-auto border-r p-2">
+    <div className={`grid min-h-0 min-w-0 flex-1 grid-cols-1 overflow-y-auto md:overflow-hidden ${inspectorOpen ? "md:grid-cols-[200px_minmax(0,1fr)_minmax(220px,280px)]" : "md:grid-cols-[200px_minmax(0,1fr)]"}`}>
+      <nav aria-label="Workspace folders" className="max-h-36 min-w-0 overflow-auto border-b p-2 md:max-h-none md:min-h-0 md:border-b-0 md:border-r">
         {sharedNavigationPreview ? <NavigationTree label="Shared workspace folder tree" nodes={sharedFolderNodes(null)}
           selectedId={folder} onSelect={navigate} expandedIds={expanded} onExpandedIdsChange={ids => setExpanded([...ids])} /> : hierarchy(null).map(f => <div key={f.ref} className="flex min-w-0 items-center" style={{ paddingLeft: Math.min(12, f.depth) * 12 }}>
           {f.children ? <button type="button" className="w-6 shrink-0 rounded hover:bg-accent" aria-label={expanded.includes(f.ref) ? `Collapse ${f.name}` : `Expand ${f.name}`} aria-expanded={expanded.includes(f.ref)} onClick={() => setExpanded(previous => previous.includes(f.ref) ? previous.filter(ref => ref !== f.ref) : [...previous, f.ref])}>{expanded.includes(f.ref) ? "−" : "+"}</button> : <span className="w-6 shrink-0" />}
@@ -164,7 +171,7 @@ export function StationFileManagerWorkbench({ onOpen }: { onOpen: (text: string)
           </Button>
         </div>)}
       </nav>
-      <section aria-label="Folder contents" className="min-h-0 min-w-0 overflow-auto p-3">
+      <section aria-label="Folder contents" className="min-h-48 min-w-0 overflow-auto p-3 md:min-h-0">
         <div className={contentView === "grid" ? "grid grid-cols-[repeat(auto-fill,minmax(120px,1fr))] gap-3" : "space-y-2"}>
           {view.workspace.folders.filter(f => f.parentRef === folder).map(f => <Button key={f.ref} variant="ghost" aria-label={`Folder: ${f.name}`}
             className={contentView === "grid" ? "h-auto min-h-28 w-full flex-col gap-2 rounded-xl border px-3 py-4 whitespace-normal break-words text-center" : "h-auto w-full justify-start gap-3 whitespace-normal break-words"}
@@ -178,7 +185,7 @@ export function StationFileManagerWorkbench({ onOpen }: { onOpen: (text: string)
         </div>
         {!view.workspace.folders.some(f => f.parentRef === folder) && !view.workspace.files.some(f => f.folderRef === folder) ? <div className="flex flex-col items-center gap-2 rounded-lg border border-dashed p-8 text-muted-foreground"><StationIcon token="workspace.folder-open" size={36} /><p className="text-sm">This folder is empty.</p></div> : null}
       </section>
-      {inspectorOpen ? <aside aria-label="File Inspector" className="min-w-0 space-y-3 border-t p-4 md:border-l">
+      {inspectorOpen ? <aside aria-label="File Inspector" className="min-w-0 space-y-3 overflow-auto border-t p-4 md:border-t-0 md:border-l">
         <h2 className="font-semibold">Inspector</h2>
         {chosen && document ? <><dl className="space-y-2 break-words text-sm">
           <dt>Name</dt><dd>{chosen.name}</dd><dt>Folder</dt><dd>{workspaceFolderLabel(view.workspace, chosen.folderRef)}</dd>
