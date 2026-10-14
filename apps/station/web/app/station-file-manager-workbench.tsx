@@ -163,6 +163,11 @@ export function StationFileManagerWorkbench({ onOpen }: { onOpen: (text: string)
           <span aria-hidden="true">{sortDirection === "asc" ? "A–Z" : "Z–A"}</span>
         </Button>
       </div>
+      <div className="mt-1 flex min-w-0 items-center justify-between gap-2 text-xs text-muted-foreground">
+        <span aria-label="Visible folder item count">{visibleFolders.length + visibleFiles.length} items shown</span>
+        {filterName ? <button type="button" className="shrink-0 rounded px-2 py-1 underline-offset-2 hover:underline focus-visible:outline focus-visible:outline-2"
+          onClick={() => setFileFilter("")}>Clear filter</button> : null}
+      </div>
       <div aria-label="Current workspace path" className="mt-2 flex min-w-0 items-center gap-2 overflow-x-auto rounded-md border px-2 py-1 text-sm">
         <StationIcon token="workspace.folder-open" className="shrink-0" />
         {breadcrumbs.map((item, index) => <span key={item.ref} className="flex min-w-0 items-center gap-1">
